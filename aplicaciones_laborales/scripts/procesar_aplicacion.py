@@ -50,15 +50,6 @@ def main(yaml_path):
         with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
 
-    # hoja_de_vida_original.md (copia la hoja de vida base si existe)
-    original_cv_path = "aplicaciones_laborales/hoja_de_vida_original.md"
-    dest_original_cv = os.path.join(output_dir, "hoja_de_vida_original.md")
-    if os.path.exists(original_cv_path):
-        shutil.copyfile(original_cv_path, dest_original_cv)
-    else:
-        with open(dest_original_cv, "w", encoding="utf-8") as f:
-            f.write("# Hoja de Vida Original\n\n(Pega aquí tu hoja de vida original.)\n")
-
     # (Opcional) Mover el YAML procesado
     processed_dir = os.path.join("to_process", "procesados")
     os.makedirs(processed_dir, exist_ok=True)
