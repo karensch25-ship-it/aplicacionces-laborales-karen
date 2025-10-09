@@ -21,8 +21,8 @@ def main(yaml_path):
     fecha = data['fecha']
     folder_name = f"{cargo}_{empresa}_{fecha}"
 
-    # Output directory in to_process/procesados
-    output_dir = os.path.join("to_process", "procesados", folder_name)
+    # Output directory in to_process_procesados
+    output_dir = os.path.join("to_process_procesados", folder_name)
     os.makedirs(output_dir, exist_ok=True)
 
     # descripcion.md
@@ -51,7 +51,7 @@ def main(yaml_path):
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
 
     # (Opcional) Mover el YAML procesado
-    processed_dir = os.path.join("to_process", "procesados")
+    processed_dir = "to_process_procesados"
     os.makedirs(processed_dir, exist_ok=True)
     shutil.move(yaml_path, os.path.join(processed_dir, os.path.basename(yaml_path)))
 
