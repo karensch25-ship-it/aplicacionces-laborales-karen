@@ -25,7 +25,7 @@ jobs:
       - name: Procesar archivo de nueva aplicación
         run: |
           for file in aplicaciones_laborales/to_process/*.yaml; do
-            python scripts/procesar_aplicacion.py "$file"
+            python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
       - name: Commit y push de cambios
