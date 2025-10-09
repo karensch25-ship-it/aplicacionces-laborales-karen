@@ -5,7 +5,9 @@ on:
   push:
     paths:
       - 'aplicaciones_laborales/to_process/*.yaml'
-
+permissions:
+  contents: write
+  
 jobs:
   crear-carpeta-aplicacion:
     runs-on: ubuntu-latest
