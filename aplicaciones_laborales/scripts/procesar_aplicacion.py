@@ -36,7 +36,7 @@ def main(yaml_path):
             f.write(f"- {req}\n")
 
     # hoja_de_vida_adecuada.md (Harvard template con job_alignment_section)
-    harvard_cv_path = "aplicaciones_laborales/aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md"
+    harvard_cv_path = "aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md"
     dest_adaptada_cv = os.path.join(output_dir, "hoja_de_vida_adecuada.md")
     if os.path.exists(harvard_cv_path):
         with open(harvard_cv_path, "r", encoding="utf-8") as src, open(dest_adaptada_cv, "w", encoding="utf-8") as dst:
