@@ -4,7 +4,7 @@ name: Crear carpeta de nueva aplicación laboral
 on:
   push:
     paths:
-      - 'to_process/*.yaml'
+      - 'aplicaciones_laborales/to_process/*.yaml'
 
 jobs:
   crear-carpeta-aplicacion:
