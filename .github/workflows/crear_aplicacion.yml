@@ -1,13 +1,12 @@
-
 name: Crear carpeta de nueva aplicación laboral
 
 on:
   push:
     paths:
-      - 'aplicaciones_laborales/to_process/*.yaml'
+      - 'to_process/*.yaml'
 permissions:
   contents: write
-  
+
 jobs:
   crear-carpeta-aplicacion:
     runs-on: ubuntu-latest
@@ -26,7 +25,7 @@ jobs:
 
       - name: Procesar archivo de nueva aplicación
         run: |
-          for file in aplicaciones_laborales/to_process/*.yaml; do
+          for file in to_process/*.yaml; do
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
