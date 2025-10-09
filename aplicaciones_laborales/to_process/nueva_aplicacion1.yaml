@@ -11,7 +11,7 @@ requerimientos:
   - Support product discovery with exploratory analyses and actionable hypotheses.
   - Define and track key product metrics (adoption, conversion, drop-off, engagement, etc.).
   - Design, analyze, and interpret product experiments (A/B tests) to validate business hypotheses.
-  - (Agrega tantos como necesites)
+  # - (Agrega tantos como necesites)
   - Identify behavioral patterns that help the team iterate or pivot quickly.
   - Build dashboards and interactive reports to enable self-service access to insights within the squad.
   - Collaborate with the Head of Product, PMs, POs, UX Designers, and Engineering Managers to prioritize initiatives based on data opportunities.
@@ -24,5 +24,6 @@ requerimientos:
   - Bonus: experience using product analytics tools like Amplitude, Mixpanel, GA4
 
   - Bonus: experience with AI tools that enhance analysis or decision-making
+
 
 
