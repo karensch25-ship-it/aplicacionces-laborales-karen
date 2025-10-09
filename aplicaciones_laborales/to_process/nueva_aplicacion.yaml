@@ -1,36 +1,13 @@
-name: Crear carpeta de nueva aplicación laboral
+cargo: "Data Analyst"
+empresa: "Adoreal"
+fecha: "2025-10-09"
+descripcion: |
+We are looking for a highly motivated Data Analyst with 2-3 years of experience to join our team. The ideal candidate will be passionate about data, skilled at translating complex information into actionable insights, and comfortable working across diverse teams including product, sales, support, and executive leadership. You will also collaborate directly with customers, making your ability to communicate effectively with both technical and non-technical audiences essential.requerimientos:
+- 2-3 years of professional experience in data analysis, business intelligence, or a related field.
+- Proficiency in SQL for querying and manipulating datasets.
+- Experience with cloud data warehouses and relational databases (Snowflake, Amazon Redshift, MySQL, MSSQL, PostgreSQL).
+- Hands-on experience with at least one major BI/visualization tool: Tableau, Power BI, Looker, Amazon QuickSight, MicroStrategy.
+- Strong communication and stakeholder management skills, with a proven ability to collaborate across technical and business teams.
+- Experience engaging with external customers, gathering requirements, and delivering insights tailored to their needs.
+- Experience working in the healthcare industry or with healthcare-related datasets.
 
-on:
-  push:
-    paths:
-      - 'to_process/*.yaml'
-
-jobs:
-  crear-carpeta-aplicacion:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Instalar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Instalar dependencias
-        run: |
-          pip install pyyaml
-
-      - name: Procesar archivo de nueva aplicación
-        run: |
-          for file in to_process/*.yaml; do
-            python scripts/procesar_aplicacion.py "$file"
-          done
-
-      - name: Commit y push de cambios
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "Automatización: Nueva aplicación laboral creada por workflow" || echo "Sin cambios para commitear"
-          git push
