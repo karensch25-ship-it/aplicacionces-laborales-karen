@@ -1,4 +1,4 @@
-cargo: "Data Product Analyst"
+cargo: "Data Product Analyst" 
 empresa: "Workana"
 fecha: "2025-10-09"
 descripcion: |
@@ -22,4 +22,5 @@ requerimientos:
   - Solid grasp of applied statistics: hypothesis testing, confidence intervals, significance thresholds
   - Familiarity with data visualization tools (e.g., Power BI, Looker, Metabase)
   - Bonus: experience using product analytics tools like Amplitude, Mixpanel, GA4
+
   - Bonus: experience with AI tools that enhance analysis or decision-making
