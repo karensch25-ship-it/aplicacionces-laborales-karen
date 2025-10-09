@@ -9,7 +9,10 @@ def sanitize_filename(s):
 def generar_job_alignment(requerimientos):
     bullets = []
     for req in requerimientos:
-        bullets.append(f"- Demonstrated experience in {req.lower()}.")
+        if isinstance(req, str):
+            bullets.append(f"- Demonstrated experience in {req.lower()}.")
+        else:
+            bullets.append(f"- {req}")
     return "\n".join(bullets)
 
 def main(yaml_path):
