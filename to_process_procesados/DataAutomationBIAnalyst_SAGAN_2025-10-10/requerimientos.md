@@ -1,13 +1,5 @@
-cargo: "Data & Automation (BI) Analyst" 
-empresa: "SAGAN"
-fecha: "2025-10-10"
-descripcion: |
-  We’re looking for an Integration and Business Intelligence Specialist who can drive insights through clean, well-structured data while building automations and exploring light AI implementations. 
-  This is a hands-on role ideal for someone who enjoys connecting systems, building dashboards, and using modern tools to streamline reporting and operations.
+# Requerimientos del Puesto
 
-
-  
-requerimientos:
 - Build and maintain custom dashboards to support business operations.
 - Clean, transform, and analyze data from multiple systems.
 - Create and manage lightweight integrations between tools using Zapier, APIs, or low-code platforms.
