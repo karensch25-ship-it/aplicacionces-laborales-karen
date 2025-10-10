@@ -26,6 +26,9 @@ jobs:
       - name: Instalar pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
 
+      - name: Instalar LaTeX
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base
+
       - name: Procesar archivo de nueva aplicación
         run: |
           for file in to_process/*.yaml; do
