@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import yaml
+import subprocess
 
 def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c in (' ', '_', '-')).replace(" ", "")
@@ -52,6 +53,17 @@ def main(yaml_path):
     else:
         with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
+
+    # Convertir a PDF usando pandoc
+    pdf_filename = f"ANTONIO_GUTIERREZ_RESUME_{empresa}.pdf"
+    pdf_path = os.path.join(output_dir, pdf_filename)
+    try:
+        subprocess.run(
+            ["pandoc", dest_adaptada_cv, "-o", pdf_path],
+            check=True
+        )
+    except Exception as e:
+        print(f"Error al convertir a PDF con pandoc: {e}")
 
     # (Opcional) Mover el YAML procesado
     processed_dir = "to_process_procesados"
