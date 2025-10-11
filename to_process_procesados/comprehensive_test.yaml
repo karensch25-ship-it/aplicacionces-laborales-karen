@@ -1,0 +1,14 @@
+cargo: "Senior Business Intelligence Analyst"
+empresa: "TechCorp International"
+fecha: "2025-10-11"
+descripcion: |
+  We are seeking a Senior BI Analyst to lead data analytics initiatives and develop
+  comprehensive dashboards for executive decision-making.
+requerimientos:
+  - Advanced Power BI development experience (5+ years)
+  - Expert SQL skills including complex joins, CTEs, and window functions
+  - Experience with ETL processes and data pipeline automation
+  - Strong data visualization and storytelling capabilities
+  - Experience with stakeholder management and cross-functional collaboration
+  - Knowledge of data governance and quality control practices
+  - Excellent communication skills in English
