@@ -1,0 +1,9 @@
+cargo: "Data Analyst"
+empresa: "FinalTest"
+fecha: "2025-10-11"
+descripcion: |
+  Test position for CV formatting validation
+requerimientos:
+  - Experience with SQL
+  - Power BI expertise
+  - ETL process design

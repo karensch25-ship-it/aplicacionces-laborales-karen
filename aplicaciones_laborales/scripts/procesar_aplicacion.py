@@ -137,10 +137,45 @@ def main(yaml_path):
     # Convert scoring report to PDF
     scoring_pdf_path = os.path.join(output_dir, "SCORING_REPORT.pdf")
     try:
+        # Create a cleaned version of the scoring report without emojis for PDF
+        with open(scoring_report_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Remove common emojis used in the report
+        emoji_replacements = {
+            '🟢': '[EXCELLENT]',
+            '🟡': '[GOOD]',
+            '🔴': '[NEEDS IMPROVEMENT]',
+            '🟠': '[WARNING]',
+            '✅': '[+]',
+            '⚠️': '[!]',
+            '❌': '[-]',
+            '🎯': '[TARGET]',
+            '📊': '[CHART]',
+            '█': '#',
+            '░': '-',
+        }
+        
+        for emoji, replacement in emoji_replacements.items():
+            content = content.replace(emoji, replacement)
+        
+        # Save cleaned version temporarily
+        cleaned_report_path = os.path.join(output_dir, "scoring_report_cleaned.md")
+        with open(cleaned_report_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        
+        # Generate PDF from cleaned version
         subprocess.run(
-            ["pandoc", scoring_report_path, "-o", scoring_pdf_path],
+            ["pandoc", cleaned_report_path, "-o", scoring_pdf_path,
+             "--pdf-engine=xelatex",
+             "-V", "geometry:margin=0.75in",
+             "-V", "fontsize=11pt"],
             check=True
         )
+        
+        # Remove the temporary cleaned file
+        os.remove(cleaned_report_path)
+        
         print(f"Scoring Report PDF: {scoring_pdf_path}")
     except Exception as e:
         print(f"Error al convertir scoring report a PDF: {e}")
