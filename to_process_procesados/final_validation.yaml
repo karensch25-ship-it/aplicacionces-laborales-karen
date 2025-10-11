@@ -1,0 +1,8 @@
+cargo: "Data Analyst"
+empresa: "ValidationCorp"
+fecha: "2025-10-11"
+descripcion: "Final validation test"
+requerimientos:
+  - SQL expertise
+  - Power BI proficiency
+  - ETL experience

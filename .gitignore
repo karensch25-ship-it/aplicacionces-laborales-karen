@@ -38,3 +38,8 @@ Thumbs.db
 *.tmp
 *.bak
 *.log
+
+# Test files (don't commit test YAML files)
+**/test*.yaml
+**/comprehensive_test.yaml
+**/real_test.yaml
