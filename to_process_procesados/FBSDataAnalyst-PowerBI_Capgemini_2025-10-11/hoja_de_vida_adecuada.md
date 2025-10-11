@@ -1,16 +1,25 @@
-# Antonio Gutierrez Amaranto
+\begin{center}
+{\LARGE\bfseries Antonio Gutierrez Amaranto}
 
-Medellín, Antioquia, Colombia  
-Tel: +57 304-650-3897  
-Email: antoineg84@hotmail.com  
-LinkedIn: [antoniogutierrez-datos](https://linkedin.com/in/antoniogutierrez-datos)
+\vspace{8pt}
 
----
+Medellín, Antioquia, Colombia\\
+Tel: +57 304-650-3897\\
+Email: antoineg84@hotmail.com\\
+LinkedIn: antoniogutierrez-datos
+
+\vspace{6pt}
+\noindent\rule{\textwidth}{0.4pt}
+\end{center}
+
+\vspace{6pt}
 
 ## Professional Summary
 
-Data Analyst with 5+ years of experience specializing in business intelligence and dashboard development. Proven track record in delivering data-driven solutions that reduce operational costs, improve decision-making accuracy, and drive business outcomes. Effective communicator skilled in stakeholder engagement and cross-functional collaboration, with experience supporting teams across healthcare, technology, and logistics sectors.
----
+Data Analyst with 5+ years of experience specializing in **data migration, ETL processes, Power BI, and data quality management** within healthcare and enterprise environments. Demonstrated expertise in **designing, modeling, and visualizing data** to drive business insights for multinational companies such as HP. Proven track record in preparing, extracting, transforming, and validating large datasets to support business operations and regulatory requirements. Effective communicator and collaborator, skilled in stakeholder engagement and cross-functional teamwork to deliver timely, high-quality data solutions.  
+**Continuously learning and adapting to new tools and challenges, with hands-on experience in both technical and business domains.**
+
+\vspace{6pt}
 
 ## Key Skills
 
@@ -21,7 +30,7 @@ Data Analyst with 5+ years of experience specializing in business intelligence a
 - **Collaboration & Project Management:** Stakeholder Communication, Cross-functional Teamwork, Process Automation, User Training & Onboarding
 - **Communication:** Professional working proficiency in English and Spanish; effective written and verbal skills
 
----
+\vspace{6pt}
 
 ## Professional Experience
 
@@ -58,7 +67,7 @@ _Feb 2016 - Apr 2017_
 - Automated SAP data analysis, reducing reporting time by 75%  
 - Managed $5M+ annual sales budget with 98% forecasting accuracy
 
----
+\vspace{6pt}
 
 ## Education
 
@@ -66,7 +75,7 @@ _Feb 2016 - Apr 2017_
 Universidad Autónoma del Caribe — Barranquilla, Colombia  
 GPA: 4.4/5.0
 
----
+\vspace{6pt}
 
 ## Certifications
 
@@ -75,21 +84,21 @@ GPA: 4.4/5.0
 - Business Intelligence (BI) Essentials – IBM (2024)
 - SQL for Data Science – Coursera (2023)
 
----
+\vspace{6pt}
 
 ## Languages
 
 - English (Professional Working Proficiency)
 - Spanish (Native)
 
----
+\vspace{6pt}
 
 ## Ongoing Professional Development
 
 - Currently deepening expertise in advanced Power BI features, including DAX, dataflows, and custom visuals, and active learning of APIs in .NET.
 - Engaged in continuous learning of predictive analytics and machine learning for business applications
 
----
+\vspace{6pt}
 
 ## How My Experience Aligns with This Role
 
@@ -157,7 +166,7 @@ Relevant experience demonstrated through data analysis, process optimization, an
 
 Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
 
----
+\vspace{6pt}
 
 ## Additional Notes (Optional)
 

@@ -4,7 +4,7 @@
 **Position:** FBS Data Analyst-PowerBI
 **Company:** Capgemini
 **Date:** 2025-10-11
-**Report Generated:** 2025-10-11 15:51
+**Report Generated:** 2025-10-11 16:48
 
 ---
 
@@ -29,10 +29,10 @@ Apply and address potential gaps in your cover letter.
 **Analysis:** 4/6 technical skills matched
 
 ✅ **Matched Skills:**
-- excel
-- power bi
 - sql
 - dashboard
+- power bi
+- excel
 
 ⚠️ **Missing Skills:**
 - analytics
@@ -137,7 +137,7 @@ Add more quantifiable metrics to your experience
 
 ### 3. 🔴 [High Priority] Prepare specific examples
 
-Ready 2-3 stories highlighting: excel, power bi, sql
+Ready 2-3 stories highlighting: sql, dashboard, power bi
 
 ---
 
@@ -188,4 +188,4 @@ This report was generated automatically by the **Advanced CV Personalization & S
 **Confidence Level:** This scoring is based on keyword matching and achievement mapping. 
 Individual job requirements may vary, and human judgment should be used to complement this analysis.
 
-*Generated on 2025-10-11 at 15:51:31*
+*Generated on 2025-10-11 at 16:48:50*
