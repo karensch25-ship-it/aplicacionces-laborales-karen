@@ -4,17 +4,25 @@ import shutil
 import yaml
 import subprocess
 
+# Import the enhanced personalization engine
+from cv_personalization_engine import CVPersonalizationEngine
+
 def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c in (' ', '_', '-')).replace(" ", "")
 
 def generar_job_alignment(requerimientos):
-    bullets = []
-    for req in requerimientos:
-        if isinstance(req, str):
-            bullets.append(f"- Demonstrated experience in {req.lower()}.")
-        else:
-            bullets.append(f"- {req}")
-    return "\n".join(bullets)
+    """
+    Generate intelligent job alignment using the personalization engine
+    """
+    engine = CVPersonalizationEngine()
+    return engine.generar_job_alignment_inteligente(requerimientos)
+
+def generar_professional_summary(cargo, requerimientos):
+    """
+    Generate personalized professional summary
+    """
+    engine = CVPersonalizationEngine()
+    return engine.generar_professional_summary_personalizado(cargo, requerimientos)
 
 def main(yaml_path):
     with open(yaml_path, 'r', encoding='utf-8') as f:
@@ -46,8 +54,20 @@ def main(yaml_path):
         with open(harvard_cv_path, "r", encoding="utf-8") as src, open(dest_adaptada_cv, "w", encoding="utf-8") as dst:
             content = src.read()
             content = content.replace("{Cargo}", data['cargo']).replace("{Empresa}", data['empresa'])
+            
+            # Generate intelligent job alignment
             job_alignment_section = generar_job_alignment(data.get('requerimientos', []))
             content = content.replace("{job_alignment_section}", job_alignment_section)
+            
+            # Generate personalized professional summary
+            personalized_summary = generar_professional_summary(data['cargo'], data.get('requerimientos', []))
+            # Replace the static summary with personalized one
+            # Find and replace the Professional Summary section
+            import re
+            summary_pattern = r'## Professional Summary\n\n.*?(?=\n---)'
+            replacement_summary = f"## Professional Summary\n\n{personalized_summary}"
+            content = re.sub(summary_pattern, replacement_summary, content, flags=re.DOTALL)
+            
             content = content.replace("{Nombre Completo}", "Antonio Gutierrez Amaranto")  # Personaliza si lo deseas
             dst.write(content)
     else:

@@ -9,8 +9,7 @@ LinkedIn: [antoniogutierrez-datos](https://linkedin.com/in/antoniogutierrez-dato
 
 ## Professional Summary
 
-Data Analyst with 5+ years of experience specializing in data migration, ETL processes, and data quality management within healthcare and enterprise environments. Proven track record in preparing, extracting, transforming, and validating large datasets to support business operations and regulatory requirements. Effective communicator and collaborator, skilled in stakeholder engagement and cross-functional teamwork to deliver timely, high-quality data solutions.
-
+Data Analyst with 5+ years of experience specializing in business intelligence and dashboard development. Proven track record in delivering data-driven solutions that reduce operational costs, improve decision-making accuracy, and drive business outcomes. Effective communicator skilled in stakeholder engagement and cross-functional collaboration, with experience supporting teams across healthcare, technology, and logistics sectors.
 ---
 
 ## Key Skills
@@ -84,19 +83,60 @@ GPA: 4.4/5.0
 
 ---
 
-## Job Alignment for Data Product Analyst at Workana
+## How My Experience Aligns with This Role
 
-- Demonstrated experience in support product discovery with exploratory analyses and actionable hypotheses..
-- Demonstrated experience in define and track key product metrics (adoption, conversion, drop-off, engagement, etc.)..
-- Demonstrated experience in design, analyze, and interpret product experiments (a/b tests) to validate business hypotheses..
-- Demonstrated experience in identify behavioral patterns that help the team iterate or pivot quickly..
-- Demonstrated experience in build dashboards and interactive reports to enable self-service access to insights within the squad..
-- Demonstrated experience in collaborate with the head of product, pms, pos, ux designers, and engineering managers to prioritize initiatives based on data opportunities..
-- Demonstrated experience in contribute to data-driven solutions for onboarding, segmentation, matching, pricing, and more..
-- Demonstrated experience in strong sql skills for advanced self-service analysis (cohorts, window functions, ctes, dynamic segmentation, etc.).
-- Demonstrated experience in experience designing and analyzing a/b tests with statistical rigor.
-- Demonstrated experience in knowledge of python or r for ad-hoc analysis or advanced data manipulation.
-- {'Solid grasp of applied statistics': 'hypothesis testing, confidence intervals, significance thresholds'}
-- Demonstrated experience in familiarity with data visualization tools (e.g., power bi, looker, metabase).
-- {'Bonus': 'experience using product analytics tools like Amplitude, Mixpanel, GA4'}
-- {'Bonus': 'experience with AI tools that enhance analysis or decision-making'}
+**Support product discovery with exploratory analyses and actionable hypotheses**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Define and track key product metrics (adoption, conversion, drop-off, engagement, etc.)**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Design, analyze, and interpret product experiments (A/B tests) to validate business hypotheses**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Identify behavioral patterns that help the team iterate or pivot quickly**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Build dashboards and interactive reports to enable self-service access to insights within the squad.**
+
+Architected consolidated dashboard integrating 8 data sources, cutting data preparation time by 70%
+
+**Collaborate with the Head of Product, PMs, POs, UX Designers, and Engineering Managers to prioritize initiatives based on data opportunities**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Contribute to data-driven solutions for onboarding, segmentation, matching, pricing, and more**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Strong SQL skills for advanced self-service analysis (cohorts, window functions, CTEs, dynamic segmentation, etc.)**
+
+Built 20+ SQL stored procedures, improving query performance by 40% and reducing error rates by 75%
+
+**Experience designing and analyzing A/B tests with statistical rigor**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Knowledge of Python or R for ad-hoc analysis or advanced data manipulation**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Solid grasp of applied statistics: hypothesis testing, confidence intervals, significance thresholds**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Familiarity with data visualization tools (e.g., Power BI, Looker, Metabase)**
+
+Implemented sales and inventory dashboards for Latin America, reducing decision-making time by 40%
+
+**Bonus: experience using product analytics tools like Amplitude, Mixpanel, GA4**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Bonus: experience with AI tools that enhance analysis or decision-making**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
