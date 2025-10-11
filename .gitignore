@@ -40,6 +40,6 @@ Thumbs.db
 *.log
 
 # Test files (don't commit test YAML files)
-**/test*.yaml
-**/comprehensive_test.yaml
-**/real_test.yaml
+test*.yaml
+*test.yaml
+validation*.yaml
