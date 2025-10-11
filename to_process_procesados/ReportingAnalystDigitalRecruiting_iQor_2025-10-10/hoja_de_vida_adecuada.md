@@ -9,8 +9,7 @@ LinkedIn: [antoniogutierrez-datos](https://linkedin.com/in/antoniogutierrez-dato
 
 ## Professional Summary
 
-Data Analyst with 5+ years of experience specializing in data migration, ETL processes, and data quality management within healthcare and enterprise environments. Proven track record in preparing, extracting, transforming, and validating large datasets to support business operations and regulatory requirements. Effective communicator and collaborator, skilled in stakeholder engagement and cross-functional teamwork to deliver timely, high-quality data solutions.
-
+Data Analyst with 5+ years of experience specializing in business intelligence and dashboard development and data automation and ETL processes. Proven track record in delivering data-driven solutions that reduce operational costs, improve decision-making accuracy, and drive business outcomes. Effective communicator skilled in stakeholder engagement and cross-functional collaboration, with experience supporting teams across healthcare, technology, and logistics sectors.
 ---
 
 ## Key Skills
@@ -84,12 +83,32 @@ GPA: 4.4/5.0
 
 ---
 
-## Job Alignment for Reporting Analyst Digital Recruiting at iQor
+## How My Experience Aligns with This Role
 
-- Demonstrated experience in build and maintain recruitment reports and dashboard to track funnel metrics, source performance, and conversion trends..
-- Demonstrated experience in prepare visually compelling and accurate powerpoint decks for internal reviews and leadership presentations..
-- Demonstrated experience in conduct data validation and qc to ensure accuracy and consistency in reporting outputs..
-- Demonstrated experience in translate business requirements into actionalble data visualizations and summaries..
-- Demonstrated experience in work with large datasets accross various platforms (ats, crm, assessment tools)..
-- Demonstrated experience in respond to ad-hoc data requests from the recruiting and operations teams..
-- Demonstrated experience in support automation of recurring reports using tools like excel formulas/macros or sql queries..
+**Build and maintain recruitment reports and dashboard to track funnel metrics, source performance, and conversion trends.**
+
+Architected consolidated dashboard integrating 8 data sources, cutting data preparation time by 70%
+
+**Prepare visually compelling and accurate PowerPoint decks for internal reviews and leadership presentations**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Conduct data validation and QC to ensure accuracy and consistency in reporting outputs.**
+
+Developed 15+ automated reports using M-AT and NPR, reducing manual reporting time by 60%
+
+**Translate business requirements into actionalble data visualizations and summaries**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Work with large datasets accross various platforms (ATS, CRM, assessment tools)**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Respond to ad-hoc data requests from the recruiting and operations teams**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+**Support automation of recurring reports using tools like Excel Formulas/macros or SQL queries.**
+
+Built 20+ SQL stored procedures, improving query performance by 40% and reducing error rates by 75%
