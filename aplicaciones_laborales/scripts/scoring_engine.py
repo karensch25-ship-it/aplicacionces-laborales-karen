@@ -115,8 +115,8 @@ class AdvancedScoringEngine:
             ],
             'achievements': [
                 {
-                    'description': "Architected consolidated dashboard integrating 8 data sources, cutting data preparation time by 70%",
-                    'keywords': ['dashboard', 'data integration', 'automation'],
+                    'description': "Architected consolidated business intelligence dashboard integrating 8 data sources for analytics and reporting, cutting data preparation time by 70%",
+                    'keywords': ['dashboard', 'data integration', 'automation', 'business intelligence', 'reporting'],
                     'metrics': ['70%', '8'],
                     'quality': 'high'
                 },
@@ -128,7 +128,7 @@ class AdvancedScoringEngine:
                 },
                 {
                     'description': "Developed 15+ automated reports using M-AT and NPR, reducing manual reporting time by 60% for 200+ healthcare professionals",
-                    'keywords': ['automation', 'reporting', 'healthcare'],
+                    'keywords': ['automation', 'reporting', 'healthcare', 'analytics', 'kpi'],
                     'metrics': ['60%', '15+', '200+'],
                     'quality': 'high'
                 },
