@@ -4,8 +4,10 @@ import shutil
 import yaml
 import subprocess
 
-# Import the enhanced personalization engine
+# Import the enhanced personalization engine and scoring system
 from cv_personalization_engine import CVPersonalizationEngine
+from scoring_engine import AdvancedScoringEngine
+from scoring_report_generator import ScoringReportGenerator
 
 def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c in (' ', '_', '-')).replace(" ", "")
@@ -74,6 +76,34 @@ def main(yaml_path):
         with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
 
+    # Generate scoring report
+    print("Generating scoring report...")
+    scoring_engine = AdvancedScoringEngine()
+    scoring_result = scoring_engine.calculate_comprehensive_score(
+        requirements=data.get('requerimientos', []),
+        job_description=data.get('descripcion', ''),
+        job_title=data['cargo']
+    )
+    
+    # Generate scoring report markdown
+    report_generator = ScoringReportGenerator()
+    scoring_report = report_generator.generate_report(
+        scoring_result,
+        data['cargo'],
+        data['empresa'],
+        fecha
+    )
+    
+    # Save scoring report
+    scoring_report_path = os.path.join(output_dir, "scoring_report.md")
+    with open(scoring_report_path, "w", encoding="utf-8") as f:
+        f.write(scoring_report)
+    
+    print(f"Scoring Report Generated:")
+    print(f"  - Global Score: {scoring_result['global_score']}%")
+    print(f"  - Recommendation: {scoring_result['recommendation_level']}")
+    print(f"  - Report saved to: {scoring_report_path}")
+    
     # Convertir a PDF usando pandoc
     pdf_filename = f"ANTONIO_GUTIERREZ_RESUME_{empresa}.pdf"
     pdf_path = os.path.join(output_dir, pdf_filename)
@@ -84,6 +114,17 @@ def main(yaml_path):
         )
     except Exception as e:
         print(f"Error al convertir a PDF con pandoc: {e}")
+    
+    # Convert scoring report to PDF
+    scoring_pdf_path = os.path.join(output_dir, "SCORING_REPORT.pdf")
+    try:
+        subprocess.run(
+            ["pandoc", scoring_report_path, "-o", scoring_pdf_path],
+            check=True
+        )
+        print(f"Scoring Report PDF: {scoring_pdf_path}")
+    except Exception as e:
+        print(f"Error al convertir scoring report a PDF: {e}")
 
     # (Opcional) Mover el YAML procesado
     processed_dir = "to_process_procesados"
