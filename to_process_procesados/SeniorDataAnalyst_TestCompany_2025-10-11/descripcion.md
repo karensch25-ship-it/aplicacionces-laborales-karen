@@ -6,8 +6,5 @@
 
 ## Descripción
 
-We are seeking a Senior Data Analyst with strong SQL and Python skills
-to join our analytics team. The ideal candidate will have experience
-building dashboards, automating ETL processes, and collaborating with
-stakeholders across the organization.
+Test position for CV formatting validation
 

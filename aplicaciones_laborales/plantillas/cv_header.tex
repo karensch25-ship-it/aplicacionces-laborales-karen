@@ -1,0 +1,54 @@
+% Professional CV Header Template - ATS Friendly
+\usepackage{geometry}
+\geometry{letterpaper, margin=0.75in}
+
+% Font configuration - using standard, ATS-friendly fonts
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+
+% Prevent hyphenation for better ATS parsing
+\usepackage[none]{hyphenat}
+
+% Remove page numbers
+\pagenumbering{gobble}
+
+% Color configuration - using black for ATS compatibility
+\usepackage{xcolor}
+\definecolor{linkcolor}{RGB}{0,0,0}
+
+% Hyperlink configuration - black links, no borders
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    pdfborder={0 0 0}
+}
+
+% Section formatting
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% Spacing
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% Line spacing
+\usepackage{setspace}
+\setstretch{1.05}
+
+% Custom command for centered header
+\newcommand{\cvheader}[5]{
+    \begin{center}
+        {\LARGE\bfseries #1}\\[6pt]
+        #2\\
+        Tel: #3\\
+        Email: #4\\
+        LinkedIn: #5
+        \vspace{6pt}
+        \noindent\rule{\textwidth}{0.4pt}
+    \end{center}
+    \vspace{6pt}
+}

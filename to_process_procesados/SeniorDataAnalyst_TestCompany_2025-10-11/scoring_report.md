@@ -4,13 +4,13 @@
 **Position:** Senior Data Analyst
 **Company:** TestCompany
 **Date:** 2025-10-11
-**Report Generated:** 2025-10-11 05:01
+**Report Generated:** 2025-10-11 16:28
 
 ---
 
-## Overall Match Score: 84.7% - STRONG FIT 🟢
+## Overall Match Score: 81.5% - STRONG FIT 🟢
 
-**████████░░** `84.7%`
+**████████░░** `81.5%`
 
 ### Recommendation
 **STRONG FIT**
@@ -21,51 +21,47 @@ Apply with confidence. Emphasize your key strengths.
 
 ## Dimensional Analysis
 
-### 1. Technical Skills Match: 87.5% 🟢
-**Weight:** 30% | **Contribution to Global Score:** 26.2%
+### 1. Technical Skills Match: 80.8% 🟢
+**Weight:** 30% | **Contribution to Global Score:** 24.2%
 
-**████████░░** `87.5%` - Excellent
+**████████░░** `80.8%` - Strong
 
-**Analysis:** 7/8 technical skills matched
+**Analysis:** 4/5 technical skills matched
 
 ✅ **Matched Skills:**
-- python
-- etl
-- data quality
-- power bi
-- sql
 - dashboard
-- automation
+- sql
+- etl
+- power bi
 
 ⚠️ **Missing Skills:**
 - bi
 
 ---
 
-### 2. Experience Depth & Relevance: 91.0% 🟢
-**Weight:** 25% | **Contribution to Global Score:** 22.8%
+### 2. Experience Depth & Relevance: 97.0% 🟢
+**Weight:** 25% | **Contribution to Global Score:** 24.2%
 
-**█████████░** `91.0%` - Excellent
+**█████████░** `97.0%` - Excellent
 
 **Analysis:** 5+ years with 6 quantifiable achievements
 
 - **Years of Experience:** 5+ years
 - **Quantifiable Achievements:** 6
 - **Years Score:** 100%
-- **Responsibility Level:** 70%
+- **Responsibility Level:** 90%
 - **Impact Score:** 100%
 
 ---
 
-### 3. Domain Knowledge: 66.7% 🟡
-**Weight:** 20% | **Contribution to Global Score:** 13.3%
+### 3. Domain Knowledge: 50.0% 🟠
+**Weight:** 20% | **Contribution to Global Score:** 10.0%
 
-**██████░░░░** `66.7%` - Good
+**█████░░░░░** `50.0%` - Moderate
 
-**Analysis:** 2/3 domain areas matched
+**Analysis:** 1/2 domain areas matched
 
 ✅ **Relevant Domains:**
-- Analytics
 - Bi Reporting
 
 ---
@@ -75,27 +71,25 @@ Apply with confidence. Emphasize your key strengths.
 
 **██████████** `100.0%` - Excellent
 
-**Analysis:** 4/4 soft skills demonstrated
+**Analysis:** 2/2 soft skills demonstrated
 
 ✅ **Demonstrated Soft Skills:**
-- Communication
 - Collaboration
 - Stakeholder
-- Leadership
 
 ---
 
-### 5. Achievement Quality: 73.3% 🟢
-**Weight:** 10% | **Contribution to Global Score:** 7.3%
+### 5. Achievement Quality: 80.0% 🟢
+**Weight:** 10% | **Contribution to Global Score:** 8.0%
 
-**███████░░░** `73.3%` - Strong
+**████████░░** `80.0%` - Strong
 
-**Analysis:** 4 high-quality achievements mapped to 6 requirements
+**Analysis:** 3 high-quality achievements mapped to 4 requirements
 
-- **High Quality Matches:** 4
+- **High Quality Matches:** 3
 - **Medium Quality Matches:** 0
-- **Low Quality Matches:** 2
-- **Total Requirements:** 6
+- **Low Quality Matches:** 1
+- **Total Requirements:** 4
 
 ---
 
@@ -103,9 +97,9 @@ Apply with confidence. Emphasize your key strengths.
 
 ### 1. Technical Skills
 
-**Strong match in 7 key technical areas**
+**Strong match in 4 key technical areas**
 
-*Evidence:* python, etl, data quality
+*Evidence:* dashboard, sql, etl
 
 ### 2. Experience
 
@@ -117,7 +111,7 @@ Apply with confidence. Emphasize your key strengths.
 
 **Relevant industry experience**
 
-*Evidence:* analytics, bi_reporting
+*Evidence:* bi_reporting
 
 ---
 
@@ -134,7 +128,7 @@ Apply with confidence. Emphasize your key strengths.
 
 ### 1. 🔴 [High Priority] Prepare specific examples
 
-Ready 2-3 stories highlighting: python, etl, data quality
+Ready 2-3 stories highlighting: dashboard, sql, etl
 
 ---
 
@@ -142,12 +136,10 @@ Ready 2-3 stories highlighting: python, etl, data quality
 
 | Match Level | Requirement | Evidence |
 |------------|------------|----------|
-| 🟡 Moderate | Advanced SQL query optimization and stored procedu... | Built 20+ SQL stored procedures, improving query performance... |
-| 🟢 Strong | Python for data analysis and automation | Architected consolidated business intelligence dashboard int... |
-| 🟢 Strong | Dashboard development with Power BI or similar too... | Architected consolidated business intelligence dashboard int... |
-| 🟢 Strong | ETL pipeline design and automation | Architected consolidated business intelligence dashboard int... |
-| 🟠 Weak | Stakeholder management and communication | No direct evidence, transferable skills applicable |
-| 🟠 Weak | Data quality and governance best practices | No direct evidence, transferable skills applicable |
+| 🟡 Moderate | Experience with SQL and data analysis | Built 20+ SQL stored procedures, improving query performance... |
+| 🟢 Strong | Power BI dashboard development | Architected consolidated business intelligence dashboard int... |
+| 🟡 Moderate | ETL process design | Automated ETL processes, reducing daily processing time from... |
+| 🟠 Weak | Stakeholder collaboration | No direct evidence, transferable skills applicable |
 
 ---
 
@@ -175,4 +167,4 @@ This report was generated automatically by the **Advanced CV Personalization & S
 **Confidence Level:** This scoring is based on keyword matching and achievement mapping. 
 Individual job requirements may vary, and human judgment should be used to complement this analysis.
 
-*Generated on 2025-10-11 at 05:01:27*
+*Generated on 2025-10-11 at 16:28:47*

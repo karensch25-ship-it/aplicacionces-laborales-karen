@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y pandoc
 
       - name: Instalar LaTeX (paquetes recomendados)
-        run: sudo apt-get update && sudo apt-get install -y texlive-latex-recommended texlive-xetex
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
 
       - name: Procesar archivo de nueva aplicación
         run: |

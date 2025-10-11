@@ -104,14 +104,33 @@ def main(yaml_path):
     print(f"  - Recommendation: {scoring_result['recommendation_level']}")
     print(f"  - Report saved to: {scoring_report_path}")
     
-    # Convertir a PDF usando pandoc
+    # Convertir a PDF usando pandoc con formato profesional
     pdf_filename = f"ANTONIO_GUTIERREZ_RESUME_{empresa}.pdf"
     pdf_path = os.path.join(output_dir, pdf_filename)
+    
+    # Get the path to the LaTeX header template
+    header_path = "aplicaciones_laborales/plantillas/cv_header.tex"
+    
     try:
-        subprocess.run(
-            ["pandoc", dest_adaptada_cv, "-o", pdf_path],
-            check=True
-        )
+        pandoc_args = [
+            "pandoc",
+            dest_adaptada_cv,
+            "-o", pdf_path,
+            "--pdf-engine=xelatex",
+            "-V", "geometry:margin=0.75in",
+            "-V", "fontsize=11pt",
+            "-V", "colorlinks=true",
+            "-V", "linkcolor=black",
+            "-V", "urlcolor=black",
+            "-V", "toccolor=black",
+        ]
+        
+        # Add header include if it exists
+        if os.path.exists(header_path):
+            pandoc_args.extend(["-H", header_path])
+        
+        subprocess.run(pandoc_args, check=True)
+        print(f"CV PDF generated successfully: {pdf_path}")
     except Exception as e:
         print(f"Error al convertir a PDF con pandoc: {e}")
     
