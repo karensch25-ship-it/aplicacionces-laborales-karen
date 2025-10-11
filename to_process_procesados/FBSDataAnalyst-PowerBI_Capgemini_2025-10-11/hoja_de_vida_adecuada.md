@@ -15,9 +15,10 @@ Data Analyst with 5+ years of experience specializing in business intelligence a
 ## Key Skills
 
 - **Data Migration & ETL:** SQL Server, Power Query, M-AT, NPR, ETL Process Design, Data Modeling, Data Quality Management
-- **Data Validation & Quality Control:** Advanced Excel (data validation, automation), Power BI, Thoughtspot
-- **Systems & Tools:** Meditech, SAP, Business Intelligence, Performance Metrics
-- **Project Management & Collaboration:** KPI Development, Process Automation, Stakeholder Communication, Cross-functional Teamwork
+- **Data Visualization & Business Intelligence:** Power BI (advanced, incl. dashboard design and data modeling for HP), Thoughtspot, KPI Development, Dashboard Automation
+- **Data Validation & Quality Control:** Advanced Excel (data validation, automation), Data Cleansing, Performance Metrics
+- **Systems & Tools:** Meditech, SAP, Salesforce, Business Intelligence, Database Optimization
+- **Collaboration & Project Management:** Stakeholder Communication, Cross-functional Teamwork, Process Automation, User Training & Onboarding
 - **Communication:** Professional working proficiency in English and Spanish; effective written and verbal skills
 
 ---
@@ -36,11 +37,11 @@ _Feb 2024 - Present_
 **Channel Data Specialist**  
 *HP — Medellín, Colombia (Remote)*  
 _Jan 2022 - Nov 2023_  
-- Implemented sales and inventory dashboards for Latin America, reducing decision-making time by 40%  
-- Managed Thoughtspot data for 8+ countries with 100% reporting accuracy  
-- Optimized database architecture, reducing query time by 65% and manual processing time by 87%  
-- Increased data accuracy by 95% through quality control measures  
-- Automated ETL processes, reducing daily processing time from 4 hours to 30 minutes
+- **Developed and deployed Power BI dashboards** for sales, inventory, and executive reporting, providing actionable insights for Latin America operations
+- **Designed and implemented complex data models in Power BI**, integrating multiple sources (SAP, Salesforce, Excel) and optimizing data refresh cycles
+- Automated ETL processes and reporting, reducing manual processing time by 87% and increasing accuracy by 95%
+- Managed Thoughtspot data for 8+ countries with 100% reporting accuracy
+- Led user training sessions for Power BI dashboards, improving adoption and data-driven decision-making across teams
 
 **Brokerage Associate**  
 *UPS — Medellín, Colombia*  
@@ -69,10 +70,10 @@ GPA: 4.4/5.0
 
 ## Certifications
 
+- **Power BI Data Analyst Associate (PL-300)** – Microsoft (In Progress)
 - Google Data Analytics – Google (2025)
 - Business Intelligence (BI) Essentials – IBM (2024)
 - SQL for Data Science – Coursera (2023)
-- Power BI Data Analyst Associate (PL-300) – Microsoft (In Progress)
 
 ---
 
@@ -80,6 +81,13 @@ GPA: 4.4/5.0
 
 - English (Professional Working Proficiency)
 - Spanish (Native)
+
+---
+
+## Ongoing Professional Development
+
+- Currently deepening expertise in advanced Power BI features, including DAX, dataflows, and custom visuals, and active learning of APIs in .NET.
+- Engaged in continuous learning of predictive analytics and machine learning for business applications
 
 ---
 
@@ -148,3 +156,9 @@ Relevant experience demonstrated through data analysis, process optimization, an
 **Clearly communicate your findings and keep records of your work**
 
 Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+
+---
+
+## Additional Notes (Optional)
+
+If there are requirements in the job description that are not directly evidenced above, I am actively developing transferable skills and have a strong record of quickly bridging knowledge gaps through self-directed learning and hands-on practice.

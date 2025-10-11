@@ -4,7 +4,7 @@
 **Position:** FBS Data Analyst-PowerBI
 **Company:** Capgemini
 **Date:** 2025-10-11
-**Report Generated:** 2025-10-11 15:12
+**Report Generated:** 2025-10-11 15:51
 
 ---
 
@@ -29,14 +29,14 @@ Apply and address potential gaps in your cover letter.
 **Analysis:** 4/6 technical skills matched
 
 ✅ **Matched Skills:**
-- sql
-- dashboard
 - excel
 - power bi
+- sql
+- dashboard
 
 ⚠️ **Missing Skills:**
-- bi
 - analytics
+- bi
 
 ---
 
@@ -76,8 +76,8 @@ Apply and address potential gaps in your cover letter.
 **Analysis:** 2/4 soft skills demonstrated
 
 ✅ **Demonstrated Soft Skills:**
-- Stakeholder
 - Communication
+- Stakeholder
 
 ---
 
@@ -113,15 +113,15 @@ Apply and address potential gaps in your cover letter.
 
 ## Gaps & Mitigation Strategies
 
-### 🟡 Gap: Bi
-**Area:** Technical Skills | **Impact:** Medium
-
-**Mitigation Strategy:** Highlight transferable skills and willingness to learn bi.
-
 ### 🟡 Gap: Analytics
 **Area:** Technical Skills | **Impact:** Medium
 
 **Mitigation Strategy:** Highlight transferable skills and willingness to learn analytics.
+
+### 🟡 Gap: Bi
+**Area:** Technical Skills | **Impact:** Medium
+
+**Mitigation Strategy:** Highlight transferable skills and willingness to learn bi.
 
 ---
 
@@ -129,7 +129,7 @@ Apply and address potential gaps in your cover letter.
 
 ### 1. 🔴 [High Priority] Review missing technical skills before applying
 
-Focus on: bi, analytics
+Focus on: analytics, bi
 
 ### 2. 🟡 [Medium Priority] Strengthen your achievement examples
 
@@ -137,7 +137,7 @@ Add more quantifiable metrics to your experience
 
 ### 3. 🔴 [High Priority] Prepare specific examples
 
-Ready 2-3 stories highlighting: sql, dashboard, excel
+Ready 2-3 stories highlighting: excel, power bi, sql
 
 ---
 
@@ -188,4 +188,4 @@ This report was generated automatically by the **Advanced CV Personalization & S
 **Confidence Level:** This scoring is based on keyword matching and achievement mapping. 
 Individual job requirements may vary, and human judgment should be used to complement this analysis.
 
-*Generated on 2025-10-11 at 15:12:03*
+*Generated on 2025-10-11 at 15:51:31*

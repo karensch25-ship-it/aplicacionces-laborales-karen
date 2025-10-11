@@ -15,4 +15,4 @@
 - Calculate the return on investment for marketing and recruiting programs
 - Study competitors and market trends to help shape strategy
 - Work with different departments to understand their needs and deliver data-driven solutions
-- Clearly communicate your findings and keep records of your work
+- Clearly communicate your findings and keep records of your work.
