@@ -1,0 +1,25 @@
+cargo: "Data Product Analyst" 
+empresa: "Workana"
+fecha: "2025-10-09"
+descripcion: |
+  The mission of this role is to act as the analytical partner for the Product team leading the company's marketplace. This includes supporting both growth initiatives and the development of key modules within our ecosystem.
+
+  A strong data perspective will be essential to enable a continuous cycle of discovery, experimentation, validation, and iteration. This is not about answering questions — it's about helping the team ask better ones, faster.
+
+  This is not a support or traditional reporting role. It's a hands-on, impact-oriented role, focused on building solutions together with the product team.
+requerimientos:
+  - Support product discovery with exploratory analyses and actionable hypotheses.
+  - Define and track key product metrics (adoption, conversion, drop-off, engagement, etc.).
+  - Design, analyze, and interpret product experiments (A/B tests) to validate business hypotheses.
+  # - (Agrega tantos como necesites)
+  - Identify behavioral patterns that help the team iterate or pivot quickly.
+  - Build dashboards and interactive reports to enable self-service access to insights within the squad.
+  - Collaborate with the Head of Product, PMs, POs, UX Designers, and Engineering Managers to prioritize initiatives based on data opportunities.
+  - Contribute to data-driven solutions for onboarding, segmentation, matching, pricing, and more.
+  - Strong SQL skills for advanced self-service analysis (cohorts, window functions, CTEs, dynamic segmentation, etc.)
+  - Experience designing and analyzing A/B tests with statistical rigor
+  - Knowledge of Python or R for ad-hoc analysis or advanced data manipulation
+  - Solid grasp of applied statistics: hypothesis testing, confidence intervals, significance thresholds
+  - Familiarity with data visualization tools (e.g., Power BI, Looker, Metabase)
+  - Bonus: experience using product analytics tools like Amplitude, Mixpanel, GA4
+  - Bonus: experience with AI tools that enhance analysis or decision-making

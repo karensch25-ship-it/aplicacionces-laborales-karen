@@ -32,12 +32,23 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 - ✅ **Transparencia Total:** Cada puntuación explica cómo se calculó y qué evidencia la respalda
 - ✅ **Integración Automática:** Se ejecuta automáticamente en el flujo de GitHub Actions
 
+#### Fase 5: Formato Profesional ATS-Friendly en PDF (NUEVO ✅)
+- ✅ **Header Centrado y Profesional:** Nombre destacado, información de contacto centrada
+- ✅ **Compatible con ATS:** Sin enlaces azules, fuentes estándar, formato limpio
+- ✅ **Tipografía Mejorada:** LaTeX/XeTeX para apariencia profesional
+- ✅ **Líneas Horizontales Rectas:** Separadores limpios y consistentes
+- ✅ **Márgenes Optimizados:** 0.75 pulgadas, formato estándar
+- ✅ **Enlaces en Negro:** Todos los enlaces en color negro para ATS
+- ✅ **Documentación Completa:** Guías de uso y personalización incluidas
+
 ### 📁 Documentación Completa
 
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras
 - **[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md):** Guía técnica de implementación, uso y mantenimiento del sistema
 - **[PHASE4_SCORING_SYSTEM_DESIGN.md](PHASE4_SCORING_SYSTEM_DESIGN.md):** Diseño completo del sistema de scoring multi-dimensional (Fase 4)
+- **[CV_PDF_FORMATTING.md](CV_PDF_FORMATTING.md):** Documentación técnica del formato profesional de PDF (Fase 5)
+- **[GUIA_FORMATO_CV.md](GUIA_FORMATO_CV.md):** Guía de usuario sobre el formato profesional ATS-friendly en PDF
 
 ### 🎯 Ejemplo de Mejora
 

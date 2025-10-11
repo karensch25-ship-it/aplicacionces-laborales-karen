@@ -35,16 +35,6 @@ jobs:
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
-      - name: Convertir hojas de vida Markdown a PDF
-        run: |
-          find to_process_procesados -name "hoja_de_vida_adecuada.md" | while read mdfile; do
-            empresa=$(basename $(dirname "$mdfile"))
-            pdfdir=$(dirname "$mdfile")
-            nombre_empresa=$(echo "$empresa" | awk -F_ '{print $(NF-1)}')
-            pdffile="$pdfdir/ANTONIO_GUTIERREZ_RESUME_${nombre_empresa}.pdf"
-            pandoc "$mdfile" -o "$pdffile"
-          done
-
       - name: Commit y push de cambios
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
