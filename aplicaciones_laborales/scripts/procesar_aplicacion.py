@@ -104,24 +104,78 @@ def main(yaml_path):
     print(f"  - Recommendation: {scoring_result['recommendation_level']}")
     print(f"  - Report saved to: {scoring_report_path}")
     
-    # Convertir a PDF usando pandoc
+    # Convertir a PDF usando pandoc con formato profesional
     pdf_filename = f"ANTONIO_GUTIERREZ_RESUME_{empresa}.pdf"
     pdf_path = os.path.join(output_dir, pdf_filename)
+    
+    # Get the path to the LaTeX header template
+    header_path = "aplicaciones_laborales/plantillas/cv_header.tex"
+    
     try:
-        subprocess.run(
-            ["pandoc", dest_adaptada_cv, "-o", pdf_path],
-            check=True
-        )
+        pandoc_args = [
+            "pandoc",
+            dest_adaptada_cv,
+            "-o", pdf_path,
+            "--pdf-engine=xelatex",
+            "-V", "geometry:margin=0.75in",
+            "-V", "fontsize=11pt",
+            "-V", "colorlinks=true",
+            "-V", "linkcolor=black",
+            "-V", "urlcolor=black",
+            "-V", "toccolor=black",
+        ]
+        
+        # Add header include if it exists
+        if os.path.exists(header_path):
+            pandoc_args.extend(["-H", header_path])
+        
+        subprocess.run(pandoc_args, check=True)
+        print(f"CV PDF generated successfully: {pdf_path}")
     except Exception as e:
         print(f"Error al convertir a PDF con pandoc: {e}")
     
     # Convert scoring report to PDF
     scoring_pdf_path = os.path.join(output_dir, "SCORING_REPORT.pdf")
     try:
+        # Create a cleaned version of the scoring report without emojis for PDF
+        with open(scoring_report_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Remove common emojis used in the report
+        emoji_replacements = {
+            '🟢': '[EXCELLENT]',
+            '🟡': '[GOOD]',
+            '🔴': '[NEEDS IMPROVEMENT]',
+            '🟠': '[WARNING]',
+            '✅': '[+]',
+            '⚠️': '[!]',
+            '❌': '[-]',
+            '🎯': '[TARGET]',
+            '📊': '[CHART]',
+            '█': '#',
+            '░': '-',
+        }
+        
+        for emoji, replacement in emoji_replacements.items():
+            content = content.replace(emoji, replacement)
+        
+        # Save cleaned version temporarily
+        cleaned_report_path = os.path.join(output_dir, "scoring_report_cleaned.md")
+        with open(cleaned_report_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        
+        # Generate PDF from cleaned version
         subprocess.run(
-            ["pandoc", scoring_report_path, "-o", scoring_pdf_path],
+            ["pandoc", cleaned_report_path, "-o", scoring_pdf_path,
+             "--pdf-engine=xelatex",
+             "-V", "geometry:margin=0.75in",
+             "-V", "fontsize=11pt"],
             check=True
         )
+        
+        # Remove the temporary cleaned file
+        os.remove(cleaned_report_path)
+        
         print(f"Scoring Report PDF: {scoring_pdf_path}")
     except Exception as e:
         print(f"Error al convertir scoring report a PDF: {e}")
