@@ -43,6 +43,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 ### 📁 Documentación Completa
 
+- **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ **NUEVO** - Inicio rápido para la automatización (5 minutos)
 - **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ **NUEVO** - Guía completa de automatización de issues y proyectos
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras
@@ -122,7 +123,9 @@ El sistema ahora incluye **automatización completa de gestión de aplicaciones*
 
 - ✅ **Trazabilidad Completa:** Cada aplicación tiene su issue dedicada para seguimiento
 
-📖 **Documentación:** Ver [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md) para detalles completos
+📖 **Documentación:** 
+- **Quick Start:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
+- **Guía completa:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
 
 ### 🛠️ Componentes Técnicos
 
