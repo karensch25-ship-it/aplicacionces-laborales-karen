@@ -184,9 +184,27 @@ def main(yaml_path):
     processed_dir = "to_process_procesados"
     os.makedirs(processed_dir, exist_ok=True)
     shutil.move(yaml_path, os.path.join(processed_dir, os.path.basename(yaml_path)))
+    
+    # Return folder_name for issue creation
+    return folder_name
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Uso: python procesar_aplicacion.py <archivo_yaml>")
         sys.exit(1)
-    main(sys.argv[1])
+    folder_name = main(sys.argv[1])
+    
+    # Create GitHub issue and add to project if GITHUB_TOKEN is available
+    if os.environ.get('GITHUB_TOKEN'):
+        print("\n" + "="*60)
+        print("Creating GitHub issue and adding to project...")
+        print("="*60)
+        try:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            issue_script = os.path.join(script_dir, "create_issue_and_add_to_project.py")
+            subprocess.run([sys.executable, issue_script, folder_name], check=True)
+        except Exception as e:
+            print(f"⚠️  Warning: Could not create issue: {e}")
+            print("   The application was processed successfully, but issue creation failed.")
+    else:
+        print("\nℹ️  Skipping issue creation (GITHUB_TOKEN not available)")

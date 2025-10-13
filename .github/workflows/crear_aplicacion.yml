@@ -6,6 +6,8 @@ on:
       - 'to_process/*.yaml'
 permissions:
   contents: write
+  issues: write
+  repository-projects: write
 
 jobs:
   crear-carpeta-aplicacion:
@@ -21,7 +23,7 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install pyyaml
+          pip install pyyaml requests
 
       - name: Instalar pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
@@ -30,6 +32,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
 
       - name: Procesar archivo de nueva aplicación
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for file in to_process/*.yaml; do
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"

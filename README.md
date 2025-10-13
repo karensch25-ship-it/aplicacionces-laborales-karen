@@ -43,6 +43,8 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 ### 📁 Documentación Completa
 
+- **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ **NUEVO** - Inicio rápido para la automatización (5 minutos)
+- **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ **NUEVO** - Guía completa de automatización de issues y proyectos
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras
 - **[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md):** Guía técnica de implementación, uso y mantenimiento del sistema
@@ -102,6 +104,28 @@ El sistema funciona automáticamente:
    - **Reporte de scoring** en Markdown y PDF
    - Descripción de la vacante
    - Lista de requerimientos
+4. ⭐ **NUEVO:** Se crea automáticamente una issue en GitHub
+5. ⭐ **NUEVO:** La issue se agrega al proyecto "aplicacione-estados"
+
+### 🤖 Automatización de Gestión (NUEVO ✅)
+
+El sistema ahora incluye **automatización completa de gestión de aplicaciones**:
+
+- ✅ **Creación Automática de Issues:** Cada aplicación procesada genera automáticamente una issue con:
+  - Título descriptivo (Cargo + Empresa)
+  - Metadatos completos (fecha, carpeta, archivos generados)
+  - Checklist de próximos pasos
+  - Labels: `aplicacion-procesada`, `Aplicados`
+
+- ✅ **Integración con GitHub Projects:** Las issues se agregan automáticamente al proyecto "aplicacione-estados"
+
+- ✅ **Prevención de Duplicados:** El sistema verifica y evita crear múltiples issues para la misma aplicación
+
+- ✅ **Trazabilidad Completa:** Cada aplicación tiene su issue dedicada para seguimiento
+
+📖 **Documentación:** 
+- **Quick Start:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
+- **Guía completa:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
 
 ### 🛠️ Componentes Técnicos
 
@@ -114,14 +138,21 @@ El sistema funciona automáticamente:
 - **Motor de Scoring:** `aplicaciones_laborales/scripts/scoring_engine.py`
 - **Generador de Reportes:** `aplicaciones_laborales/scripts/scoring_report_generator.py`
 - **Tests:** `aplicaciones_laborales/scripts/test_scoring_engine.py`
+
+**Automatización (Nuevo):**
+- **Creación de Issues:** `aplicaciones_laborales/scripts/create_issue_and_add_to_project.py`
 - **Workflow:** `.github/workflows/crear_aplicacion.yml`
 
 ### 📈 Roadmap Futuro
 
-- **Fase 5:** Análisis semántico avanzado con embeddings (opcional)
-- **Fase 6:** Feedback loop y calibración automática de pesos
-- **Fase 7:** Dashboard de métricas y tracking de aplicaciones
-- **Fase 8:** Integración con APIs externas para benchmarking
+- **Fase 6:** ⭐ **Automatización de Gestión con Issues y Proyectos** (COMPLETADO ✅)
+  - Creación automática de issues para cada aplicación
+  - Integración con GitHub Projects
+  - Trazabilidad completa del flujo
+- **Fase 7:** Análisis semántico avanzado con embeddings (opcional)
+- **Fase 8:** Feedback loop y calibración automática de pesos
+- **Fase 9:** Dashboard de métricas y tracking de aplicaciones
+- **Fase 10:** Integración con APIs externas para benchmarking
 
 ---
 
