@@ -183,6 +183,19 @@ python aplicaciones_laborales/scripts/create_issue_and_add_to_project.py \
 
 ## 📝 Logs y Debugging
 
+### Convención de Nombres de Carpetas
+
+El sistema espera carpetas con el formato: `{Cargo}_{Empresa}_{Fecha}`
+
+**Ejemplos válidos:**
+- `DataAnalyst_CompanyX_2025-10-13`
+- `Senior_Data_Engineer_TechCorp_2025-11-01`
+- `DataAnalyst-ColombiaRemote_Konduit_2025-10-11` (guiones permitidos en Cargo)
+
+**Nota:** La empresa debe ser una sola palabra o usar CamelCase (ej: `TechCorp`, `LaTeam`). Si la empresa tiene múltiples palabras, se debe usar el script `sanitize_filename()` que elimina espacios.
+
+### Logs del Script
+
 El script proporciona logs detallados:
 
 ```
