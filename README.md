@@ -43,11 +43,15 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 ### 📁 Documentación Completa
 
-- **[SETUP_REQUIRED.md](SETUP_REQUIRED.md):** ⚠️ **IMPORTANTE** - Configuración requerida para copia automática de PDFs
-- **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ **NUEVO** - Inicio rápido para la automatización (5 minutos)
-- **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ **NUEVO** - Guía completa de automatización de issues y proyectos
-- **[AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md):** ⭐ **NUEVO** - Setup rápido de copia automática de PDFs (5 minutos)
-- **[AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md):** ⭐ **NUEVO** - Copia automática de CV PDFs al repositorio todos-mis-documentos
+#### 🔧 Configuración Inicial (⚠️ REQUERIDO para copia automática de PDFs)
+- **[CONFIGURACION_INICIAL.md](CONFIGURACION_INICIAL.md):** 🚀 **NUEVO** - Guía paso a paso para configurar el repositorio destino (5 minutos)
+- **[SETUP_REQUIRED.md](SETUP_REQUIRED.md):** ⚠️ **IMPORTANTE** - Instrucciones detalladas de configuración requerida
+
+#### 📚 Automatización y Flujos de Trabajo
+- **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ Inicio rápido para la automatización (5 minutos)
+- **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ Guía completa de automatización de issues y proyectos
+- **[AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md):** ⭐ Setup rápido de copia automática de PDFs (5 minutos)
+- **[AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md):** ⭐ Copia automática de CV PDFs al repositorio todos-mis-documentos
 - **[WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md):** ⭐ **NUEVO** - Diagrama visual del flujo completo de automatización
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras

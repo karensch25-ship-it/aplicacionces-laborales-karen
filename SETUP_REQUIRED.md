@@ -1,5 +1,22 @@
 # ⚙️ Configuración Requerida: Copia Automática de PDFs
 
+> **⚠️ ATENCIÓN:** Este documento contiene instrucciones de configuración inicial.  
+> **🚀 ¿Primera vez?** Lee primero: **[CONFIGURACION_INICIAL.md](CONFIGURACION_INICIAL.md)** - Guía paso a paso simplificada
+
+---
+
+## 📋 Resumen Ejecutivo
+
+Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `todos-mis-documentos`, necesitas:
+
+1. ✅ Crear el repositorio destino `angra8410/todos-mis-documentos`
+2. ✅ Configurar permisos de escritura para GitHub Actions en ese repositorio
+
+**Estado actual:** ❌ El repositorio `todos-mis-documentos` NO existe  
+**Acción requerida:** Seguir los pasos 1 y 2 a continuación
+
+---
+
 ## 🎯 Pasos Obligatorios
 
 Para que la copia automática de PDFs funcione correctamente, el usuario **DEBE** completar los siguientes pasos:
