@@ -42,33 +42,62 @@ jobs:
       - name: Validar configuración de repositorio destino
         id: check_target_repo
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           TARGET_REPO="angra8410/todos-mis-documentos"
           echo "Verificando si el repositorio destino existe..."
+          echo ""
+          
+          # Check which token is being used
+          if [ -n "${{ secrets.PAT_TOKEN }}" ]; then
+            echo "🔑 Usando PAT_TOKEN para acceso cross-repo"
+          else
+            echo "⚠️  Usando GITHUB_TOKEN (puede no funcionar con repos privados)"
+          fi
+          echo ""
 
           # Check if the repository exists using GitHub API
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/repos/$TARGET_REPO")
+          
+          echo "📊 Código de respuesta HTTP: $HTTP_CODE"
+          echo ""
 
           if [ "$HTTP_CODE" = "200" ]; then
-            echo "✅ Repositorio destino encontrado: $TARGET_REPO"
+            echo "✅ Repositorio destino encontrado y accesible: $TARGET_REPO"
             echo "repo_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "⚠️  ADVERTENCIA: Repositorio destino no existe o no es accesible"
+          elif [ "$HTTP_CODE" = "404" ]; then
+            echo "❌ ERROR: Repositorio no encontrado (HTTP 404)"
             echo "   Repositorio: $TARGET_REPO"
-            echo "   HTTP Status: $HTTP_CODE"
             echo ""
-            echo "📋 Para habilitar la copia automática de PDFs:"
-            echo "   1. Crea el repositorio 'todos-mis-documentos' en:"
-            echo "      https://github.com/new"
-            echo "   2. Configura los permisos en Settings → Actions → General"
+            echo "📋 ACCIÓN REQUERIDA:"
+            echo "   1. Verifica que el repositorio existe en:"
+            echo "      https://github.com/$TARGET_REPO"
+            echo "   2. Si es privado, configura PAT_TOKEN en secrets"
             echo "   3. Revisa SETUP_REQUIRED.md para instrucciones completas"
             echo ""
-            echo "   Los PDFs se generarán correctamente en este repositorio,"
-            echo "   pero NO se copiarán al repositorio de documentos hasta"
-            echo "   que completes la configuración."
+            echo "repo_exists=false" >> $GITHUB_OUTPUT
+          elif [ "$HTTP_CODE" = "401" ] || [ "$HTTP_CODE" = "403" ]; then
+            echo "❌ ERROR: Problema de autenticación/permisos (HTTP $HTTP_CODE)"
+            echo "   Repositorio: $TARGET_REPO"
+            echo ""
+            echo "📋 ACCIÓN REQUERIDA:"
+            echo "   El repositorio existe pero no es accesible con el token actual."
+            echo ""
+            echo "   Para repositorios PRIVADOS, debes configurar un PAT:"
+            echo "   1. Crea un Personal Access Token en:"
+            echo "      https://github.com/settings/tokens/new"
+            echo "   2. Permisos requeridos: 'repo' (acceso completo a repos privados)"
+            echo "   3. Agrega el token como secret 'PAT_TOKEN' en:"
+            echo "      https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions"
+            echo "   4. Revisa SETUP_REQUIRED.md sección 'Configurar PAT' para detalles"
+            echo ""
+            echo "repo_exists=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  ADVERTENCIA: Error inesperado (HTTP $HTTP_CODE)"
+            echo "   Repositorio: $TARGET_REPO"
             echo ""
             echo "repo_exists=false" >> $GITHUB_OUTPUT
           fi
@@ -76,19 +105,26 @@ jobs:
       - name: Copiar CV PDF a repositorio todos-mis-documentos
         if: steps.check_target_repo.outputs.repo_exists == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
+          echo "🔄 Iniciando copia de PDFs al repositorio todos-mis-documentos"
+          echo ""
+          
           # Find the most recently created folder in to_process_procesados
           for folder in to_process_procesados/*/; do
             if [ -d "$folder" ]; then
               folder_name=$(basename "$folder")
               # Skip if it's just the YAML file
               if [[ "$folder_name" != *.yaml ]]; then
-                echo "Procesando copia de PDF para: $folder_name"
+                echo "📁 Procesando copia de PDF para: $folder_name"
                 python aplicaciones_laborales/scripts/copy_pdf_to_documents_repo.py "$folder_name" || echo "⚠️  Advertencia: No se pudo copiar PDF para $folder_name"
+                echo ""
               fi
             fi
           done
+          
+          echo "✅ Proceso de copia de PDFs completado"
 
       - name: Commit y push de cambios
         run: |
