@@ -26,7 +26,7 @@ Data Analyst with 5+ years of experience specializing in data migration, ETL pro
 - **Data Visualization & Business Intelligence:** Power BI (advanced, incl. dashboard design and data modeling for HP), Thoughtspot, KPI Development, Dashboard Automation
 - **Data Validation & Quality Control:** Advanced Excel (data validation, automation), Data Cleansing, Performance Metrics
 - **Systems & Tools:** Meditech, SAP, Salesforce, Business Intelligence, Database Optimization
-- **Collaboration & Project Management:** Stakeholder Communication, Cross-functional Teamwork, Process Automation, User Training & Onboarding
+- **Collaboration & Project Management: Stakeholder Communication, Cross-functional Teamwork, Process Automation, User Training & Onboarding, Documentation (English & Spanish)-
 - **Communication:** Professional working proficiency in English and Spanish; effective written and verbal skills
 
 \vspace{6pt}
@@ -49,7 +49,8 @@ _Jan 2022 - Nov 2023_
 - **Designed and implemented complex data models in Power BI**, integrating multiple sources (SAP, Salesforce, Excel) and optimizing data refresh cycles
 - Automated ETL processes and reporting, reducing manual processing time by 87% and increasing accuracy by 95%
 - Managed Thoughtspot data for 8+ countries with 100% reporting accuracy
-- Led user training sessions for Power BI dashboards, improving adoption and data-driven decision-making across teams
+- Led the preparation and delivery of recurring performance dashboards and business reports for management and cross-functional teams
+- Provided ad hoc analysis to support regional data-driven decision-making
 
 **Brokerage Associate**  
 *UPS — Medellín, Colombia*  
