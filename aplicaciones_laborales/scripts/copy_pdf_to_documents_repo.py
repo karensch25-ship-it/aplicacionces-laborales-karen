@@ -103,12 +103,34 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
     try:
         # Clone the target repository
         print(f"📥 Clonando repositorio {target_repo}...")
-        run_command([
-            "git", "clone", 
-            "--depth=1",  # Shallow clone for efficiency
-            target_repo_url, 
-            temp_dir
-        ])
+        try:
+            run_command([
+                "git", "clone", 
+                "--depth=1",  # Shallow clone for efficiency
+                target_repo_url, 
+                temp_dir
+            ])
+        except subprocess.CalledProcessError as e:
+            # Check if it's a "repository not found" error
+            print("\n" + "="*60)
+            print("❌ ERROR: No se pudo clonar el repositorio destino")
+            print("="*60)
+            print(f"\nRepositorio: {target_repo}")
+            print(f"Error: El repositorio no existe o no es accesible")
+            print("\n📋 ACCIÓN REQUERIDA:")
+            print("   1. Crea el repositorio 'todos-mis-documentos' en GitHub")
+            print(f"      URL: https://github.com/new")
+            print(f"      Nombre: todos-mis-documentos")
+            print("      Visibilidad: Público o Privado (tu elección)")
+            print("\n   2. Configura los permisos de GitHub Actions:")
+            print(f"      - Ve a: https://github.com/{target_repo}/settings/actions")
+            print("      - En 'Workflow permissions', selecciona:")
+            print("        ☑️  'Read and write permissions'")
+            print("      - Guarda los cambios")
+            print("\n   3. Una vez creado el repositorio, ejecuta de nuevo el workflow")
+            print("\n📖 Documentación completa: Ver SETUP_REQUIRED.md en este repositorio")
+            print("="*60 + "\n")
+            raise
         
         # Create date-based folder structure
         date_folder = os.path.join(temp_dir, application_date)

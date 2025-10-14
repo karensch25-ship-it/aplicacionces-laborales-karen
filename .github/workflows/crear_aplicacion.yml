@@ -39,7 +39,42 @@ jobs:
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
+      - name: Validar configuración de repositorio destino
+        id: check_target_repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TARGET_REPO="angra8410/todos-mis-documentos"
+          echo "Verificando si el repositorio destino existe..."
+
+          # Check if the repository exists using GitHub API
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$TARGET_REPO")
+
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Repositorio destino encontrado: $TARGET_REPO"
+            echo "repo_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  ADVERTENCIA: Repositorio destino no existe o no es accesible"
+            echo "   Repositorio: $TARGET_REPO"
+            echo "   HTTP Status: $HTTP_CODE"
+            echo ""
+            echo "📋 Para habilitar la copia automática de PDFs:"
+            echo "   1. Crea el repositorio 'todos-mis-documentos' en:"
+            echo "      https://github.com/new"
+            echo "   2. Configura los permisos en Settings → Actions → General"
+            echo "   3. Revisa SETUP_REQUIRED.md para instrucciones completas"
+            echo ""
+            echo "   Los PDFs se generarán correctamente en este repositorio,"
+            echo "   pero NO se copiarán al repositorio de documentos hasta"
+            echo "   que completes la configuración."
+            echo ""
+            echo "repo_exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Copiar CV PDF a repositorio todos-mis-documentos
+        if: steps.check_target_repo.outputs.repo_exists == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
