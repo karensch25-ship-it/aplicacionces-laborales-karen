@@ -9,17 +9,23 @@
 
 Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `todos-mis-documentos`, necesitas:
 
-1. ✅ Crear el repositorio destino `angra8410/todos-mis-documentos`
-2. ✅ Configurar permisos de escritura para GitHub Actions en ese repositorio
+1. ✅ Crear el repositorio destino `angra8410/todos-mis-documentos` (si no existe)
+2. ✅ Configurar un Personal Access Token (PAT) para acceso cross-repo a repos privados
+3. ✅ Configurar permisos de escritura para GitHub Actions en el repositorio destino
 
-**Estado actual:** ❌ El repositorio `todos-mis-documentos` NO existe  
-**Acción requerida:** Seguir los pasos 1 y 2 a continuación
+**Estado actual según evidencia:** 
+- ✅ El repositorio `todos-mis-documentos` EXISTE y es PRIVADO
+- ❌ El workflow usa `GITHUB_TOKEN` que NO puede acceder a repos privados
+- ❌ Se necesita configurar `PAT_TOKEN` para autenticación cross-repo
+
+**Acción requerida:** Configurar PAT (Paso 2 a continuación)
 
 ---
 
 ## 🎯 Pasos Obligatorios
 
-Para que la copia automática de PDFs funcione correctamente, el usuario **DEBE** completar los siguientes pasos:
+### ⚠️ IMPORTANTE: Repositorios Privados
+Si `todos-mis-documentos` es **PRIVADO** (como en este caso), el `GITHUB_TOKEN` por defecto **NO funcionará** para operaciones cross-repo. Debes usar un Personal Access Token (PAT).
 
 ---
 
@@ -65,7 +71,99 @@ git push -u origin main
 
 ---
 
-## 2. 🔐 Configurar Permisos de GitHub Actions
+## 2. 🔑 Configurar Personal Access Token (PAT) - CRÍTICO para Repos Privados
+
+### ¿Por qué necesito un PAT?
+
+El `GITHUB_TOKEN` por defecto que GitHub Actions proporciona **solo puede acceder al repositorio actual**. Para operaciones cross-repo con repositorios privados, necesitas un Personal Access Token con permisos `repo`.
+
+### Paso 2.1: Crear Personal Access Token
+
+1. **Ve a GitHub Settings:**
+   - URL directa: [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
+   - O: Tu perfil → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token
+
+2. **Configura el token:**
+   ```
+   Token name: CI/CD PDF Copy to todos-mis-documentos
+   Expiration: 90 días (o "No expiration" si prefieres)
+   
+   Scopes (permisos):
+   ☑️  repo (Full control of private repositories)
+       ├─ ☑️  repo:status
+       ├─ ☑️  repo_deployment
+       ├─ ☑️  public_repo
+       └─ ☑️  repo:invite
+   ```
+
+3. **Generar y copiar token:**
+   - Click en **"Generate token"** al final de la página
+   - ⚠️ **IMPORTANTE:** Copia el token inmediatamente (solo se muestra una vez)
+   - Formato: `ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+
+### Paso 2.2: Configurar Secret en aplicaciones_laborales
+
+1. **Ve al repositorio aplicaciones_laborales:**
+   - URL directa: [https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions](https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions)
+   - O: Settings → Secrets and variables → Actions
+
+2. **Crear nuevo secret:**
+   - Click en **"New repository secret"**
+   - **Name:** `PAT_TOKEN` (exactamente este nombre)
+   - **Secret:** Pega el token que copiaste en Paso 2.1
+   - Click **"Add secret"**
+
+3. **Verificar:**
+   - Deberías ver `PAT_TOKEN` en la lista de secrets
+   - El valor estará oculto (••••••)
+
+### 📊 Diagrama Visual del Flujo de Autenticación
+
+```
+┌─────────────────────────────────────┐
+│ aplicaciones_laborales (público)    │
+│                                     │
+│  GitHub Actions Workflow            │
+│  ├─ usa: PAT_TOKEN (secret)        │
+│  └─ autenticación cross-repo ✅    │
+└────────────┬────────────────────────┘
+             │
+             │ PAT con permisos 'repo'
+             │ permite acceso privado
+             ▼
+┌─────────────────────────────────────┐
+│ todos-mis-documentos (PRIVADO)     │
+│                                     │
+│  ✅ Clone permitido                 │
+│  ✅ Push permitido                  │
+│  ✅ Operaciones exitosas            │
+└─────────────────────────────────────┘
+
+VS
+
+┌─────────────────────────────────────┐
+│ aplicaciones_laborales (público)    │
+│                                     │
+│  GitHub Actions Workflow            │
+│  ├─ usa: GITHUB_TOKEN (default)    │
+│  └─ NO puede acceder otros repos ❌│
+└────────────┬────────────────────────┘
+             │
+             │ GITHUB_TOKEN solo para
+             │ repo actual
+             ▼
+┌─────────────────────────────────────┐
+│ todos-mis-documentos (PRIVADO)     │
+│                                     │
+│  ❌ Clone DENEGADO                  │
+│  ❌ HTTP 404/403                    │
+│  ❌ "Repository not found"          │
+└─────────────────────────────────────┘
+```
+
+---
+
+## 3. 🔐 Configurar Permisos en todos-mis-documentos
 
 **IMPORTANTE:** Esto debe hacerse en el repositorio **`todos-mis-documentos`** (no en `aplicaciones_laborales`).
 
@@ -94,7 +192,7 @@ Settings > Actions > General > Workflow permissions
 
 ---
 
-## 3. ✅ Verificar la Configuración
+## 4. ✅ Verificar la Configuración
 
 ### Test Rápido
 
@@ -136,6 +234,25 @@ Después de ~2-3 minutos:
 
 ## ❌ Errores Comunes y Soluciones
 
+### Error: "Repository not found" (HTTP 404) con repo privado
+
+**Causa:** El repositorio es privado y estás usando `GITHUB_TOKEN` en lugar de `PAT_TOKEN`.
+
+**Solución:**
+1. Verifica que el repositorio existe: https://github.com/angra8410/todos-mis-documentos
+2. Si es privado, configura `PAT_TOKEN` siguiendo el Paso 2 de este documento
+3. Re-ejecuta el workflow
+
+### Error: "Permission denied" o HTTP 403
+
+**Causa:** El PAT no tiene los permisos correctos o no está configurado.
+
+**Solución:**
+1. Verifica que el PAT tiene scope `repo` marcado
+2. Verifica que el secret se llama exactamente `PAT_TOKEN` (respeta mayúsculas)
+3. Regenera el PAT si es necesario (pueden haber expirado)
+4. Configura nuevamente el secret con el nuevo token
+
 ### Error: "remote: Permission to angra8410/todos-mis-documentos.git denied"
 
 **Causa:** Los permisos de GitHub Actions no están configurados correctamente.
@@ -169,14 +286,26 @@ Después de ~2-3 minutos:
 ## 🔒 Consideraciones de Seguridad
 
 ### ✅ Seguro
-- Usar `GITHUB_TOKEN` (automático, no requiere secrets adicionales)
+- Usar `PAT_TOKEN` almacenado en GitHub Secrets (encriptado y seguro)
 - Repositorio `todos-mis-documentos` puede ser privado
 - Los commits se hacen como `github-actions[bot]`
+- El PAT solo se usa en el workflow, nunca se expone en logs
 
 ### ⚠️ Ten en Cuenta
+- **NUNCA** compartas tu PAT o lo incluyas en código
+- El PAT da acceso completo a todos tus repositorios privados con scope `repo`
+- Configura expiración del PAT (90 días recomendado) para seguridad
+- Regenera el PAT si crees que fue comprometido
 - Si `todos-mis-documentos` es público, los CVs serán visibles públicamente
 - **Recomendación:** Hacer el repo privado si contiene información sensible
-- El `GITHUB_TOKEN` solo tiene acceso a repos del mismo usuario/org
+
+### 🔄 Renovación de PAT
+
+Los PAT pueden expirar. Cuando esto ocurra:
+
+1. Genera un nuevo PAT (mismo proceso del Paso 2.1)
+2. Actualiza el secret `PAT_TOKEN` con el nuevo valor
+3. No necesitas cambiar nada más en el workflow
 
 ---
 
@@ -185,8 +314,11 @@ Después de ~2-3 minutos:
 Antes de usar la funcionalidad, verifica:
 
 - [ ] ✅ Repositorio `todos-mis-documentos` creado
-- [ ] ✅ Permisos de GitHub Actions configurados (Read and write)
+- [ ] ✅ Personal Access Token (PAT) creado con scope `repo`
+- [ ] ✅ Secret `PAT_TOKEN` configurado en aplicaciones_laborales
+- [ ] ✅ Permisos de GitHub Actions configurados en todos-mis-documentos (Read and write)
 - [ ] ✅ Test de aplicación ejecutado
+- [ ] ✅ Logs del workflow muestran "🔑 Usando PAT_TOKEN para acceso cross-repo"
 - [ ] ✅ PDF aparece en `todos-mis-documentos`
 - [ ] ✅ Commit visible con formato correcto
 - [ ] ✅ No hay errores en el workflow

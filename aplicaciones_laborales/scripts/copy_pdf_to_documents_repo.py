@@ -78,11 +78,12 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         empresa: Company name (for commit message)
         cargo: Job title (for commit message)
     """
-    # Get GitHub token
+    # Get GitHub token (prefer PAT_TOKEN for cross-repo access)
     github_token = os.environ.get('GITHUB_TOKEN')
     if not github_token:
         print("❌ Error: GITHUB_TOKEN not available")
-        print("   This script requires GITHUB_TOKEN to push to todos-mis-documentos")
+        print("   This script requires GITHUB_TOKEN (or PAT_TOKEN) to push to todos-mis-documentos")
+        print("   For private repos, configure PAT_TOKEN secret with 'repo' permissions")
         return False
     
     # Configuration
@@ -99,10 +100,16 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
     print("\n" + "="*60)
     print("📂 Copiando PDF al repositorio todos-mis-documentos")
     print("="*60)
+    print(f"📍 Repositorio destino: {target_repo}")
+    print(f"📅 Fecha de aplicación: {application_date}")
+    print(f"🏢 Empresa: {empresa}")
+    print(f"💼 Cargo: {cargo}")
+    print("="*60)
     
     try:
         # Clone the target repository
-        print(f"📥 Clonando repositorio {target_repo}...")
+        print(f"\n📥 Clonando repositorio {target_repo}...")
+        print(f"🔍 Intentando clonar con credenciales proporcionadas...")
         try:
             run_command([
                 "git", "clone", 
@@ -110,24 +117,44 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
                 target_repo_url, 
                 temp_dir
             ])
+            print(f"✅ Repositorio clonado exitosamente")
         except subprocess.CalledProcessError as e:
             # Check if it's a "repository not found" error
             print("\n" + "="*60)
             print("❌ ERROR: No se pudo clonar el repositorio destino")
             print("="*60)
             print(f"\nRepositorio: {target_repo}")
-            print(f"Error: El repositorio no existe o no es accesible")
-            print("\n📋 ACCIÓN REQUERIDA:")
-            print("   1. Crea el repositorio 'todos-mis-documentos' en GitHub")
-            print(f"      URL: https://github.com/new")
-            print(f"      Nombre: todos-mis-documentos")
-            print("      Visibilidad: Público o Privado (tu elección)")
-            print("\n   2. Configura los permisos de GitHub Actions:")
-            print(f"      - Ve a: https://github.com/{target_repo}/settings/actions")
-            print("      - En 'Workflow permissions', selecciona:")
-            print("        ☑️  'Read and write permissions'")
-            print("      - Guarda los cambios")
-            print("\n   3. Una vez creado el repositorio, ejecuta de nuevo el workflow")
+            print(f"Error: El repositorio no existe o no es accesible con el token proporcionado")
+            print("\n🔍 DIAGNÓSTICO:")
+            print("   Este error ocurre cuando:")
+            print("   1. El repositorio no existe (poco probable según evidencia)")
+            print("   2. El repositorio es PRIVADO y el token no tiene permisos")
+            print("   3. El token usado es GITHUB_TOKEN en lugar de PAT_TOKEN")
+            print("\n📋 SOLUCIÓN PARA REPOSITORIOS PRIVADOS:")
+            print("   El GITHUB_TOKEN por defecto NO puede acceder a otros repos privados.")
+            print("   Debes configurar un Personal Access Token (PAT):")
+            print("")
+            print("   Paso 1: Crear PAT")
+            print("   ├─ Ve a: https://github.com/settings/tokens/new")
+            print("   ├─ Token name: 'CI/CD PDF Copy'")
+            print("   ├─ Expiration: 90 días (o sin expiración si prefieres)")
+            print("   ├─ Scopes: Marca ☑️  'repo' (Full control of private repositories)")
+            print("   └─ Click 'Generate token' y COPIA el token (solo se muestra una vez)")
+            print("")
+            print("   Paso 2: Configurar Secret en GitHub")
+            print(f"   ├─ Ve a: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions")
+            print("   ├─ Click 'New repository secret'")
+            print("   ├─ Name: PAT_TOKEN")
+            print("   ├─ Secret: Pega el token que copiaste en Paso 1")
+            print("   └─ Click 'Add secret'")
+            print("")
+            print("   Paso 3: Verificar permisos en todos-mis-documentos")
+            print(f"   ├─ Ve a: https://github.com/{target_repo}/settings/actions")
+            print("   ├─ En 'Workflow permissions', selecciona:")
+            print("   └─ ☑️  'Read and write permissions'")
+            print("")
+            print("   Paso 4: Re-ejecutar el workflow")
+            print("   └─ El workflow automáticamente usará PAT_TOKEN si está configurado")
             print("\n📖 Documentación completa: Ver SETUP_REQUIRED.md en este repositorio")
             print("="*60 + "\n")
             raise
