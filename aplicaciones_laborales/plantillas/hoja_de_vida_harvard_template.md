@@ -16,8 +16,7 @@ LinkedIn: antoniogutierrez-datos
 
 ## Professional Summary
 
-Data Analyst with 5+ years of experience specializing in **data migration, ETL processes, Power BI, and data quality management** within healthcare and enterprise environments. Demonstrated expertise in **designing, modeling, and visualizing data** to drive business insights for multinational companies such as HP. Proven track record in preparing, extracting, transforming, and validating large datasets to support business operations and regulatory requirements. Effective communicator and collaborator, skilled in stakeholder engagement and cross-functional teamwork to deliver timely, high-quality data solutions.  
-**Continuously learning and adapting to new tools and challenges, with hands-on experience in both technical and business domains.**
+Data Analyst with 5+ years of experience specializing in data migration, ETL processes, Power BI, and data quality management within healthcare and enterprise environments. Experienced in analyzing financial and operational data to identify trends and support business insights for multinational companies such as HP. Demonstrated analytical and problem-solving skills applied to improving business processes, reporting, and decision-making.**
 
 \vspace{6pt}
 
