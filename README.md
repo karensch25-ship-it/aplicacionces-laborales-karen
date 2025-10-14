@@ -43,8 +43,12 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 ### 📁 Documentación Completa
 
+- **[SETUP_REQUIRED.md](SETUP_REQUIRED.md):** ⚠️ **IMPORTANTE** - Configuración requerida para copia automática de PDFs
 - **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ **NUEVO** - Inicio rápido para la automatización (5 minutos)
 - **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ **NUEVO** - Guía completa de automatización de issues y proyectos
+- **[AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md):** ⭐ **NUEVO** - Setup rápido de copia automática de PDFs (5 minutos)
+- **[AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md):** ⭐ **NUEVO** - Copia automática de CV PDFs al repositorio todos-mis-documentos
+- **[WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md):** ⭐ **NUEVO** - Diagrama visual del flujo completo de automatización
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras
 - **[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md):** Guía técnica de implementación, uso y mantenimiento del sistema
@@ -106,6 +110,7 @@ El sistema funciona automáticamente:
    - Lista de requerimientos
 4. ⭐ **NUEVO:** Se crea automáticamente una issue en GitHub
 5. ⭐ **NUEVO:** La issue se agrega al proyecto "aplicacione-estados"
+6. ⭐ **NUEVO:** El CV PDF se copia automáticamente al repositorio `todos-mis-documentos` organizado por fecha
 
 ### 🤖 Automatización de Gestión (NUEVO ✅)
 
@@ -123,9 +128,18 @@ El sistema ahora incluye **automatización completa de gestión de aplicaciones*
 
 - ✅ **Trazabilidad Completa:** Cada aplicación tiene su issue dedicada para seguimiento
 
+- ✅ **Copia Automática a todos-mis-documentos:** El CV PDF se copia automáticamente al repositorio `todos-mis-documentos`:
+  - Organización por fecha (carpetas YYYY-MM-DD)
+  - Commits descriptivos con trazabilidad
+  - Agrupación de todas las aplicaciones del mismo día
+  - Versionado documental completo
+  - ⚠️ **Requiere configuración inicial:** Ver [SETUP_REQUIRED.md](SETUP_REQUIRED.md)
+
 📖 **Documentación:** 
-- **Quick Start:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
-- **Guía completa:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
+- **Quick Start Issues:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
+- **Quick Start PDFs:** [AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md) ⭐ Setup en 5 minutos
+- **Guía completa Issues:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
+- **Guía completa PDFs:** [AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md) ⭐ Nueva funcionalidad
 
 ### 🛠️ Componentes Técnicos
 
@@ -141,6 +155,7 @@ El sistema ahora incluye **automatización completa de gestión de aplicaciones*
 
 **Automatización (Nuevo):**
 - **Creación de Issues:** `aplicaciones_laborales/scripts/create_issue_and_add_to_project.py`
+- **Copia de PDFs:** `aplicaciones_laborales/scripts/copy_pdf_to_documents_repo.py`
 - **Workflow:** `.github/workflows/crear_aplicacion.yml`
 
 ### 📈 Roadmap Futuro
@@ -149,10 +164,14 @@ El sistema ahora incluye **automatización completa de gestión de aplicaciones*
   - Creación automática de issues para cada aplicación
   - Integración con GitHub Projects
   - Trazabilidad completa del flujo
-- **Fase 7:** Análisis semántico avanzado con embeddings (opcional)
-- **Fase 8:** Feedback loop y calibración automática de pesos
-- **Fase 9:** Dashboard de métricas y tracking de aplicaciones
-- **Fase 10:** Integración con APIs externas para benchmarking
+- **Fase 7:** ⭐ **Copia Automática de CV PDFs a todos-mis-documentos** (COMPLETADO ✅)
+  - Organización por fecha (YYYY-MM-DD)
+  - Commits descriptivos y auditables
+  - Integración en el flujo CI/CD
+- **Fase 8:** Análisis semántico avanzado con embeddings (opcional)
+- **Fase 9:** Feedback loop y calibración automática de pesos
+- **Fase 10:** Dashboard de métricas y tracking de aplicaciones
+- **Fase 11:** Integración con APIs externas para benchmarking
 
 ---
 

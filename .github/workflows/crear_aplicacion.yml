@@ -39,6 +39,22 @@ jobs:
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
+      - name: Copiar CV PDF a repositorio todos-mis-documentos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Find the most recently created folder in to_process_procesados
+          for folder in to_process_procesados/*/; do
+            if [ -d "$folder" ]; then
+              folder_name=$(basename "$folder")
+              # Skip if it's just the YAML file
+              if [[ "$folder_name" != *.yaml ]]; then
+                echo "Procesando copia de PDF para: $folder_name"
+                python aplicaciones_laborales/scripts/copy_pdf_to_documents_repo.py "$folder_name" || echo "⚠️  Advertencia: No se pudo copiar PDF para $folder_name"
+              fi
+            fi
+          done
+
       - name: Commit y push de cambios
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
