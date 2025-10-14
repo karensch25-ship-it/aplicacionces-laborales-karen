@@ -45,6 +45,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 - **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ **NUEVO** - Inicio rápido para la automatización (5 minutos)
 - **[AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md):** ⭐ **NUEVO** - Guía completa de automatización de issues y proyectos
+- **[AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md):** ⭐ **NUEVO** - Setup rápido de copia automática de PDFs (5 minutos)
 - **[AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md):** ⭐ **NUEVO** - Copia automática de CV PDFs al repositorio todos-mis-documentos
 - **[DIAGNOSTIC_REPORT.md](DIAGNOSTIC_REPORT.md):** Diagnóstico completo del sistema de generación de CVs, identificación de limitaciones y propuestas de mejora
 - **[BEFORE_AFTER_COMPARISON.md](BEFORE_AFTER_COMPARISON.md):** Ejemplos comparativos mostrando el antes y después de las mejoras
@@ -132,9 +133,10 @@ El sistema ahora incluye **automatización completa de gestión de aplicaciones*
   - Versionado documental completo
 
 📖 **Documentación:** 
-- **Quick Start:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
-- **Guía completa:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
-- **Copia de PDFs:** [AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md) ⭐ Nueva funcionalidad
+- **Quick Start Issues:** [AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md) ⭐ Comienza aquí
+- **Quick Start PDFs:** [AUTOMATION_PDF_COPY_QUICKSTART.md](AUTOMATION_PDF_COPY_QUICKSTART.md) ⭐ Setup en 5 minutos
+- **Guía completa Issues:** [AUTOMATION_GUIDE.md](AUTOMATION_GUIDE.md)
+- **Guía completa PDFs:** [AUTOMATION_PDF_COPY_GUIDE.md](AUTOMATION_PDF_COPY_GUIDE.md) ⭐ Nueva funcionalidad
 
 ### 🛠️ Componentes Técnicos
 
