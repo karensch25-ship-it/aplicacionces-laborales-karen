@@ -4,7 +4,7 @@
 **Position:** Data Quality Analyst
 **Company:** Allied Global Technology Services
 **Date:** 2025-10-15
-**Report Generated:** 2025-10-14 19:09
+**Report Generated:** 2025-10-14 19:45
 
 ---
 
@@ -29,14 +29,14 @@ Apply with confidence. Emphasize your key strengths.
 **Analysis:** 4/6 technical skills matched
 
 ✅ **Matched Skills:**
-- excel
-- sql
 - data quality
+- excel
 - python
+- sql
 
 ⚠️ **Missing Skills:**
-- analytics
 - bi
+- analytics
 
 ---
 
@@ -76,9 +76,9 @@ Apply with confidence. Emphasize your key strengths.
 **Analysis:** 3/4 soft skills demonstrated
 
 ✅ **Demonstrated Soft Skills:**
-- Communication
-- Stakeholder
 - Collaboration
+- Stakeholder
+- Communication
 
 ---
 
@@ -114,15 +114,15 @@ Apply with confidence. Emphasize your key strengths.
 
 ## Gaps & Mitigation Strategies
 
-### 🟡 Gap: Analytics
-**Area:** Technical Skills | **Impact:** Medium
-
-**Mitigation Strategy:** Highlight transferable skills and willingness to learn analytics.
-
 ### 🟡 Gap: Bi
 **Area:** Technical Skills | **Impact:** Medium
 
 **Mitigation Strategy:** Highlight transferable skills and willingness to learn bi.
+
+### 🟡 Gap: Analytics
+**Area:** Technical Skills | **Impact:** Medium
+
+**Mitigation Strategy:** Highlight transferable skills and willingness to learn analytics.
 
 ---
 
@@ -130,7 +130,7 @@ Apply with confidence. Emphasize your key strengths.
 
 ### 1. 🔴 [High Priority] Review missing technical skills before applying
 
-Focus on: analytics, bi
+Focus on: bi, analytics
 
 ### 2. 🟡 [Medium Priority] Strengthen your achievement examples
 
@@ -138,7 +138,7 @@ Add more quantifiable metrics to your experience
 
 ### 3. 🔴 [High Priority] Prepare specific examples
 
-Ready 2-3 stories highlighting: excel, sql, data quality
+Ready 2-3 stories highlighting: data quality, excel, python
 
 ---
 
@@ -189,4 +189,4 @@ This report was generated automatically by the **Advanced CV Personalization & S
 **Confidence Level:** This scoring is based on keyword matching and achievement mapping. 
 Individual job requirements may vary, and human judgment should be used to complement this analysis.
 
-*Generated on 2025-10-14 at 19:09:00*
+*Generated on 2025-10-14 at 19:45:39*
