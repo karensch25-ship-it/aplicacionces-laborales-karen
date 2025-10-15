@@ -45,7 +45,7 @@ jobs:
           # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          TARGET_REPO="angra8410/todos-mis-documentos"
+          TARGET_REPO="angra8410/todas-mis-aplicaciones"
           echo "Verificando si el repositorio destino existe..."
           echo ""
           
@@ -102,13 +102,13 @@ jobs:
             echo "repo_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Copiar CV PDF a repositorio todos-mis-documentos
+      - name: Copiar CV PDF a repositorio todas-mis-aplicaciones
         if: steps.check_target_repo.outputs.repo_exists == 'true'
         env:
           # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔄 Iniciando copia de PDFs al repositorio todos-mis-documentos"
+          echo "🔄 Iniciando copia de PDFs al repositorio todas-mis-aplicaciones"
           echo ""
           
           # Find the most recently created folder in to_process_procesados

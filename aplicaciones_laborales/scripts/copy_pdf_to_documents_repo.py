@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Script to copy generated CV PDFs to the todos-mis-documentos repository.
-Organizes PDFs by application date in YYYY-MM-DD folders.
+Script to copy generated CV PDFs to the todas-mis-aplicaciones repository.
+Organizes PDFs by application date in /aplicaciones/YYYY-MM-DD folders.
 
 This script is designed to be called from GitHub Actions after PDF generation.
 It clones the target repository, creates date-based folder structure,
@@ -70,7 +70,7 @@ def extract_date_from_folder_name(folder_name):
 
 def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
     """
-    Copy PDF to todos-mis-documentos repository organized by date.
+    Copy PDF to todas-mis-aplicaciones repository organized by date.
     
     Args:
         pdf_path: Path to the generated PDF file
@@ -82,23 +82,23 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
     github_token = os.environ.get('GITHUB_TOKEN')
     if not github_token:
         print("❌ Error: GITHUB_TOKEN not available")
-        print("   This script requires GITHUB_TOKEN (or PAT_TOKEN) to push to todos-mis-documentos")
+        print("   This script requires GITHUB_TOKEN (or PAT_TOKEN) to push to todas-mis-aplicaciones")
         print("   For private repos, configure PAT_TOKEN secret with 'repo' permissions")
         return False
     
     # Configuration
-    target_repo = "angra8410/todos-mis-documentos"
+    target_repo = "angra8410/todas-mis-aplicaciones"
     target_repo_url = f"https://x-access-token:{github_token}@github.com/{target_repo}.git"
     
     # Create temporary directory for cloning
-    temp_dir = "/tmp/todos-mis-documentos-clone"
+    temp_dir = "/tmp/todas-mis-aplicaciones-clone"
     
     # Clean up if directory exists
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
     
     print("\n" + "="*60)
-    print("📂 Copiando PDF al repositorio todos-mis-documentos")
+    print("📂 Copiando PDF al repositorio todas-mis-aplicaciones")
     print("="*60)
     print(f"📍 Repositorio destino: {target_repo}")
     print(f"📅 Fecha de aplicación: {application_date}")
@@ -148,7 +148,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
             print("   ├─ Secret: Pega el token que copiaste en Paso 1")
             print("   └─ Click 'Add secret'")
             print("")
-            print("   Paso 3: Verificar permisos en todos-mis-documentos")
+            print("   Paso 3: Verificar permisos en todas-mis-aplicaciones")
             print(f"   ├─ Ve a: https://github.com/{target_repo}/settings/actions")
             print("   ├─ En 'Workflow permissions', selecciona:")
             print("   └─ ☑️  'Read and write permissions'")
@@ -159,10 +159,15 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
             print("="*60 + "\n")
             raise
         
-        # Create date-based folder structure
-        date_folder = os.path.join(temp_dir, application_date)
+        # Create aplicaciones folder if it doesn't exist
+        aplicaciones_folder = os.path.join(temp_dir, "aplicaciones")
+        os.makedirs(aplicaciones_folder, exist_ok=True)
+        print(f"📁 Carpeta base creada/verificada: aplicaciones/")
+        
+        # Create date-based folder structure inside aplicaciones/
+        date_folder = os.path.join(aplicaciones_folder, application_date)
         os.makedirs(date_folder, exist_ok=True)
-        print(f"📁 Carpeta creada/verificada: {application_date}/")
+        print(f"📁 Carpeta por fecha creada/verificada: aplicaciones/{application_date}/")
         
         # Copy PDF to the date folder
         pdf_filename = os.path.basename(pdf_path)
@@ -170,11 +175,11 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         
         # Check if file already exists
         if os.path.exists(dest_pdf_path):
-            print(f"⚠️  El archivo {pdf_filename} ya existe en {application_date}/")
+            print(f"⚠️  El archivo {pdf_filename} ya existe en aplicaciones/{application_date}/")
             print(f"   Sobrescribiendo con la nueva versión...")
         
         shutil.copy2(pdf_path, dest_pdf_path)
-        print(f"✅ PDF copiado: {application_date}/{pdf_filename}")
+        print(f"✅ PDF copiado: aplicaciones/{application_date}/{pdf_filename}")
         
         # Configure git in the cloned repo
         run_command([
@@ -211,14 +216,14 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         # Push to remote
         print("🚀 Enviando cambios al repositorio remoto...")
         run_command(["git", "push"], cwd=temp_dir)
-        print("✅ PDF copiado exitosamente al repositorio todos-mis-documentos")
+        print("✅ PDF copiado exitosamente al repositorio todas-mis-aplicaciones")
         
         # Print summary
         print("\n" + "="*60)
         print("📊 Resumen de la operación:")
         print("="*60)
         print(f"   Repositorio destino: {target_repo}")
-        print(f"   Carpeta: {application_date}/")
+        print(f"   Carpeta: aplicaciones/{application_date}/")
         print(f"   Archivo: {pdf_filename}")
         print(f"   Empresa: {empresa}")
         print(f"   Cargo: {cargo}")
