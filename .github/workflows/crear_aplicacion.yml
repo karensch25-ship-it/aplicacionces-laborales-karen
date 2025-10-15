@@ -42,16 +42,16 @@ jobs:
       - name: Validar configuración de repositorio destino
         id: check_target_repo
         env:
-          # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          # Use PAT_APLICACION_LABORAL for cross-repo access to private repos, fallback to GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
         run: |
           TARGET_REPO="angra8410/todas-mis-aplicaciones"
           echo "Verificando si el repositorio destino existe..."
           echo ""
           
           # Check which token is being used
-          if [ -n "${{ secrets.PAT_TOKEN }}" ]; then
-            echo "🔑 Usando PAT_TOKEN para acceso cross-repo"
+          if [ -n "${{ secrets.PAT_APLICACION_LABORAL }}" ]; then
+            echo "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
           else
             echo "⚠️  Usando GITHUB_TOKEN (puede no funcionar con repos privados)"
           fi
@@ -75,7 +75,7 @@ jobs:
             echo "📋 ACCIÓN REQUERIDA:"
             echo "   1. Verifica que el repositorio existe en:"
             echo "      https://github.com/$TARGET_REPO"
-            echo "   2. Si es privado, configura PAT_TOKEN en secrets"
+            echo "   2. Si es privado, configura PAT_APLICACION_LABORAL en secrets"
             echo "   3. Revisa SETUP_REQUIRED.md para instrucciones completas"
             echo ""
             echo "repo_exists=false" >> $GITHUB_OUTPUT
@@ -90,7 +90,7 @@ jobs:
             echo "   1. Crea un Personal Access Token en:"
             echo "      https://github.com/settings/tokens/new"
             echo "   2. Permisos requeridos: 'repo' (acceso completo a repos privados)"
-            echo "   3. Agrega el token como secret 'PAT_TOKEN' en:"
+            echo "   3. Agrega el token como secret 'PAT_APLICACION_LABORAL' en:"
             echo "      https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions"
             echo "   4. Revisa SETUP_REQUIRED.md sección 'Configurar PAT' para detalles"
             echo ""
@@ -105,8 +105,8 @@ jobs:
       - name: Copiar CV PDF a repositorio todas-mis-aplicaciones
         if: steps.check_target_repo.outputs.repo_exists == 'true'
         env:
-          # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          # Use PAT_APLICACION_LABORAL for cross-repo access to private repos, fallback to GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
         run: |
           echo "🔄 Iniciando copia de PDFs al repositorio todas-mis-aplicaciones"
           echo ""
