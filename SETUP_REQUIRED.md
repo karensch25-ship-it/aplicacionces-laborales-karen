@@ -7,14 +7,14 @@
 
 ## 📋 Resumen Ejecutivo
 
-Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `todos-mis-documentos`, necesitas:
+Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `todas-mis-aplicaciones`, necesitas:
 
-1. ✅ Crear el repositorio destino `angra8410/todos-mis-documentos` (si no existe)
+1. ✅ Crear el repositorio destino `angra8410/todas-mis-aplicaciones` (si no existe)
 2. ✅ Configurar un Personal Access Token (PAT) para acceso cross-repo a repos privados
 3. ✅ Configurar permisos de escritura para GitHub Actions en el repositorio destino
 
 **Estado actual según evidencia:** 
-- ✅ El repositorio `todos-mis-documentos` EXISTE y es PRIVADO
+- ✅ El repositorio `todas-mis-aplicaciones` EXISTE y es PRIVADO
 - ❌ El workflow usa `GITHUB_TOKEN` que NO puede acceder a repos privados
 - ❌ Se necesita configurar `PAT_TOKEN` para autenticación cross-repo
 
@@ -25,17 +25,17 @@ Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `
 ## 🎯 Pasos Obligatorios
 
 ### ⚠️ IMPORTANTE: Repositorios Privados
-Si `todos-mis-documentos` es **PRIVADO** (como en este caso), el `GITHUB_TOKEN` por defecto **NO funcionará** para operaciones cross-repo. Debes usar un Personal Access Token (PAT).
+Si `todas-mis-aplicaciones` es **PRIVADO** (como en este caso), el `GITHUB_TOKEN` por defecto **NO funcionará** para operaciones cross-repo. Debes usar un Personal Access Token (PAT).
 
 ---
 
-## 1. 📦 Crear el Repositorio `todos-mis-documentos`
+## 1. 📦 Crear el Repositorio `todas-mis-aplicaciones`
 
 ### Opción A: Via GitHub Web UI
 
 1. Ve a [https://github.com/new](https://github.com/new)
-2. **Repository name:** `todos-mis-documentos`
-3. **Description:** (opcional) `Repositorio centralizado de todos los CV PDFs generados automáticamente`
+2. **Repository name:** `todas-mis-aplicaciones`
+3. **Description:** (opcional) `Repositorio centralizado de todos los CV PDFs generados automáticamente, organizados por fecha en /aplicaciones/YYYY-MM-DD/`
 4. **Visibility:** Elige **Public** o **Private** según prefieras
 5. **No inicialices** con README, .gitignore o licencia (el repo puede estar vacío)
 6. Click **Create repository**
@@ -47,10 +47,10 @@ Si `todos-mis-documentos` es **PRIVADO** (como en este caso), el `GITHUB_TOKEN` 
 gh auth login  # Si no has autenticado antes
 
 # Crear repositorio público
-gh repo create angra8410/todos-mis-documentos --public
+gh repo create angra8410/todas-mis-aplicaciones --public
 
 # O crear repositorio privado
-gh repo create angra8410/todos-mis-documentos --private
+gh repo create angra8410/todas-mis-aplicaciones --private
 ```
 
 ### Opción C: Via Git Commands
@@ -58,14 +58,15 @@ gh repo create angra8410/todos-mis-documentos --private
 ```bash
 # 1. Crear repositorio en GitHub primero (opción A)
 # 2. Luego inicializar localmente (opcional):
-mkdir todos-mis-documentos
-cd todos-mis-documentos
+mkdir todas-mis-aplicaciones
+cd todas-mis-aplicaciones
 git init
 echo "# CVs Generados Automáticamente" > README.md
-git add README.md
+mkdir -p aplicaciones
+git add README.md aplicaciones
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/angra8410/todos-mis-documentos.git
+git remote add origin https://github.com/angra8410/todas-mis-aplicaciones.git
 git push -u origin main
 ```
 
@@ -85,7 +86,7 @@ El `GITHUB_TOKEN` por defecto que GitHub Actions proporciona **solo puede accede
 
 2. **Configura el token:**
    ```
-   Token name: CI/CD PDF Copy to todos-mis-documentos
+   Token name: CI/CD PDF Copy to todas-mis-aplicaciones
    Expiration: 90 días (o "No expiration" si prefieres)
    
    Scopes (permisos):
@@ -132,7 +133,7 @@ El `GITHUB_TOKEN` por defecto que GitHub Actions proporciona **solo puede accede
              │ permite acceso privado
              ▼
 ┌─────────────────────────────────────┐
-│ todos-mis-documentos (PRIVADO)     │
+│ todas-mis-aplicaciones (PRIVADO)   │
 │                                     │
 │  ✅ Clone permitido                 │
 │  ✅ Push permitido                  │
@@ -153,7 +154,7 @@ VS
              │ repo actual
              ▼
 ┌─────────────────────────────────────┐
-│ todos-mis-documentos (PRIVADO)     │
+│ todas-mis-aplicaciones (PRIVADO)   │
 │                                     │
 │  ❌ Clone DENEGADO                  │
 │  ❌ HTTP 404/403                    │
@@ -163,13 +164,13 @@ VS
 
 ---
 
-## 3. 🔐 Configurar Permisos en todos-mis-documentos
+## 3. 🔐 Configurar Permisos en todas-mis-aplicaciones
 
-**IMPORTANTE:** Esto debe hacerse en el repositorio **`todos-mis-documentos`** (no en `aplicaciones_laborales`).
+**IMPORTANTE:** Esto debe hacerse en el repositorio **`todas-mis-aplicaciones`** (no en `aplicaciones_laborales`).
 
 ### Pasos:
 
-1. Ve al repositorio `todos-mis-documentos` en GitHub
+1. Ve al repositorio `todas-mis-aplicaciones` en GitHub
 2. Click en **Settings** (⚙️)
 3. En el menú lateral, click en **Actions** → **General**
 4. Scroll hasta la sección **"Workflow permissions"**
@@ -222,11 +223,11 @@ Después de ~2-3 minutos:
 1. **En `aplicaciones_laborales`:**
    - Ve a **Actions**
    - Verifica que el workflow se ejecutó correctamente
-   - Busca el paso **"Copiar CV PDF a repositorio todos-mis-documentos"**
+   - Busca el paso **"Copiar CV PDF a repositorio todas-mis-aplicaciones"**
    - Debe mostrar: ✅ Sin errores
 
-2. **En `todos-mis-documentos`:**
-   - Verifica que existe la carpeta `2025-10-14/`
+2. **En `todas-mis-aplicaciones`:**
+   - Verifica que existe la carpeta `aplicaciones/2025-10-14/`
    - Dentro debe estar `ANTONIO_GUTIERREZ_RESUME_TestSetup.pdf`
    - Verifica el commit: `📄 CV generado: TestConfiguration - TestSetup (2025-10-14)`
 
@@ -239,7 +240,7 @@ Después de ~2-3 minutos:
 **Causa:** El repositorio es privado y estás usando `GITHUB_TOKEN` en lugar de `PAT_TOKEN`.
 
 **Solución:**
-1. Verifica que el repositorio existe: https://github.com/angra8410/todos-mis-documentos
+1. Verifica que el repositorio existe: https://github.com/angra8410/todas-mis-aplicaciones
 2. Si es privado, configura `PAT_TOKEN` siguiendo el Paso 2 de este documento
 3. Re-ejecuta el workflow
 
@@ -253,23 +254,23 @@ Después de ~2-3 minutos:
 3. Regenera el PAT si es necesario (pueden haber expirado)
 4. Configura nuevamente el secret con el nuevo token
 
-### Error: "remote: Permission to angra8410/todos-mis-documentos.git denied"
+### Error: "remote: Permission to angra8410/todas-mis-aplicaciones.git denied"
 
 **Causa:** Los permisos de GitHub Actions no están configurados correctamente.
 
 **Solución:**
-1. Ve a `todos-mis-documentos` → Settings → Actions → General
+1. Ve a `todas-mis-aplicaciones` → Settings → Actions → General
 2. Cambia a "Read and write permissions"
 3. Click Save
 4. Reintenta el workflow (re-run en Actions)
 
-### Error: "fatal: repository 'https://github.com/angra8410/todos-mis-documentos.git/' not found"
+### Error: "fatal: repository 'https://github.com/angra8410/todas-mis-aplicaciones.git/' not found"
 
 **Causa:** El repositorio no existe.
 
 **Solución:**
 1. Crea el repositorio siguiendo el paso 1
-2. Asegúrate de que el nombre es exactamente `todos-mis-documentos`
+2. Asegúrate de que el nombre es exactamente `todas-mis-aplicaciones`
 3. Reintenta el workflow
 
 ### Error: "Carpeta no encontrada: to_process_procesados/..."
