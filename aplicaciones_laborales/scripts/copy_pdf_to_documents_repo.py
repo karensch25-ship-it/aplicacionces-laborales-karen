@@ -78,12 +78,12 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         empresa: Company name (for commit message)
         cargo: Job title (for commit message)
     """
-    # Get GitHub token (prefer PAT_TOKEN for cross-repo access)
+    # Get GitHub token (prefer PAT_APLICACION_LABORAL for cross-repo access)
     github_token = os.environ.get('GITHUB_TOKEN')
     if not github_token:
         print("❌ Error: GITHUB_TOKEN not available")
-        print("   This script requires GITHUB_TOKEN (or PAT_TOKEN) to push to todas-mis-aplicaciones")
-        print("   For private repos, configure PAT_TOKEN secret with 'repo' permissions")
+        print("   This script requires GITHUB_TOKEN (or PAT_APLICACION_LABORAL) to push to todas-mis-aplicaciones")
+        print("   For private repos, configure PAT_APLICACION_LABORAL secret with 'repo' permissions")
         return False
     
     # Configuration
@@ -129,7 +129,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
             print("   Este error ocurre cuando:")
             print("   1. El repositorio no existe (poco probable según evidencia)")
             print("   2. El repositorio es PRIVADO y el token no tiene permisos")
-            print("   3. El token usado es GITHUB_TOKEN en lugar de PAT_TOKEN")
+            print("   3. El token usado es GITHUB_TOKEN en lugar de PAT_APLICACION_LABORAL")
             print("\n📋 SOLUCIÓN PARA REPOSITORIOS PRIVADOS:")
             print("   El GITHUB_TOKEN por defecto NO puede acceder a otros repos privados.")
             print("   Debes configurar un Personal Access Token (PAT):")
@@ -144,7 +144,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
             print("   Paso 2: Configurar Secret en GitHub")
             print(f"   ├─ Ve a: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions")
             print("   ├─ Click 'New repository secret'")
-            print("   ├─ Name: PAT_TOKEN")
+            print("   ├─ Name: PAT_APLICACION_LABORAL")
             print("   ├─ Secret: Pega el token que copiaste en Paso 1")
             print("   └─ Click 'Add secret'")
             print("")
@@ -154,7 +154,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
             print("   └─ ☑️  'Read and write permissions'")
             print("")
             print("   Paso 4: Re-ejecutar el workflow")
-            print("   └─ El workflow automáticamente usará PAT_TOKEN si está configurado")
+            print("   └─ El workflow automáticamente usará PAT_APLICACION_LABORAL si está configurado")
             print("\n📖 Documentación completa: Ver SETUP_REQUIRED.md en este repositorio")
             print("="*60 + "\n")
             raise

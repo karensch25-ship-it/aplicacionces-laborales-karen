@@ -24,14 +24,14 @@
 
 ---
 
-### 2️⃣ Configurar Secret PAT_TOKEN
+### 2️⃣ Configurar Secret PAT_APLICACION_LABORAL
 
 **Ir a:** https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions
 
 **Click:** `New repository secret`
 
 **Configurar:**
-- **Name:** `PAT_TOKEN` (exactamente este nombre)
+- **Name:** `PAT_APLICACION_LABORAL` (exactamente este nombre)
 - **Secret:** Pegar el token del paso 1
 
 **Click:** `Add secret`
@@ -56,7 +56,7 @@ El workflow ahora puede copiar PDFs automáticamente.
 **Para probar:**
 1. Crear una nueva aplicación en `aplicaciones_laborales`
 2. Ver logs en Actions
-3. Buscar: `🔑 Usando PAT_TOKEN para acceso cross-repo`
+3. Buscar: `🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo`
 4. Verificar PDF en `todos-mis-documentos`
 
 ---

@@ -46,7 +46,7 @@ Resultado: ❌ FALLA - PDF NO se copia
 │  GitHub Actions Workflow                │
 │                                         │
 │  env:                                   │
-│    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+│    GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL }}
 │         ↓                               │
 │  PAT con scope 'repo' funciona para:   │
 │  ✅ aplicaciones_laborales              │
@@ -109,7 +109,7 @@ Resultado: ✅ ÉXITO - PDF se copia automáticamente
    ▼
 2️⃣ GitHub Actions inicia workflow
    │
-   ├─ Lee secrets.PAT_TOKEN ✅ (configurado por ti)
+   ├─ Lee secrets.PAT_APLICACION_LABORAL ✅ (configurado por ti)
    └─ Asigna a GITHUB_TOKEN en env
    │
    ▼
@@ -171,7 +171,7 @@ Verificando si el repositorio destino existe...
 ```
 Verificando si el repositorio destino existe...
 
-🔑 Usando PAT_TOKEN para acceso cross-repo
+🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo
 
 📊 Código de respuesta HTTP: 200
 
@@ -227,9 +227,9 @@ Marca cuando completes cada paso:
     └─ Scope: ☑️  repo
     └─ Copiar token (ghp_...)
 
-[ ] 2. Configurar secret PAT_TOKEN
+[ ] 2. Configurar secret PAT_APLICACION_LABORAL
     └─ URL: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions
-    └─ Name: PAT_TOKEN
+    └─ Name: PAT_APLICACION_LABORAL
     └─ Secret: <pegar token>
 
 [ ] 3. Verificar permisos en todos-mis-documentos
@@ -242,7 +242,7 @@ Marca cuando completes cada paso:
 
 [ ] 5. Verificar logs
     └─ Ver Actions tab
-    └─ Buscar: "🔑 Usando PAT_TOKEN"
+    └─ Buscar: "🔑 Usando PAT_APLICACION_LABORAL"
     └─ Buscar: "HTTP: 200"
 
 [ ] 6. Confirmar resultado
@@ -260,14 +260,14 @@ Marca cuando completes cada paso:
 ```
 Causa:
 ┌─────────────────────────────────────┐
-│ Secret PAT_TOKEN NO configurado     │
+│ Secret PAT_APLICACION_LABORAL NO configurado     │
 │ o tiene nombre incorrecto           │
 └─────────────────────────────────────┘
              │
 Solución:    ▼
 ┌─────────────────────────────────────┐
 │ 1. Ve a Settings → Secrets          │
-│ 2. Verifica nombre: PAT_TOKEN       │
+│ 2. Verifica nombre: PAT_APLICACION_LABORAL       │
 │ 3. Si no existe, créalo             │
 └─────────────────────────────────────┘
 ```
@@ -288,7 +288,7 @@ Solución:    ▼
 ┌─────────────────────────────────────┐
 │ 1. Verifica PAT tiene scope 'repo'  │
 │ 2. Regenera PAT si es necesario     │
-│ 3. Actualiza secret PAT_TOKEN       │
+│ 3. Actualiza secret PAT_APLICACION_LABORAL       │
 └─────────────────────────────────────┘
 ```
 
@@ -308,7 +308,7 @@ Solución:    ▼
 │ 1. Ve a Settings → Tokens           │
 │ 2. Verifica estado del PAT          │
 │ 3. Si expiró: genera nuevo PAT      │
-│ 4. Actualiza secret PAT_TOKEN       │
+│ 4. Actualiza secret PAT_APLICACION_LABORAL       │
 └─────────────────────────────────────┘
 ```
 

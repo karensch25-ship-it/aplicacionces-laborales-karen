@@ -37,14 +37,14 @@ Carpeta destino: solo README.md, sin subcarpetas de fecha ni PDFs
 - name: Validar configuración de repositorio destino
   id: check_target_repo
   env:
-    # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
-    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+    # Use PAT_APLICACION_LABORAL for cross-repo access to private repos, fallback to GITHUB_TOKEN
+    GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
   run: |
     TARGET_REPO="angra8410/todas-mis-aplicaciones"
     
     # Check which token is being used
-    if [ -n "${{ secrets.PAT_TOKEN }}" ]; then
-      echo "🔑 Usando PAT_TOKEN para acceso cross-repo"
+    if [ -n "${{ secrets.PAT_APLICACION_LABORAL }}" ]; then
+      echo "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
     else
       echo "⚠️  Usando GITHUB_TOKEN (puede no funcionar con repos privados)"
     fi
@@ -70,7 +70,7 @@ Carpeta destino: solo README.md, sin subcarpetas de fecha ni PDFs
 ```
 
 **Cambios clave:**
-- ✅ Usa `PAT_TOKEN` si está disponible, fallback a `GITHUB_TOKEN`
+- ✅ Usa `PAT_APLICACION_LABORAL` si está disponible, fallback a `GITHUB_TOKEN`
 - ✅ Muestra qué token se está usando para debugging
 - ✅ Diferencia entre HTTP 404 (no existe) y 401/403 (sin permisos)
 - ✅ Proporciona instrucciones específicas para cada tipo de error
@@ -81,8 +81,8 @@ Carpeta destino: solo README.md, sin subcarpetas de fecha ni PDFs
 - name: Copiar CV PDF a repositorio todas-mis-aplicaciones
   if: steps.check_target_repo.outputs.repo_exists == 'true'
   env:
-    # Use PAT_TOKEN for cross-repo access to private repos
-    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+    # Use PAT_APLICACION_LABORAL for cross-repo access to private repos
+    GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
   run: |
     # Solo se ejecuta si el repositorio existe Y es accesible
 ```
@@ -115,11 +115,11 @@ os.makedirs(date_folder, exist_ok=True)
 **Mejor Manejo de Errores y Logging:**
 ```python
 def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
-    # Get GitHub token (prefer PAT_TOKEN for cross-repo access)
+    # Get GitHub token (prefer PAT_APLICACION_LABORAL for cross-repo access)
     github_token = os.environ.get('GITHUB_TOKEN')
     if not github_token:
         print("❌ Error: GITHUB_TOKEN not available")
-        print("   For private repos, configure PAT_TOKEN secret with 'repo' permissions")
+        print("   For private repos, configure PAT_APLICACION_LABORAL secret with 'repo' permissions")
         return False
     
     # Configuration with improved logging
@@ -149,7 +149,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         print("   Este error ocurre cuando:")
         print("   1. El repositorio no existe (poco probable según evidencia)")
         print("   2. El repositorio es PRIVADO y el token no tiene permisos")
-        print("   3. El token usado es GITHUB_TOKEN en lugar de PAT_TOKEN")
+        print("   3. El token usado es GITHUB_TOKEN en lugar de PAT_APLICACION_LABORAL")
         print("\n📋 SOLUCIÓN PARA REPOSITORIOS PRIVADOS:")
         print("   El GITHUB_TOKEN por defecto NO puede acceder a otros repos privados.")
         print("   Debes configurar un Personal Access Token (PAT):")
@@ -162,7 +162,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
         print("")
         print("   Paso 2: Configurar Secret en GitHub")
         print(f"   ├─ Ve a: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions")
-        print("   ├─ Name: PAT_TOKEN")
+        print("   ├─ Name: PAT_APLICACION_LABORAL")
         print("   ├─ Secret: Pega el token")
         print("   └─ Click 'Add secret'")
         print("")
@@ -188,7 +188,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
    - ✅ Nueva sección sobre Personal Access Tokens (PAT)
    - ✅ Paso a paso para crear y configurar PAT
    - ✅ Diagrama visual del flujo de autenticación
-   - ✅ Diferencia entre GITHUB_TOKEN y PAT_TOKEN
+   - ✅ Diferencia entre GITHUB_TOKEN y PAT_APLICACION_LABORAL
    - ✅ Errores comunes específicos de PAT
    - ✅ Consideraciones de seguridad para PAT
 
@@ -233,11 +233,11 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
 1. Usuario hace push de archivo YAML
 2. Workflow se ejecuta
 3. Genera CV PDF ✅
-4. Valida repositorio destino usando PAT_TOKEN
+4. Valida repositorio destino usando PAT_APLICACION_LABORAL
    ├─ HTTP 200: Repositorio encontrado y accesible ✅
    ├─ HTTP 404: Repo no existe → Instrucciones para crear
    └─ HTTP 401/403: Problema de permisos → Instrucciones para PAT
-5. Si accesible: Clona todos-mis-documentos con PAT_TOKEN ✅
+5. Si accesible: Clona todos-mis-documentos con PAT_APLICACION_LABORAL ✅
 6. Copia PDF organizado por fecha ✅
 7. Commit con mensaje descriptivo ✅
 8. Push exitoso ✅
@@ -245,7 +245,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
 10. Usuario puede auditar toda la operación ✅
 ```
 
-**Solución:** Usar `PAT_TOKEN` con permisos `repo` para acceso cross-repo a repos privados.
+**Solución:** Usar `PAT_APLICACION_LABORAL` con permisos `repo` para acceso cross-repo a repos privados.
 
 ---
 
@@ -253,7 +253,7 @@ def copy_pdf_to_documents_repo(pdf_path, application_date, empresa, cargo):
 
 | Aspecto | Antes | Después |
 |---------|-------|---------|
-| **Tipo de token** | ❌ GITHUB_TOKEN (no funciona cross-repo privado) | ✅ PAT_TOKEN con permisos `repo` |
+| **Tipo de token** | ❌ GITHUB_TOKEN (no funciona cross-repo privado) | ✅ PAT_APLICACION_LABORAL con permisos `repo` |
 | **Detección de repo privado** | ❌ HTTP 404 (falso negativo) | ✅ HTTP 200 (detectado correctamente) |
 | **Validación previa** | ⚠️ Genérica | ✅ Específica por código HTTP |
 | **Diagnóstico de errores** | ❌ Genérico e incorrecto | ✅ Preciso con causa raíz |
@@ -279,11 +279,11 @@ Para habilitar la copia automática de PDFs a `todos-mis-documentos` (que ya exi
 5. Generar token y COPIAR (solo se muestra una vez)
 ```
 
-### Paso 2: Configurar Secret PAT_TOKEN
+### Paso 2: Configurar Secret PAT_APLICACION_LABORAL
 ```
 1. Ir a https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions
 2. Click "New repository secret"
-3. Name: PAT_TOKEN (exactamente este nombre)
+3. Name: PAT_APLICACION_LABORAL (exactamente este nombre)
 4. Secret: Pegar el token del Paso 1
 5. Click "Add secret"
 ```
@@ -300,7 +300,7 @@ Para habilitar la copia automática de PDFs a `todos-mis-documentos` (que ya exi
 ```
 1. Crear una aplicación de prueba en aplicaciones_laborales
 2. Observar logs del workflow
-3. Verificar mensaje: "🔑 Usando PAT_TOKEN para acceso cross-repo"
+3. Verificar mensaje: "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
 4. Confirmar que PDF aparece en todos-mis-documentos
 ```
 
@@ -363,7 +363,7 @@ El usuario tiene acceso a:
    - ✅ Autenticación correcta para repos privados
    - ✅ Validación antes de operaciones costosas
    - ✅ Manejo de errores mejorado por código HTTP
-   - ✅ Fallback automático GITHUB_TOKEN → PAT_TOKEN
+   - ✅ Fallback automático GITHUB_TOKEN → PAT_APLICACION_LABORAL
 
 2. **Seguridad**
    - ✅ PAT almacenado en secrets encriptados
@@ -391,7 +391,7 @@ Todas las modificaciones han sido validadas:
 
 - ✅ **Sintaxis YAML:** Workflow válido con fallback de secrets
 - ✅ **Sintaxis Python:** Script actualizado con mejor logging
-- ✅ **Lógica de autenticación:** PAT_TOKEN → GITHUB_TOKEN fallback
+- ✅ **Lógica de autenticación:** PAT_APLICACION_LABORAL → GITHUB_TOKEN fallback
 - ✅ **Manejo de errores:** Diferenciación por código HTTP (404, 401, 403, 200)
 - ✅ **Documentación:** Completa con ejemplos y URLs directas
 - ✅ **Seguridad:** PAT en secrets, nunca expuesto en código/logs
@@ -416,9 +416,9 @@ Todas las modificaciones han sido validadas:
 ### ✅ Completado
 
 - [x] Diagnóstico del problema real (PAT requerido para repo privado)
-- [x] Implementación de validación con PAT_TOKEN
+- [x] Implementación de validación con PAT_APLICACION_LABORAL
 - [x] Mejora de mensajes de error con diagnóstico preciso
-- [x] Control de flujo con fallback PAT_TOKEN → GITHUB_TOKEN
+- [x] Control de flujo con fallback PAT_APLICACION_LABORAL → GITHUB_TOKEN
 - [x] Documentación completa sobre PAT
 - [x] Instrucciones paso a paso para configurar PAT
 - [x] Logging mejorado para auditoría
@@ -429,10 +429,10 @@ Todas las modificaciones han sido validadas:
 ### 📝 Requiere Acción del Usuario
 
 - [ ] Crear Personal Access Token (PAT) en GitHub
-- [ ] Configurar secret `PAT_TOKEN` en aplicaciones_laborales
+- [ ] Configurar secret `PAT_APLICACION_LABORAL` en aplicaciones_laborales
 - [ ] Verificar permisos en `todos-mis-documentos`
 - [ ] Ejecutar workflow de prueba
-- [ ] Verificar mensaje "🔑 Usando PAT_TOKEN" en logs
+- [ ] Verificar mensaje "🔑 Usando PAT_APLICACION_LABORAL" en logs
 - [ ] Confirmar que PDF se copia exitosamente
 
 ---
@@ -452,7 +452,7 @@ Una vez el usuario complete la configuración del PAT:
 │ ✅ CV PDF generado                              │
 │ ✅ Scoring report generado                      │
 │ ✅ Issue creado                                 │
-│ ✅ Repo validado con PAT_TOKEN                  │
+│ ✅ Repo validado con PAT_APLICACION_LABORAL                  │
 │    ├─ 🔑 Usa PAT para autenticación            │
 │    ├─ 📊 HTTP 200: Acceso confirmado           │
 │    └─ ✅ Repositorio privado accesible          │
@@ -477,7 +477,7 @@ Una vez el usuario complete la configuración del PAT:
 **Contraste con antes:**
 ```
 Antes: GITHUB_TOKEN → HTTP 404 → "Repository not found" → FALLA ❌
-Ahora:  PAT_TOKEN    → HTTP 200 → Acceso exitoso          → FUNCIONA ✅
+Ahora:  PAT_APLICACION_LABORAL    → HTTP 200 → Acceso exitoso          → FUNCIONA ✅
 ```
 
 ---
@@ -489,15 +489,15 @@ Si el usuario tiene problemas después de configurar PAT:
 1. **Primero:** Revisar [SETUP_REQUIRED.md](SETUP_REQUIRED.md) sección PAT
 2. **Verificar:** 
    - PAT tiene scope `repo` marcado
-   - Secret se llama exactamente `PAT_TOKEN`
+   - Secret se llama exactamente `PAT_APLICACION_LABORAL`
    - PAT no ha expirado
    - Permisos en todos-mis-documentos configurados
-3. **Logs:** GitHub Actions → pestaña Actions → Buscar "🔑 Usando PAT_TOKEN"
+3. **Logs:** GitHub Actions → pestaña Actions → Buscar "🔑 Usando PAT_APLICACION_LABORAL"
 4. **Troubleshooting:** Sección de errores comunes en documentación
 5. **Diagnóstico:** Ver código HTTP en logs de validación
 
 **Indicadores de éxito en logs:**
-- `🔑 Usando PAT_TOKEN para acceso cross-repo`
+- `🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo`
 - `📊 Código de respuesta HTTP: 200`
 - `✅ Repositorio destino encontrado y accesible`
 - `✅ Repositorio clonado exitosamente`

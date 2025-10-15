@@ -66,11 +66,11 @@ Aunque el repositorio existe, el token no tiene permisos para verlo.
 
 3. **Rellena:**
    ```
-   Name: PAT_TOKEN
+   Name: PAT_APLICACION_LABORAL
    Secret: <pega el token que copiaste>
    ```
    
-   ⚠️ **IMPORTANTE:** El nombre debe ser exactamente `PAT_TOKEN` (respeta mayúsculas).
+   ⚠️ **IMPORTANTE:** El nombre debe ser exactamente `PAT_APLICACION_LABORAL` (respeta mayúsculas).
 
 4. **Click:**
    ```
@@ -78,7 +78,7 @@ Aunque el repositorio existe, el token no tiene permisos para verlo.
    ```
 
 5. **Verifica:**
-   - Deberías ver `PAT_TOKEN` en la lista
+   - Deberías ver `PAT_APLICACION_LABORAL` en la lista
    - El valor estará oculto: `••••••••`
 
 ---
@@ -113,7 +113,7 @@ Aunque el repositorio existe, el token no tiene permisos para verlo.
 
 3. **Busca en los logs:**
    ```
-   ✅ Debe mostrar: "🔑 Usando PAT_TOKEN para acceso cross-repo"
+   ✅ Debe mostrar: "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
    ✅ Debe mostrar: "📊 Código de respuesta HTTP: 200"
    ✅ Debe mostrar: "✅ Repositorio destino encontrado y accesible"
    ```
@@ -131,10 +131,10 @@ Confirma que completaste todo:
 
 - [ ] PAT creado con scope `repo`
 - [ ] Token copiado (formato `ghp_...`)
-- [ ] Secret `PAT_TOKEN` configurado en aplicaciones_laborales
+- [ ] Secret `PAT_APLICACION_LABORAL` configurado en aplicaciones_laborales
 - [ ] Permisos "Read and write" en todos-mis-documentos
 - [ ] Workflow de prueba ejecutado
-- [ ] Logs muestran "🔑 Usando PAT_TOKEN"
+- [ ] Logs muestran "🔑 Usando PAT_APLICACION_LABORAL"
 - [ ] Logs muestran "HTTP: 200"
 - [ ] PDF aparece en todos-mis-documentos
 
@@ -151,17 +151,17 @@ Confirma que completaste todo:
 2. Click en el token que creaste
 3. Verifica que `repo` esté marcado
 4. Si no, crea un nuevo token con permisos correctos
-5. Actualiza el secret `PAT_TOKEN` con el nuevo valor
+5. Actualiza el secret `PAT_APLICACION_LABORAL` con el nuevo valor
 
 ---
 
 ### "⚠️ Usando GITHUB_TOKEN" en logs
 
-**Causa:** Secret `PAT_TOKEN` no está configurado o tiene nombre incorrecto.
+**Causa:** Secret `PAT_APLICACION_LABORAL` no está configurado o tiene nombre incorrecto.
 
 **Solución:**
 1. Ve a [Settings → Secrets](https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions)
-2. Verifica que existe un secret llamado exactamente `PAT_TOKEN`
+2. Verifica que existe un secret llamado exactamente `PAT_APLICACION_LABORAL`
 3. Si no existe o tiene otro nombre, créalo/renómbralo
 
 ---
@@ -172,7 +172,7 @@ Confirma que completaste todo:
 
 **Solución:**
 1. Crea un nuevo PAT (Paso 1)
-2. Actualiza el secret `PAT_TOKEN` con el nuevo valor
+2. Actualiza el secret `PAT_APLICACION_LABORAL` con el nuevo valor
 3. No necesitas cambiar nada más
 
 ---

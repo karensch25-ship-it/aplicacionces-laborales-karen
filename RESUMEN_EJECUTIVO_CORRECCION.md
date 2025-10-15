@@ -15,7 +15,7 @@
 
 **Acción requerida (5 minutos):**
 1. Crear PAT: https://github.com/settings/tokens/new (scope: `repo`)
-2. Configurar secret `PAT_TOKEN`: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions
+2. Configurar secret `PAT_APLICACION_LABORAL`: https://github.com/angra8410/aplicaciones_laborales/settings/secrets/actions
 3. Listo ✅
 
 **Documentación:** Ver [GUIA_RAPIDA_PAT.md](GUIA_RAPIDA_PAT.md)
@@ -41,9 +41,9 @@ env:
 ### Después (✅ Solución)
 
 ```yaml
-# Workflow usa PAT_TOKEN con fallback
+# Workflow usa PAT_APLICACION_LABORAL con fallback
 env:
-  GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
 
 # Resultado:
 ✅ HTTP 200: Repositorio accesible
@@ -60,13 +60,13 @@ env:
 ### 1. Workflow (`.github/workflows/crear_aplicacion.yml`)
 
 #### Validación mejorada:
-- ✅ Usa `PAT_TOKEN` si está configurado, fallback a `GITHUB_TOKEN`
+- ✅ Usa `PAT_APLICACION_LABORAL` si está configurado, fallback a `GITHUB_TOKEN`
 - ✅ Indica claramente qué token se está usando
 - ✅ Diferencia entre HTTP 404 (no existe) vs 401/403 (sin permisos)
 - ✅ Instrucciones específicas según el error
 
 #### Copia de PDF:
-- ✅ Usa `PAT_TOKEN` para autenticación
+- ✅ Usa `PAT_APLICACION_LABORAL` para autenticación
 - ✅ Solo se ejecuta si el repositorio es accesible
 - ✅ Logs mejorados con trazabilidad
 
@@ -110,7 +110,7 @@ Lee: **[GUIA_RAPIDA_PAT.md](GUIA_RAPIDA_PAT.md)**
 
 Pasos:
 1. Crear PAT con scope `repo`
-2. Configurar secret `PAT_TOKEN`
+2. Configurar secret `PAT_APLICACION_LABORAL`
 3. Verificar permisos en `todos-mis-documentos`
 4. Ejecutar workflow de prueba
 
@@ -141,7 +141,7 @@ Incluye:
 Después de configurar PAT, verifica en los logs del workflow:
 
 ```
-✅ Debe aparecer: "🔑 Usando PAT_TOKEN para acceso cross-repo"
+✅ Debe aparecer: "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
 ✅ Debe aparecer: "📊 Código de respuesta HTTP: 200"
 ✅ Debe aparecer: "✅ Repositorio destino encontrado y accesible"
 ✅ Debe aparecer: "✅ Repositorio clonado exitosamente"
@@ -179,7 +179,7 @@ Y en el repositorio `todos-mis-documentos`:
 ## 🐛 Troubleshooting Rápido
 
 ### "⚠️  Usando GITHUB_TOKEN" en logs
-**Solución:** Secret `PAT_TOKEN` no configurado o tiene nombre incorrecto
+**Solución:** Secret `PAT_APLICACION_LABORAL` no configurado o tiene nombre incorrecto
 
 ### "HTTP 404" aunque repo existe
 **Solución:** PAT no tiene scope `repo` o no está configurado
@@ -248,7 +248,7 @@ Todo automático, sin intervención manual.
 - ⚠️ El repositorio `todos-mis-documentos` **YA EXISTE** - no hay que crearlo
 - ⚠️ El repositorio es **PRIVADO** - por eso se necesita PAT
 - ⚠️ `GITHUB_TOKEN` **NO funciona** para repos privados en cross-repo
-- ✅ `PAT_TOKEN` **SÍ funciona** con scope `repo`
+- ✅ `PAT_APLICACION_LABORAL` **SÍ funciona** con scope `repo`
 - ✅ La solución está **completamente implementada** - solo falta configurar PAT
 
 ---
