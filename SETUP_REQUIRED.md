@@ -16,7 +16,7 @@ Para que el flujo CI/CD copie automáticamente los CV generados al repositorio `
 **Estado actual según evidencia:** 
 - ✅ El repositorio `todas-mis-aplicaciones` EXISTE y es PRIVADO
 - ❌ El workflow usa `GITHUB_TOKEN` que NO puede acceder a repos privados
-- ❌ Se necesita configurar `PAT_TOKEN` para autenticación cross-repo
+- ❌ Se necesita configurar `PAT_APLICACION_LABORAL` para autenticación cross-repo
 
 **Acción requerida:** Configurar PAT (Paso 2 a continuación)
 
@@ -110,12 +110,12 @@ El `GITHUB_TOKEN` por defecto que GitHub Actions proporciona **solo puede accede
 
 2. **Crear nuevo secret:**
    - Click en **"New repository secret"**
-   - **Name:** `PAT_TOKEN` (exactamente este nombre)
+   - **Name:** `PAT_APLICACION_LABORAL` (exactamente este nombre)
    - **Secret:** Pega el token que copiaste en Paso 2.1
    - Click **"Add secret"**
 
 3. **Verificar:**
-   - Deberías ver `PAT_TOKEN` en la lista de secrets
+   - Deberías ver `PAT_APLICACION_LABORAL` en la lista de secrets
    - El valor estará oculto (••••••)
 
 ### 📊 Diagrama Visual del Flujo de Autenticación
@@ -125,7 +125,7 @@ El `GITHUB_TOKEN` por defecto que GitHub Actions proporciona **solo puede accede
 │ aplicaciones_laborales (público)    │
 │                                     │
 │  GitHub Actions Workflow            │
-│  ├─ usa: PAT_TOKEN (secret)        │
+│  ├─ usa: PAT_APLICACION_LABORAL    │
 │  └─ autenticación cross-repo ✅    │
 └────────────┬────────────────────────┘
              │
@@ -237,11 +237,11 @@ Después de ~2-3 minutos:
 
 ### Error: "Repository not found" (HTTP 404) con repo privado
 
-**Causa:** El repositorio es privado y estás usando `GITHUB_TOKEN` en lugar de `PAT_TOKEN`.
+**Causa:** El repositorio es privado y estás usando `GITHUB_TOKEN` en lugar de `PAT_APLICACION_LABORAL`.
 
 **Solución:**
 1. Verifica que el repositorio existe: https://github.com/angra8410/todas-mis-aplicaciones
-2. Si es privado, configura `PAT_TOKEN` siguiendo el Paso 2 de este documento
+2. Si es privado, configura `PAT_APLICACION_LABORAL` siguiendo el Paso 2 de este documento
 3. Re-ejecuta el workflow
 
 ### Error: "Permission denied" o HTTP 403
@@ -250,7 +250,7 @@ Después de ~2-3 minutos:
 
 **Solución:**
 1. Verifica que el PAT tiene scope `repo` marcado
-2. Verifica que el secret se llama exactamente `PAT_TOKEN` (respeta mayúsculas)
+2. Verifica que el secret se llama exactamente `PAT_APLICACION_LABORAL` (respeta mayúsculas)
 3. Regenera el PAT si es necesario (pueden haber expirado)
 4. Configura nuevamente el secret con el nuevo token
 
@@ -287,7 +287,7 @@ Después de ~2-3 minutos:
 ## 🔒 Consideraciones de Seguridad
 
 ### ✅ Seguro
-- Usar `PAT_TOKEN` almacenado en GitHub Secrets (encriptado y seguro)
+- Usar `PAT_APLICACION_LABORAL` almacenado en GitHub Secrets (encriptado y seguro)
 - Repositorio `todos-mis-documentos` puede ser privado
 - Los commits se hacen como `github-actions[bot]`
 - El PAT solo se usa en el workflow, nunca se expone en logs
@@ -305,7 +305,7 @@ Después de ~2-3 minutos:
 Los PAT pueden expirar. Cuando esto ocurra:
 
 1. Genera un nuevo PAT (mismo proceso del Paso 2.1)
-2. Actualiza el secret `PAT_TOKEN` con el nuevo valor
+2. Actualiza el secret `PAT_APLICACION_LABORAL` con el nuevo valor
 3. No necesitas cambiar nada más en el workflow
 
 ---
@@ -316,10 +316,10 @@ Antes de usar la funcionalidad, verifica:
 
 - [ ] ✅ Repositorio `todos-mis-documentos` creado
 - [ ] ✅ Personal Access Token (PAT) creado con scope `repo`
-- [ ] ✅ Secret `PAT_TOKEN` configurado en aplicaciones_laborales
+- [ ] ✅ Secret `PAT_APLICACION_LABORAL` configurado en aplicaciones_laborales
 - [ ] ✅ Permisos de GitHub Actions configurados en todos-mis-documentos (Read and write)
 - [ ] ✅ Test de aplicación ejecutado
-- [ ] ✅ Logs del workflow muestran "🔑 Usando PAT_TOKEN para acceso cross-repo"
+- [ ] ✅ Logs del workflow muestran "🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo"
 - [ ] ✅ PDF aparece en `todos-mis-documentos`
 - [ ] ✅ Commit visible con formato correcto
 - [ ] ✅ No hay errores en el workflow

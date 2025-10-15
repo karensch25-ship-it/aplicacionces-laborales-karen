@@ -105,7 +105,7 @@ print(f"📁 Carpeta por fecha creada/verificada: aplicaciones/{application_date
 - name: Validar configuración de repositorio destino
   id: check_target_repo
   env:
-    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
   run: |
     TARGET_REPO="angra8410/todas-mis-aplicaciones"
 ```
@@ -120,7 +120,7 @@ print(f"📁 Carpeta por fecha creada/verificada: aplicaciones/{application_date
 - name: Copiar CV PDF a repositorio todas-mis-aplicaciones
   if: steps.check_target_repo.outputs.repo_exists == 'true'
   env:
-    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.PAT_APLICACION_LABORAL || secrets.GITHUB_TOKEN }}
   run: |
     echo "🔄 Iniciando copia de PDFs al repositorio todas-mis-aplicaciones"
 ```
@@ -187,7 +187,7 @@ PDF Detection: ✅ PASSED
 
 - ✅ No se introdujeron secretos hardcoded
 - ✅ Se mantiene el uso de variables de entorno para tokens
-- ✅ La autenticación sigue usando PAT_TOKEN cuando está disponible
+- ✅ La autenticación sigue usando PAT_APLICACION_LABORAL cuando está disponible
 - ✅ Los mensajes de error no exponen información sensible
 
 ---
@@ -216,7 +216,7 @@ todas-mis-aplicaciones/
 ### Logs del Workflow:
 
 ```
-🔑 Usando PAT_TOKEN para acceso cross-repo
+🔑 Usando PAT_APLICACION_LABORAL para acceso cross-repo
 ✅ Repositorio destino encontrado y accesible: angra8410/todas-mis-aplicaciones
 
 🔄 Iniciando copia de PDFs al repositorio todas-mis-aplicaciones
@@ -268,7 +268,7 @@ Para que el fix funcione completamente:
    - URL: https://github.com/angra8410/todas-mis-aplicaciones
    - Si no existe, créalo siguiendo las instrucciones en `SETUP_REQUIRED.md`
 
-2. **Configurar PAT_TOKEN (si el repo es privado):**
+2. **Configurar PAT_APLICACION_LABORAL (si el repo es privado):**
    - Sigue las instrucciones en `SETUP_REQUIRED.md` sección 2
    - Esto es crítico para repos privados
 
