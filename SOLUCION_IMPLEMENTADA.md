@@ -2,23 +2,27 @@
 
 ## 🎯 Problema Original
 
-El workflow de GitHub Actions **intentaba copiar los CV PDFs** generados al repositorio `angra8410/todos-mis-documentos`, pero **fallaba** porque:
+El workflow de GitHub Actions **intentaba copiar los CV PDFs** generados al repositorio `angra8410/todas-mis-aplicaciones`, pero **fallaba** porque:
 
-1. ✅ El repositorio destino SÍ existe y es PRIVADO (confirmado por evidencia)
-2. ❌ El workflow usaba `GITHUB_TOKEN` que NO puede acceder a otros repos privados
-3. ❌ No había validación previa que identificara el problema de autenticación
-4. ❌ Los mensajes de error no indicaban la necesidad de usar PAT
-5. ❌ No había documentación sobre configuración de PAT para repos privados
+1. ❌ El código apuntaba al repositorio equivocado: `todos-mis-documentos` en lugar de `todas-mis-aplicaciones`
+2. ❌ La estructura de carpetas era incorrecta: faltaba el directorio base `/aplicaciones/`
+3. ❌ El workflow usaba `GITHUB_TOKEN` que NO puede acceder a otros repos privados
+4. ❌ No había validación previa que identificara el problema de autenticación
+5. ❌ Los mensajes de error no indicaban la necesidad de usar PAT
+6. ❌ No había documentación sobre configuración de PAT para repos privados
 
 **Evidencia del problema:**
 ```
 remote: Repository not found.
 fatal: repository 'https://github.com/angra8410/todos-mis-documentos.git/' not found
 HTTP 404
+Carpeta destino: solo README.md, sin subcarpetas de fecha ni PDFs
 ```
 
 **Causa raíz identificada:**
-El `GITHUB_TOKEN` por defecto que proporciona GitHub Actions **solo puede acceder al repositorio donde se ejecuta el workflow**. Para operaciones cross-repo con repositorios privados, se requiere un Personal Access Token (PAT) con permisos `repo`.
+1. **Error de configuración**: El código usaba el repositorio `todos-mis-documentos` cuando debía usar `todas-mis-aplicaciones`
+2. **Estructura incorrecta**: No se creaba la carpeta base `/aplicaciones/` antes de las subcarpetas por fecha
+3. **Token incorrecto**: El `GITHUB_TOKEN` por defecto solo puede acceder al repositorio donde se ejecuta el workflow. Para repos privados cross-repo, se requiere un PAT con permisos `repo`.
 
 ---
 
@@ -28,7 +32,7 @@ El `GITHUB_TOKEN` por defecto que proporciona GitHub Actions **solo puede accede
 
 #### 1. Workflow CI/CD (`.github/workflows/crear_aplicacion.yml`)
 
-**Nuevo Step: "Validar configuración de repositorio destino" - MEJORADO**
+**Nuevo Step: "Validar configuración de repositorio destino" - CORREGIDO**
 ```yaml
 - name: Validar configuración de repositorio destino
   id: check_target_repo
@@ -36,7 +40,7 @@ El `GITHUB_TOKEN` por defecto que proporciona GitHub Actions **solo puede accede
     # Use PAT_TOKEN for cross-repo access to private repos, fallback to GITHUB_TOKEN
     GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
   run: |
-    TARGET_REPO="angra8410/todos-mis-documentos"
+    TARGET_REPO="angra8410/todas-mis-aplicaciones"
     
     # Check which token is being used
     if [ -n "${{ secrets.PAT_TOKEN }}" ]; then
@@ -72,9 +76,9 @@ El `GITHUB_TOKEN` por defecto que proporciona GitHub Actions **solo puede accede
 - ✅ Proporciona instrucciones específicas para cada tipo de error
 - ✅ URLs directas para crear PAT y configurar secrets
 
-**Step Modificado: "Copiar CV PDF" ahora usa PAT**
+**Step Modificado: "Copiar CV PDF" ahora usa PAT y repositorio correcto**
 ```yaml
-- name: Copiar CV PDF a repositorio todos-mis-documentos
+- name: Copiar CV PDF a repositorio todas-mis-aplicaciones
   if: steps.check_target_repo.outputs.repo_exists == 'true'
   env:
     # Use PAT_TOKEN for cross-repo access to private repos
@@ -84,12 +88,29 @@ El `GITHUB_TOKEN` por defecto que proporciona GitHub Actions **solo puede accede
 ```
 
 **Beneficios:**
+- ✅ Repositorio correcto: `todas-mis-aplicaciones` en lugar de `todos-mis-documentos`
+- ✅ Estructura correcta: `/aplicaciones/YYYY-MM-DD/` en lugar de `/YYYY-MM-DD/`
 - ✅ Autenticación correcta para repos privados
 - ✅ Logs claros sobre qué token se usa
 - ✅ Diagnóstico preciso de problemas
 - ✅ Workflow completa exitosamente cuando está bien configurado
 
 #### 2. Script Python (`copy_pdf_to_documents_repo.py`)
+
+**Cambios en Configuración:**
+```python
+# Repositorio corregido
+target_repo = "angra8410/todas-mis-aplicaciones"
+temp_dir = "/tmp/todas-mis-aplicaciones-clone"
+
+# Estructura de carpetas corregida
+aplicaciones_folder = os.path.join(temp_dir, "aplicaciones")
+os.makedirs(aplicaciones_folder, exist_ok=True)
+
+date_folder = os.path.join(aplicaciones_folder, application_date)
+os.makedirs(date_folder, exist_ok=True)
+# Resultado: /aplicaciones/YYYY-MM-DD/
+```
 
 **Mejor Manejo de Errores y Logging:**
 ```python
