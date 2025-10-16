@@ -55,6 +55,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 - **[EJEMPLO_VISUAL_WORKFLOW.md](EJEMPLO_VISUAL_WORKFLOW.md):** 🚀 **NUEVO** - Ejemplos visuales de logs y escenarios
 - **[SOLUCION_IMPLEMENTADA.md](SOLUCION_IMPLEMENTADA.md):** 🚀 **NUEVO** - Resumen ejecutivo de la solución implementada
 - **[GUIA_RAPIDA_NON_FAST_FORWARD.md](GUIA_RAPIDA_NON_FAST_FORWARD.md):** ⭐ **NUEVO** - Solución a errores de push non-fast-forward (3 minutos)
+- **[DIAGRAMA_SOLUCION_PUSH.md](DIAGRAMA_SOLUCION_PUSH.md):** ⭐ **NUEVO** - Diagramas visuales de la solución non-fast-forward
 
 #### 📚 Automatización y Flujos de Trabajo
 - **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ Inicio rápido para la automatización (5 minutos)
