@@ -45,6 +45,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 #### ⚡ Inicio Rápido
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md):** 🚀 **NUEVO** - Referencia rápida de configuración (3 minutos) - **EMPEZAR AQUÍ**
+- **[RESUMEN_SOLUCION_PUSH_CI_CD.md](RESUMEN_SOLUCION_PUSH_CI_CD.md):** ⭐ **NUEVO** - Resumen ejecutivo de la solución non-fast-forward en CI/CD
 
 #### 🔧 Configuración Inicial (⚠️ REQUERIDO para copia automática de PDFs)
 - **[CONFIGURACION_INICIAL.md](CONFIGURACION_INICIAL.md):** 🚀 **NUEVO** - Guía paso a paso para configurar el repositorio destino (5 minutos)
@@ -54,6 +55,8 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 - **[TROUBLESHOOTING_RAPIDO.md](TROUBLESHOOTING_RAPIDO.md):** 🚀 **NUEVO** - Guía rápida de resolución de problemas (5 minutos)
 - **[EJEMPLO_VISUAL_WORKFLOW.md](EJEMPLO_VISUAL_WORKFLOW.md):** 🚀 **NUEVO** - Ejemplos visuales de logs y escenarios
 - **[SOLUCION_IMPLEMENTADA.md](SOLUCION_IMPLEMENTADA.md):** 🚀 **NUEVO** - Resumen ejecutivo de la solución implementada
+- **[GUIA_RAPIDA_NON_FAST_FORWARD.md](GUIA_RAPIDA_NON_FAST_FORWARD.md):** ⭐ **NUEVO** - Solución a errores de push non-fast-forward (3 minutos)
+- **[DIAGRAMA_SOLUCION_PUSH.md](DIAGRAMA_SOLUCION_PUSH.md):** ⭐ **NUEVO** - Diagramas visuales de la solución non-fast-forward
 
 #### 📚 Automatización y Flujos de Trabajo
 - **[AUTOMATION_QUICKSTART.md](AUTOMATION_QUICKSTART.md):** ⭐ Inicio rápido para la automatización (5 minutos)
@@ -69,6 +72,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 - **[PHASE4_SCORING_SYSTEM_DESIGN.md](PHASE4_SCORING_SYSTEM_DESIGN.md):** Diseño completo del sistema de scoring multi-dimensional (Fase 4)
 - **[CV_PDF_FORMATTING.md](CV_PDF_FORMATTING.md):** Documentación técnica del formato profesional de PDF (Fase 5)
 - **[GUIA_FORMATO_CV.md](GUIA_FORMATO_CV.md):** Guía de usuario sobre el formato profesional ATS-friendly en PDF
+- **[SOLUCION_NON_FAST_FORWARD.md](SOLUCION_NON_FAST_FORWARD.md):** ⭐ **NUEVO** - Solución técnica completa a errores de push non-fast-forward en CI/CD
 
 ### 🎯 Ejemplo de Mejora
 

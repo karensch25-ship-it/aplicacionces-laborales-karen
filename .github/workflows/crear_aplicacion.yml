@@ -128,8 +128,130 @@ jobs:
 
       - name: Commit y push de cambios
         run: |
+          # Configure git user
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          # Stage all changes
           git add .
-          git commit -m "Automatización: Nueva aplicación laboral creada por workflow" || echo "Sin cambios para commitear"
-          git push
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "✅ Sin cambios para commitear. Workflow completado exitosamente."
+            exit 0
+          fi
+          
+          # Commit changes
+          git commit -m "Automatización: Nueva aplicación laboral creada por workflow"
+          echo "✅ Commit creado exitosamente"
+          echo ""
+          
+          # Pull-rebase-push strategy with retry logic
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+          PUSH_SUCCESS=false
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ] && [ "$PUSH_SUCCESS" = false ]; do
+            echo "📊 Intento de push $((RETRY_COUNT + 1))/$MAX_RETRIES"
+            echo ""
+            
+            # Show current state before pull
+            echo "📋 Estado actual del repositorio:"
+            git --no-pager log --oneline -3
+            echo ""
+            
+            # Fetch remote changes
+            echo "🔄 Obteniendo cambios remotos..."
+            git fetch origin main
+            echo ""
+            
+            # Check if there are remote changes
+            LOCAL_COMMIT=$(git rev-parse HEAD)
+            REMOTE_COMMIT=$(git rev-parse origin/main)
+            
+            if [ "$LOCAL_COMMIT" != "$REMOTE_COMMIT" ]; then
+              echo "⚠️  Se detectaron cambios remotos. Aplicando rebase..."
+              echo "   Local:  $LOCAL_COMMIT"
+              echo "   Remote: $REMOTE_COMMIT"
+              echo ""
+              
+              # Rebase local commits on top of remote changes
+              if git rebase origin/main; then
+                echo "✅ Rebase exitoso"
+                echo ""
+              else
+                echo "❌ ERROR: Conflicto durante el rebase"
+                echo ""
+                echo "📋 Estado del rebase:"
+                git status
+                echo ""
+                echo "📋 Archivos en conflicto:"
+                git diff --name-only --diff-filter=U || echo "No se pudieron listar los archivos en conflicto"
+                echo ""
+                
+                # Abort the rebase and fail
+                git rebase --abort
+                echo "❌ Rebase abortado. Se requiere intervención manual."
+                echo ""
+                echo "🔍 ACCIÓN REQUERIDA:"
+                echo "   El workflow encontró conflictos que no puede resolver automáticamente."
+                echo "   Esto puede ocurrir si:"
+                echo "   1. Múltiples workflows modifican los mismos archivos simultáneamente"
+                echo "   2. Hubo commits manuales que modifican los mismos archivos"
+                echo ""
+                echo "   Recomendaciones:"
+                echo "   1. Revisa los logs del workflow para identificar los archivos en conflicto"
+                echo "   2. Si hay workflows ejecutándose en paralelo, espera a que terminen"
+                echo "   3. Considera espaciar los commits que activan el workflow"
+                exit 1
+              fi
+            else
+              echo "✅ Repositorio local está sincronizado con el remoto"
+              echo ""
+            fi
+            
+            # Attempt to push
+            echo "🚀 Intentando push..."
+            if git push origin HEAD:main; then
+              echo "✅ Push exitoso!"
+              PUSH_SUCCESS=true
+            else
+              PUSH_EXIT_CODE=$?
+              echo "❌ Push falló con código de salida: $PUSH_EXIT_CODE"
+              echo ""
+              
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                # Exponential backoff: 5s, 10s, 20s
+                WAIT_TIME=$((5 * (2 ** (RETRY_COUNT - 1))))
+                echo "⏳ Esperando ${WAIT_TIME} segundos antes del siguiente intento..."
+                sleep $WAIT_TIME
+                echo ""
+              fi
+            fi
+          done
+          
+          # Check final result
+          if [ "$PUSH_SUCCESS" = false ]; then
+            echo ""
+            echo "❌ ERROR: No se pudo completar el push después de $MAX_RETRIES intentos"
+            echo ""
+            echo "📋 Diagnóstico final:"
+            echo "   Esto puede indicar:"
+            echo "   1. Conflictos persistentes que requieren resolución manual"
+            echo "   2. Problemas de permisos en el repositorio"
+            echo "   3. Múltiples workflows ejecutándose concurrentemente"
+            echo ""
+            echo "🔍 Siguiente pasos:"
+            echo "   1. Revisa los logs completos del workflow"
+            echo "   2. Verifica que no hay otros workflows ejecutándose"
+            echo "   3. Comprueba los permisos del GITHUB_TOKEN"
+            echo "   4. Si el problema persiste, considera ejecutar el push manualmente"
+            exit 1
+          fi
+          
+          echo ""
+          echo "🎉 Workflow completado exitosamente!"
+          echo "📋 Estado final:"
+          git --no-pager log --oneline -3
