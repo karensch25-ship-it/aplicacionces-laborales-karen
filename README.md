@@ -45,6 +45,7 @@ Este repositorio incluye un **motor de personalización avanzado** y un **sistem
 
 #### ⚡ Inicio Rápido
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md):** 🚀 **NUEVO** - Referencia rápida de configuración (3 minutos) - **EMPEZAR AQUÍ**
+- **[RESUMEN_SOLUCION_PUSH_CI_CD.md](RESUMEN_SOLUCION_PUSH_CI_CD.md):** ⭐ **NUEVO** - Resumen ejecutivo de la solución non-fast-forward en CI/CD
 
 #### 🔧 Configuración Inicial (⚠️ REQUERIDO para copia automática de PDFs)
 - **[CONFIGURACION_INICIAL.md](CONFIGURACION_INICIAL.md):** 🚀 **NUEVO** - Guía paso a paso para configurar el repositorio destino (5 minutos)
