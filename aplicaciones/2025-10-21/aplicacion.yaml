@@ -1,0 +1,30 @@
+cargo: "Data Product Analyst"
+empresa: "Efinty"
+fecha: "2025-10-14"
+descripcion: |
+  El objetivo principal será asegurar la trazabilidad end-to-end de datos, desde la adquisición de usuarios hasta la monetización, 
+  habilitando la construcción de dashboards, métricas y reportes estratégicos para el C-Level y equipos de producto.
+
+requerimientos:
+- Diseñar y mantener modelos de datos que permitan comprender el comportamiento de usuarios y performance de productos
+- Construir, automatizar y optimizar dashboards, métricas y reportes estratégicos para stakeholders de diferentes niveles
+- Asegurar la trazabilidad de datos end-to-end, conectando journeys de usuarios desde el onboarding hasta la monetización
+- Identificar oportunidades de mejora en productos y procesos a través de análisis cuantitativos y cualitativos
+- Colaborar con equipos de producto, growth, tecnología y C-Level en la definición y seguimiento de KPIs críticos
+- Garantizar la calidad, consistencia y disponibilidad de datos para toma de decisiones
+- Traducir necesidades de negocio en requerimientos de datos y análisis concretos
+- Proponer nuevas métricas, metodologías y experimentos que ayuden a optimizar la experiencia de usuario y el crecimiento de EFY
+- SQL avanzado. Extracción y manipulación de datos desde DBs
+- Herramientas BI (QuickSight). Construcción de dashboards interactivos
+- Analítica de producto (Amplitude, Mixpanel, GA4). Medición de funnels, cohortes y activación
+- Data visualization. Diseño de gráficos claros para C-Level
+- Conocimientos fintech/crypto. Asegura relevancia de insights
+- Cumplimiento por encima de todo. si no es legal, no sucede
+- Velocidad con estándares. moverse rápido, sin comprometer calidad
+- Sustancia sobre estatus. decisiones basadas en hechos financieros, no en apariencias
+- Obsesión por el cliente. pensar y actuar siempre en beneficio del usuario
+- Decisiones basadas en datos. convertir métricas en insights accionables
+- Extreme Ownership. asumir responsabilidad total, sin excusas
+
+
+ 

@@ -1,0 +1,75 @@
+name: Procesar Aplicación Laboral
+
+on:
+  push:
+    paths:
+      - 'to_process/*.yaml'
+
+jobs:
+  procesar-cv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml requests pandas
+
+      - name: Instalar pandoc y LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
+
+      - name: Ejecutar procesamiento solo para los YAMLs modificados y capturar carpetas procesadas
+        id: procesar
+        run: |
+          mkdir -p processed_folders
+          # Determine changed files in this push and process only those under to_process/
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^to_process/.*\.yaml$' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No hay archivos YAML modificados en to_process/ en este push."
+            exit 0
+          fi
+          echo "Archivos modificados detectados:"; echo "$CHANGED"
+          for file in $CHANGED; do
+            if [ -f "$file" ]; then
+              FOLDER_NAME=$(python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file" | tail -n 1)
+              echo "Processed: $FOLDER_NAME"
+              echo "$FOLDER_NAME" >> processed_folders/list.txt
+            else
+              echo "Advertencia: archivo esperado no encontrado en workspace: $file"
+            fi
+          done
+          cat processed_folders/list.txt || true
+
+      - name: Copiar SOLO las subcarpetas procesadas a aplicaciones/DATE (idempotente)
+        run: |
+          FECHA=$(date +%Y-%m-%d)
+          mkdir -p "aplicaciones/$FECHA"
+          if [ -f processed_folders/list.txt ]; then
+            while read -r FOLDER; do
+              SRC="to_process_procesados/$FOLDER/"
+              DEST="aplicaciones/$FECHA/$FOLDER/"
+              if [ -d "$SRC" ]; then
+                # Use rsync to copy/update contents idempotently and avoid re-copying unrelated apps
+                rsync -a --delete "$SRC" "$DEST"
+                echo "Copied/updated $FOLDER to aplicaciones/$FECHA/"
+              else
+                echo "Warning: expected folder not found: $SRC"
+              fi
+            done < processed_folders/list.txt
+          else
+            echo "No processed folders list found; skipping copy"
+          fi
+
+      - name: Hacer commit de archivos generados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add aplicaciones/
+          git commit -m "Add processed applications to /aplicaciones/ por fecha" || echo "No changes to commit"
+          git push
