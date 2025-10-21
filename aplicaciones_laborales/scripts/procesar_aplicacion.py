@@ -330,9 +330,15 @@ def main(yaml_path):
     print(f"   - El PDF principal es: {pdf_filename}")
     print("="*60 + "\n")
     
-    # Return folder_name for issue creation
-    # Print the folder name so CI can capture which folders were processed
-    print(folder_name)
+    # Validate that the output directory was created successfully
+    if not os.path.exists(output_dir):
+        print(f"❌ ERROR CRÍTICO: La carpeta de salida no existe: {output_dir}")
+        print("   El procesamiento falló en algún paso anterior.")
+        sys.exit(1)
+    
+    # Return folder_name for issue creation and workflow processing
+    # NOTE: Do NOT print folder_name here - it will be printed as the final line
+    # in the __main__ block to ensure the workflow can capture it correctly
     return folder_name
 
 if __name__ == "__main__":
@@ -342,6 +348,8 @@ if __name__ == "__main__":
     folder_name = main(sys.argv[1])
     
     # Create GitHub issue and add to project if GITHUB_TOKEN is available
+    # Note: All informational messages MUST be printed BEFORE the final folder_name output
+    # to ensure the workflow can correctly capture the folder name using tail -n 1
     if os.environ.get('GITHUB_TOKEN'):
         print("\n" + "="*60)
         print("Creating GitHub issue and adding to project...")
@@ -355,3 +363,7 @@ if __name__ == "__main__":
             print("   The application was processed successfully, but issue creation failed.")
     else:
         print("\nℹ️  Skipping issue creation (GITHUB_TOKEN not available)")
+    
+    # CRITICAL: This MUST be the last line of output for the workflow to capture correctly
+    # The workflow uses: tail -n 1 to get the folder name from the script output
+    print(f"\n{folder_name}")
