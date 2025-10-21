@@ -30,13 +30,16 @@ jobs:
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
-      - name: Copiar archivos generados a /aplicaciones/por fecha
+      - name: Copiar SOLO la aplicación recién generada a /aplicaciones/por fecha
         run: |
           FECHA=$(date +%Y-%m-%d)
-          mkdir -p "aplicaciones/$FECHA"
-          if [ -d to_process_procesados ]; then
-            cp -r to_process_procesados/* "aplicaciones/$FECHA/" || true
-          fi
+          for file in to_process/*.yaml; do
+            BASENAME=$(basename "$file" .yaml)
+            mkdir -p "aplicaciones/$FECHA"
+            if [ -d "to_process_procesados/$BASENAME" ]; then
+              cp -r "to_process_procesados/$BASENAME" "aplicaciones/$FECHA/"
+            fi
+          done
 
       - name: Hacer commit de archivos generados
         run: |
