@@ -1,0 +1,25 @@
+# Requerimientos del Puesto
+
+- On-boarding of new suppliers and clients to BCC.
+- Provide shared services team with recoveries for revenue take-up/WIP clearing.
+- Review completeness and accuracy once posted in ERP System.
+- Resolve and respond to client billing queries.
+- Resolve issues in supplier invoices/spends files in coordination with the operations team.
+- Code and process supplier invoices in Portal (APC) for upload to ERP System.
+- Work closely with respective teams on issue resolutions.
+- Accounts Payable responsibilities.
+- Prepare, distribute, and manage RNO Reports using IPS Workflow.
+- Prepare RFI templates.
+- Cost auditing buys based on completed RFIs.
+- Send any RNO invoices to the Activation team when requested.
+- Update and request missing invoices from platforms.
+- Request revised invoices from the corresponding in-reach media vehicle representatives.
+- 1 year of experience in Finance, Accounting, Business Administration, or a related field.
+- Fluent/Advanced English level (B2+).
+- Experience handling billing, payments, collections, projections, and budget management.
+- Strong written and verbal communication skills.
+- Strong analytical and problem-solving skills.
+- MS Excel (Intermediate–Advanced) VLOOKUP, Pivot Tables, Conditionals.
+- Excellent attention to detail and accuracy.
+- Strong numerical and organizational skills.
+- Good team player and able to work with minimal supervision.
