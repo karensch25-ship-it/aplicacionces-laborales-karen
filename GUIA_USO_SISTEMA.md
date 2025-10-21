@@ -250,49 +250,88 @@ Después de un procesamiento exitoso, encontrarás:
 
 ### En `to_process_procesados/{Cargo}_{Empresa}_{Fecha}/`
 
-1. **KAREN_SCHMALBACH_{Empresa}.pdf** ⭐
-   - CV principal en formato PDF
+1. **KAREN_SCHMALBACH_{Empresa}_es.pdf** ⭐
+   - CV en formato PDF en ESPAÑOL
    - Nombre estandarizado para fácil identificación
-   - Contenido 100% en español
-   - Información de Karen Schmalbach
+   - Contenido 100% en español profesional
+   - Listo para aplicaciones en mercado hispanohablante
 
-2. **SCORING_REPORT.pdf**
+2. **KAREN_SCHMALBACH_{Empresa}_en.pdf** ⭐
+   - CV en formato PDF en INGLÉS
+   - Nombre estandarizado para fácil identificación
+   - Contenido 100% en inglés profesional
+   - Listo para aplicaciones en mercado internacional
+
+3. **SCORING_REPORT.pdf**
    - Reporte de análisis de coincidencia
    - Puntuación y recomendación
    - Análisis de habilidades
 
-3. **hoja_de_vida_adecuada.md**
-   - CV en formato markdown
+4. **hoja_de_vida_adecuada.md**
+   - CV en formato markdown en español
    - Personalizado para el puesto
    - Sección de alineación con requerimientos
 
-4. **scoring_report.md**
+5. **hoja_de_vida_adecuada_en.md**
+   - CV en formato markdown en inglés
+   - Personalizado para el puesto
+   - Sección de alineación con requerimientos en inglés
+
+6. **scoring_report.md**
    - Reporte de scoring en markdown
    - Recomendaciones detalladas
 
-5. **descripcion.md**
+7. **descripcion.md**
    - Descripción del puesto
 
-6. **requerimientos.md**
+8. **requerimientos.md**
    - Lista de requerimientos
 
-7. **{nombre_original}.yaml**
+9. **{nombre_original}.yaml**
    - YAML original movido aquí
 
 ### En `aplicaciones/{YYYY-MM-DD}/{Cargo}_{Empresa}_{Fecha}/`
 
 Copia de todos los archivos anteriores, organizada por fecha de aplicación.
 
+## 🌍 Generación Bilingüe Automática
+
+El sistema genera **automáticamente dos versiones completas** de tu hoja de vida:
+
+### Versión en Español
+- ✅ Archivo: `KAREN_SCHMALBACH_{Empresa}_es.pdf`
+- ✅ Contenido 100% profesional en español
+- ✅ Optimizada para aplicaciones en mercado hispanohablante
+- ✅ Incluye todas las secciones traducidas y personalizadas
+
+### Versión en Inglés
+- ✅ Archivo: `KAREN_SCHMALBACH_{Empresa}_en.pdf`
+- ✅ Contenido 100% profesional en inglés
+- ✅ Optimizada para aplicaciones en mercado internacional
+- ✅ Traducción profesional de toda la información
+- ✅ Incluye todas las secciones traducidas y personalizadas
+
+### Ventajas de la Generación Bilingüe
+- 🎯 **Sin esfuerzo adicional**: Ambas versiones se generan automáticamente en cada aplicación
+- 🌐 **Alcance global**: Lista para aplicar a empresas nacionales e internacionales
+- 📋 **Consistencia**: Ambas versiones mantienen la misma estructura profesional
+- ✨ **Personalización inteligente**: El sistema adapta el contenido según los requerimientos en ambos idiomas
+
 ## Características del CV Generado
 
-### Nombre del Archivo
-- **Formato:** `KAREN_SCHMALBACH_{NombreEmpresa}.pdf`
-- **Ejemplo:** `KAREN_SCHMALBACH_TataConsultancyServices.pdf`
+### Nombre de los Archivos
+- **Formato Español:** `KAREN_SCHMALBACH_{NombreEmpresa}_es.pdf`
+- **Formato Inglés:** `KAREN_SCHMALBACH_{NombreEmpresa}_en.pdf`
+- **Ejemplos:** 
+  - `KAREN_SCHMALBACH_TataConsultancyServices_es.pdf`
+  - `KAREN_SCHMALBACH_TataConsultancyServices_en.pdf`
 
 ### Contenido
 - ✅ Nombre: KAREN SCHMALBACH (en el header)
-- ✅ Idioma: 100% Español
-- ✅ Secciones:
+- ✅ **Generación Bilingüe Automática**: Se generan dos versiones completas
+  - **Español**: `KAREN_SCHMALBACH_{Empresa}_es.pdf`
+  - **Inglés**: `KAREN_SCHMALBACH_{Empresa}_en.pdf`
+- ✅ Secciones (en ambos idiomas):
   - Perfil Profesional (personalizado por puesto)
   - Habilidades Clave
   - Experiencia Profesional
@@ -397,17 +436,33 @@ git diff --name-only HEAD~1 HEAD | grep 'to_process/.*\.yaml'
 ### El PDF tiene nombre incorrecto
 
 **Antes (Incorrecto):** `ANTONIO_GUTIERREZ_RESUME_Empresa.pdf`
-**Ahora (Correcto):** `KAREN_SCHMALBACH_Empresa.pdf`
+**Ahora (Correcto - Español):** `KAREN_SCHMALBACH_Empresa_es.pdf`
+**Ahora (Correcto - Inglés):** `KAREN_SCHMALBACH_Empresa_en.pdf`
 
 Si ves el nombre incorrecto, es un bug que debe reportarse.
 
-### El contenido está en inglés
+### No se genera la versión en inglés
 
-**Síntoma:** Partes del CV aparecen en inglés
+**Síntoma:** Solo se genera el PDF en español
 
-**Causa:** Template incorrecto o código de personalización con bug
+**Posibles causas:**
+1. La plantilla en inglés no existe en `aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template_en.md`
+2. Error durante la generación del CV en inglés
 
-**Solución:** Verificar que se usa el template correcto en `aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md`
+**Solución:** 
+- Revisar los logs del workflow para ver mensajes de error
+- Verificar que ambas plantillas existen en la carpeta `aplicaciones_laborales/plantillas/`
+- La versión en español se generará siempre, la versión en inglés es adicional
+
+### El contenido tiene idiomas mezclados
+
+**Síntoma:** Partes del CV aparecen en español y otras en inglés
+
+**Causa:** Template incorrecto o error en el motor de personalización
+
+**Solución:** Verificar que se usan los templates correctos:
+- Español: `aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md`
+- Inglés: `aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template_en.md`
 
 ## Soporte
 
