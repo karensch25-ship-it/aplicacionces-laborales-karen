@@ -7,6 +7,17 @@ El sistema ahora genera **automáticamente dos versiones** de tu CV:
 - 🇪🇸 **Español**: `KAREN_SCHMALBACH_{Empresa}_es.pdf`
 - 🇬🇧 **Inglés**: `KAREN_SCHMALBACH_{Empresa}_en.pdf`
 
+## ✨ Nuevo: Validación ATS Automática
+
+Cada CV generado es automáticamente validado para optimización ATS:
+
+- 📊 **Puntuación ATS**: Score objetivo de 0-100
+- ✅ **Estado**: Optimizado (≥80) o Requiere Mejoras (<80)
+- 📋 **Reportes Detallados**: Con recomendaciones accionables
+- 🎯 **Cuatro Dimensiones**: Secciones, Keywords, Logros, Formato
+
+**Ver:** `GUIA_RAPIDA_ATS.md` para más información sobre el sistema de validación.
+
 ## ¿Cómo Funciona?
 
 1. **Creas una aplicación** (archivo YAML en `to_process/`)
@@ -33,6 +44,8 @@ aplicaciones/2025-10-21/Cargo_Empresa_2025-10-21/
 ├── KAREN_SCHMALBACH_Empresa_en.pdf      ⭐ Para mercado internacional
 ├── hoja_de_vida_adecuada.md             📄 Fuente en español
 ├── hoja_de_vida_adecuada_en.md          📄 Fuente en inglés
+├── ats_validation_report_es.md          📊 Validación ATS español (NUEVO)
+├── ats_validation_report_en.md          📊 Validación ATS inglés (NUEVO)
 ├── SCORING_REPORT.pdf
 └── ... otros archivos
 ```
@@ -60,7 +73,9 @@ Ambas versiones incluyen:
 ## Documentación Completa
 
 📚 Para más información, consulta:
-- `GENERACION_BILINGUE.md` - Documentación técnica completa
+- `GUIA_RAPIDA_ATS.md` - **Guía rápida del sistema de validación ATS** ⭐ NUEVO
+- `GUIA_VALIDACION_ATS.md` - Documentación completa de validación ATS
+- `GENERACION_BILINGUE.md` - Documentación técnica completa de generación bilingüe
 - `GUIA_USO_SISTEMA.md` - Guía de uso del sistema
 
 ## Ventajas
@@ -68,4 +83,6 @@ Ambas versiones incluyen:
 🎯 **Alcance Global**: Lista para mercado nacional e internacional  
 ⚡ **Eficiencia**: Una sola acción genera ambas versiones  
 💼 **Profesionalismo**: Traducciones de calidad revisadas  
-🔄 **Automatización**: Sin trabajo manual adicional
+🔄 **Automatización**: Sin trabajo manual adicional  
+📊 **Validación ATS**: Score objetivo para maximizar empleabilidad ⭐ NUEVO  
+✅ **Reportes Detallados**: Recomendaciones accionables para mejora ⭐ NUEVO
