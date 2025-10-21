@@ -271,9 +271,9 @@ def main():
         print(f"❌ Error: Carpeta no encontrada: {output_dir}")
         sys.exit(1)
     
-    # Look for CV PDF (not scoring report)
-    pdf_files = [f for f in os.listdir(output_dir) 
-                 if f.startswith("ANTONIO_GUTIERREZ_RESUME_") and f.endswith(".pdf")]
+    # Look for standardized CV PDF filename produced by procesar_aplicacion.py
+    pdf_files = [f for f in os.listdir(output_dir)
+                 if f == 'hoja_de_vida_adecuada.pdf']
     
     if not pdf_files:
         print(f"❌ Error: No se encontró PDF del CV en {output_dir}")
