@@ -8,6 +8,7 @@ import subprocess
 from cv_personalization_engine import CVPersonalizationEngine
 from scoring_engine import AdvancedScoringEngine
 from scoring_report_generator import ScoringReportGenerator
+from ats_cv_validator import ATSCVValidator
 
 def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c in (' ', '_', '-')).replace(" ", "")
@@ -170,6 +171,75 @@ def main(yaml_path):
         print("   ⚠️  English template not found, English CV will not be generated\n")
     
     print("="*60 + "\n")
+
+    # Validate CVs for ATS optimization
+    print("\n" + "="*60)
+    print("VALIDACIÓN ATS DE HOJAS DE VIDA GENERADAS")
+    print("="*60)
+    
+    ats_validator = ATSCVValidator()
+    
+    # Validate Spanish CV
+    if os.path.exists(dest_adaptada_cv_es):
+        print("\n📋 Validando CV en ESPAÑOL para optimización ATS...")
+        with open(dest_adaptada_cv_es, 'r', encoding='utf-8') as f:
+            cv_es_content = f.read()
+        
+        ats_results_es = ats_validator.validate_cv(cv_es_content, language='es')
+        
+        print(f"   Puntuación ATS: {ats_results_es['overall_score']}/100")
+        print(f"   Estado: {'✅ OPTIMIZADA' if ats_results_es['is_ats_optimized'] else '⚠️ REQUIERE MEJORAS'}")
+        
+        # Save ATS validation report for Spanish CV
+        ats_report_es_path = os.path.join(output_dir, "ats_validation_report_es.md")
+        ats_report_es = ats_validator.format_validation_report(
+            ats_results_es,
+            data['cargo'],
+            language='es'
+        )
+        with open(ats_report_es_path, 'w', encoding='utf-8') as f:
+            f.write(ats_report_es)
+        print(f"   ✓ Reporte ATS guardado: ats_validation_report_es.md")
+        
+        # Display warnings if any
+        if ats_results_es['warnings']:
+            print(f"\n   ⚠️ Advertencias ATS ({len(ats_results_es['warnings'])}):")
+            for warning in ats_results_es['warnings'][:3]:  # Show first 3
+                print(f"      - {warning}")
+            if len(ats_results_es['warnings']) > 3:
+                print(f"      ... y {len(ats_results_es['warnings']) - 3} más (ver reporte completo)")
+    
+    # Validate English CV
+    if os.path.exists(dest_adaptada_cv_en):
+        print("\n📋 Validando CV en INGLÉS para optimización ATS...")
+        with open(dest_adaptada_cv_en, 'r', encoding='utf-8') as f:
+            cv_en_content = f.read()
+        
+        ats_results_en = ats_validator.validate_cv(cv_en_content, language='en')
+        
+        print(f"   Puntuación ATS: {ats_results_en['overall_score']}/100")
+        print(f"   Estado: {'✅ OPTIMIZED' if ats_results_en['is_ats_optimized'] else '⚠️ NEEDS IMPROVEMENT'}")
+        
+        # Save ATS validation report for English CV
+        ats_report_en_path = os.path.join(output_dir, "ats_validation_report_en.md")
+        ats_report_en = ats_validator.format_validation_report(
+            ats_results_en,
+            data['cargo'],
+            language='en'
+        )
+        with open(ats_report_en_path, 'w', encoding='utf-8') as f:
+            f.write(ats_report_en)
+        print(f"   ✓ Reporte ATS guardado: ats_validation_report_en.md")
+        
+        # Display warnings if any
+        if ats_results_en['warnings']:
+            print(f"\n   ⚠️ ATS Warnings ({len(ats_results_en['warnings'])}):")
+            for warning in ats_results_en['warnings'][:3]:  # Show first 3
+                print(f"      - {warning}")
+            if len(ats_results_en['warnings']) > 3:
+                print(f"      ... and {len(ats_results_en['warnings']) - 3} more (see full report)")
+    
+    print("\n" + "="*60 + "\n")
 
     # Generate scoring report
     print("\n" + "="*60)
@@ -387,12 +457,49 @@ def main(yaml_path):
     print(f"   ✓ scoring_report.md")
     if os.path.exists(scoring_pdf_path):
         print(f"   ✓ SCORING_REPORT.pdf")
+    
+    # Show ATS validation results
+    ats_report_es_path = os.path.join(output_dir, "ats_validation_report_es.md")
+    ats_report_en_path = os.path.join(output_dir, "ats_validation_report_en.md")
+    if os.path.exists(ats_report_es_path):
+        print(f"   ✓ ats_validation_report_es.md")
+    if os.path.exists(ats_report_en_path):
+        print(f"   ✓ ats_validation_report_en.md")
+    
     print(f"\nPróximos pasos:")
     print(f"   - El workflow copiará estos archivos a: aplicaciones/{fecha}/{folder_name}/")
     print(f"   - PDFs generados:")
     print(f"     • Español: {pdf_filename_es}")
     if os.path.exists(pdf_path_en):
         print(f"     • Inglés: {pdf_filename_en}")
+    
+    # Display ATS validation summary
+    if os.path.exists(ats_report_es_path) or os.path.exists(ats_report_en_path):
+        print(f"\n   📊 Validación ATS:")
+        if os.path.exists(ats_report_es_path):
+            # Read and display score from Spanish report
+            with open(ats_report_es_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Extract score from report
+                import re
+                score_match = re.search(r'Puntuación ATS General:\*\* (\d+)/100', content)
+                if score_match:
+                    score = int(score_match.group(1))
+                    status = '✅ OPTIMIZADA' if score >= 80 else '⚠️ REQUIERE MEJORAS'
+                    print(f"     • CV Español: {score}/100 {status}")
+        
+        if os.path.exists(ats_report_en_path):
+            # Read and display score from English report
+            with open(ats_report_en_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Extract score from report
+                import re
+                score_match = re.search(r'Overall ATS Score:\*\* (\d+)/100', content)
+                if score_match:
+                    score = int(score_match.group(1))
+                    status = '✅ OPTIMIZED' if score >= 80 else '⚠️ NEEDS IMPROVEMENT'
+                    print(f"     • CV English: {score}/100 {status}")
+    
     print("="*60 + "\n")
     
     # Validate that the output directory was created successfully
