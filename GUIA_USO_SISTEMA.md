@@ -30,7 +30,75 @@ git push
 
 GitHub Actions detectará el nuevo YAML y ejecutará el procesamiento.
 
+**NOTA:** El workflow CI/CD ha sido mejorado para garantizar que SIEMPRE detecta y procesa archivos YAML modificados o nuevos. Ver `MEJORAS_WORKFLOW_DETECCION_YAML.md` para detalles completos de las mejoras.
+
+#### Características de Detección Robusta:
+- ✅ Detecta nuevos archivos YAML
+- ✅ Detecta modificaciones en archivos existentes
+- ✅ Detecta archivos renombrados
+- ✅ Funciona en primer commit de rama
+- ✅ Funciona con force pushes
+- ✅ Fallback automático si la detección falla
+- ✅ Logs detallados de todo el proceso
+
 ## Qué Esperar - Logs del Workflow
+
+### Logs de Detección de Archivos 🔍
+
+El workflow ahora muestra información detallada sobre la detección de archivos:
+
+```
+============================================================
+DETECCIÓN DE ARCHIVOS YAML MODIFICADOS
+============================================================
+📋 Información del contexto de GitHub Actions:
+   Event: push
+   Before SHA: abc123def456...
+   Current SHA: def456abc789...
+   Ref: refs/heads/main
+
+📋 Estado actual del repositorio:
+def456a Latest commit message
+abc123d Previous commit message
+
+📋 Archivos YAML existentes en to_process/:
+-rw-r--r-- 1 runner runner 1234 Oct 21 10:00 nueva_aplicacion.yaml
+
+🔍 Detectando cambios usando git diff...
+   Comando: git diff --name-only abc123def456 def456abc789
+   ✓ Git diff ejecutado exitosamente
+
+============================================================
+✅ Archivos YAML detectados para procesar: 1
+============================================================
+to_process/nueva_aplicacion.yaml
+============================================================
+
+🔄 Iniciando procesamiento de archivos...
+
+-----------------------------------------------------------
+📄 Procesando: to_process/nueva_aplicacion.yaml
+   ✓ Archivo existe en el workspace
+```
+
+Después de esto, verás los logs de procesamiento de cada archivo individual.
+
+### Logs de Resumen del Procesamiento 📊
+
+Al final del procesamiento de archivos:
+
+```
+============================================================
+📊 RESUMEN DEL PROCESAMIENTO
+============================================================
+   Total archivos detectados: 1
+   Procesados exitosamente: 1
+   Fallidos: 0
+
+   Carpetas generadas:
+      - BillingAnalyst_TataConsultancyServices_2025-10-21
+============================================================
+```
 
 ### Logs de Éxito ✅
 
@@ -253,6 +321,67 @@ El sistema personaliza automáticamente:
    - Identifica habilidades coincidentes
 
 ## Solución de Problemas
+
+### El workflow no detecta mi archivo YAML
+
+**Síntoma:** Hiciste push de un archivo YAML pero el workflow no lo procesa.
+
+**Soluciones:**
+
+1. **Verifica que el archivo está en la carpeta correcta:**
+   ```bash
+   # Debe estar en: to_process/mi_aplicacion.yaml
+   # NO en: aplicaciones/, aplicaciones_laborales/, etc.
+   ```
+
+2. **Verifica la extensión del archivo:**
+   ```bash
+   # Correcto: .yaml
+   # Incorrecto: .yml, .YAML, .txt
+   ```
+
+3. **Revisa los logs del workflow:**
+   - Ve a GitHub Actions en tu repositorio
+   - Busca el último workflow run
+   - Revisa la sección "DETECCIÓN DE ARCHIVOS YAML MODIFICADOS"
+   - Verifica que tu archivo aparece listado
+
+4. **Situaciones especiales (el workflow tiene fallback automático):**
+   - Primer commit de rama: El workflow procesará TODOS los YAML
+   - Force push: El workflow procesará TODOS los YAML
+   - Si git diff falla: El workflow procesará TODOS los YAML
+
+5. **Forzar procesamiento si es necesario:**
+   ```bash
+   # Opción 1: Modificar contenido (agregar comentario)
+   echo "# Updated $(date)" >> to_process/mi_aplicacion.yaml
+   git add to_process/mi_aplicacion.yaml
+   git commit -m "Force reprocess"
+   git push
+   
+   # Opción 2: Renombrar el archivo
+   git mv to_process/app.yaml to_process/app_v2.yaml
+   git commit -m "Rename to force reprocess"
+   git push
+   ```
+
+### El workflow dice "No hay archivos YAML para procesar"
+
+**Síntoma:** El workflow ejecuta pero dice que no hay archivos para procesar.
+
+**Explicación:** Esto es NORMAL si:
+- No modificaste ningún archivo YAML en `to_process/`
+- Solo modificaste archivos en otras carpetas
+- Ya procesaste estos archivos en un commit anterior
+
+**Para verificar:**
+```bash
+# Ver qué archivos cambiaron en el último commit
+git diff --name-only HEAD~1 HEAD
+
+# Ver solo archivos YAML en to_process/
+git diff --name-only HEAD~1 HEAD | grep 'to_process/.*\.yaml'
+```
 
 ### El PDF no se genera
 

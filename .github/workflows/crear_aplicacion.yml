@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch full history for reliable git diff
 
       - name: Instalar dependencias
         run: |
@@ -27,49 +29,217 @@ jobs:
       - name: Ejecutar procesamiento solo para los YAMLs modificados y capturar carpetas procesadas
         id: procesar
         run: |
+          echo "============================================================"
+          echo "DETECCIÓN DE ARCHIVOS YAML MODIFICADOS"
+          echo "============================================================"
+          
           mkdir -p processed_folders
-          # Determine changed files in this push and process only those under to_process/
-          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^to_process/.*\.yaml$' || true)
+          
+          # Debug: Show git state and relevant info
+          echo "📋 Información del contexto de GitHub Actions:"
+          echo "   Event: ${{ github.event_name }}"
+          echo "   Before SHA: ${{ github.event.before }}"
+          echo "   Current SHA: ${{ github.sha }}"
+          echo "   Ref: ${{ github.ref }}"
+          echo ""
+          
+          echo "📋 Estado actual del repositorio:"
+          git --no-pager log --oneline -3
+          echo ""
+          
+          echo "📋 Archivos YAML existentes en to_process/:"
+          ls -la to_process/*.yaml 2>/dev/null || echo "   No se encontraron archivos YAML"
+          echo ""
+          
+          # Determine changed files with better error handling
+          CHANGED=""
+          BEFORE_SHA="${{ github.event.before }}"
+          CURRENT_SHA="${{ github.sha }}"
+          
+          # Check if this is a valid commit range (not initial commit or force push)
+          if [ -z "$BEFORE_SHA" ] || [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "⚠️  Situación especial detectada: primer commit o SHA anterior no disponible"
+            echo "   Procesando TODOS los archivos YAML en to_process/ como fallback"
+            CHANGED=$(find to_process -name "*.yaml" -type f 2>/dev/null | sed 's|^\./||' || true)
+          else
+            echo "🔍 Detectando cambios usando git diff..."
+            echo "   Comando: git diff --name-only $BEFORE_SHA $CURRENT_SHA"
+            
+            # Try to get the diff, with fallback if it fails
+            if CHANGED=$(git diff --name-only "$BEFORE_SHA" "$CURRENT_SHA" 2>/dev/null | grep '^to_process/.*\.yaml$' || true); then
+              echo "   ✓ Git diff ejecutado exitosamente"
+            else
+              echo "   ⚠️  Git diff falló, usando fallback: procesando todos los YAML"
+              CHANGED=$(find to_process -name "*.yaml" -type f 2>/dev/null | sed 's|^\./||' || true)
+            fi
+          fi
+          
+          echo ""
+          echo "============================================================"
+          
+          # Check if any files were detected
           if [ -z "$CHANGED" ]; then
-            echo "No hay archivos YAML modificados en to_process/ en este push."
+            echo "ℹ️  No hay archivos YAML para procesar en este push."
+            echo ""
+            echo "📋 Resumen de la detección:"
+            echo "   - Método usado: git diff entre $BEFORE_SHA y $CURRENT_SHA"
+            echo "   - Archivos encontrados: 0"
+            echo "   - Acción: Salir sin procesar (esto es esperado si no hubo cambios)"
+            echo "============================================================"
             exit 0
           fi
-          echo "Archivos modificados detectados:"; echo "$CHANGED"
+          
+          # Display detected files
+          FILE_COUNT=$(echo "$CHANGED" | wc -l)
+          echo "✅ Archivos YAML detectados para procesar: $FILE_COUNT"
+          echo "============================================================"
+          echo "$CHANGED"
+          echo "============================================================"
+          echo ""
+          
+          # Process each detected file
+          echo "🔄 Iniciando procesamiento de archivos..."
+          echo ""
+          
+          PROCESSED_COUNT=0
+          FAILED_COUNT=0
+          
           for file in $CHANGED; do
+            echo "-----------------------------------------------------------"
+            echo "📄 Procesando: $file"
+            
             if [ -f "$file" ]; then
-              FOLDER_NAME=$(python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file" | tail -n 1)
-              echo "Processed: $FOLDER_NAME"
-              echo "$FOLDER_NAME" >> processed_folders/list.txt
+              echo "   ✓ Archivo existe en el workspace"
+              
+              if FOLDER_NAME=$(python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file" 2>&1 | tee /tmp/process_output.log | tail -n 1); then
+                echo "   ✓ Procesamiento exitoso"
+                echo "   📁 Carpeta generada: $FOLDER_NAME"
+                echo "$FOLDER_NAME" >> processed_folders/list.txt
+                PROCESSED_COUNT=$((PROCESSED_COUNT + 1))
+              else
+                echo "   ❌ Error durante el procesamiento"
+                cat /tmp/process_output.log || true
+                FAILED_COUNT=$((FAILED_COUNT + 1))
+              fi
             else
-              echo "Advertencia: archivo esperado no encontrado en workspace: $file"
+              echo "   ❌ ERROR: Archivo no encontrado en workspace: $file"
+              echo "   Esto puede indicar que el archivo fue eliminado o renombrado"
+              FAILED_COUNT=$((FAILED_COUNT + 1))
             fi
+            echo ""
           done
-          cat processed_folders/list.txt || true
+          
+          # Final summary
+          echo "============================================================"
+          echo "📊 RESUMEN DEL PROCESAMIENTO"
+          echo "============================================================"
+          echo "   Total archivos detectados: $FILE_COUNT"
+          echo "   Procesados exitosamente: $PROCESSED_COUNT"
+          echo "   Fallidos: $FAILED_COUNT"
+          echo ""
+          
+          if [ -f processed_folders/list.txt ]; then
+            echo "   Carpetas generadas:"
+            cat processed_folders/list.txt | sed 's/^/      - /'
+          fi
+          echo "============================================================"
 
       - name: Copiar SOLO las subcarpetas procesadas a aplicaciones/DATE (idempotente)
         run: |
+          echo "============================================================"
+          echo "COPIANDO APLICACIONES PROCESADAS A CARPETA DE DESTINO"
+          echo "============================================================"
+          
           FECHA=$(date +%Y-%m-%d)
           mkdir -p "aplicaciones/$FECHA"
+          
+          echo "📅 Fecha de procesamiento: $FECHA"
+          echo "📁 Carpeta destino: aplicaciones/$FECHA"
+          echo ""
+          
           if [ -f processed_folders/list.txt ]; then
+            FOLDER_COUNT=$(wc -l < processed_folders/list.txt)
+            echo "📋 Carpetas a copiar: $FOLDER_COUNT"
+            echo "============================================================"
+            
+            COPY_SUCCESS=0
+            COPY_FAILED=0
+            
             while read -r FOLDER; do
+              echo "📦 Procesando: $FOLDER"
               SRC="to_process_procesados/$FOLDER/"
               DEST="aplicaciones/$FECHA/$FOLDER/"
+              
               if [ -d "$SRC" ]; then
-                # Use rsync to copy/update contents idempotently and avoid re-copying unrelated apps
-                rsync -a --delete "$SRC" "$DEST"
-                echo "Copied/updated $FOLDER to aplicaciones/$FECHA/"
+                echo "   ✓ Carpeta origen encontrada: $SRC"
+                
+                # List files to be copied
+                echo "   📄 Archivos en origen:"
+                ls -lh "$SRC" | tail -n +2 | awk '{print "      -", $9, "(" $5 ")"}'
+                
+                # Use rsync to copy/update contents idempotently
+                if rsync -a --delete "$SRC" "$DEST"; then
+                  echo "   ✅ Copiado exitosamente a: $DEST"
+                  COPY_SUCCESS=$((COPY_SUCCESS + 1))
+                else
+                  echo "   ❌ Error al copiar"
+                  COPY_FAILED=$((COPY_FAILED + 1))
+                fi
               else
-                echo "Warning: expected folder not found: $SRC"
+                echo "   ❌ ERROR: Carpeta origen no encontrada: $SRC"
+                COPY_FAILED=$((COPY_FAILED + 1))
               fi
+              echo ""
             done < processed_folders/list.txt
+            
+            echo "============================================================"
+            echo "📊 RESUMEN DE LA COPIA"
+            echo "============================================================"
+            echo "   Total carpetas: $FOLDER_COUNT"
+            echo "   Copiadas exitosamente: $COPY_SUCCESS"
+            echo "   Fallidas: $COPY_FAILED"
+            echo "============================================================"
           else
-            echo "No processed folders list found; skipping copy"
+            echo "ℹ️  No se encontró lista de carpetas procesadas (processed_folders/list.txt)"
+            echo "   Esto significa que no hubo archivos YAML procesados en este push."
+            echo "   Acción: Salir sin copiar archivos."
+            echo "============================================================"
           fi
 
       - name: Hacer commit de archivos generados
         run: |
+          echo "============================================================"
+          echo "COMMIT Y PUSH DE CAMBIOS"
+          echo "============================================================"
+          
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          echo "📋 Estado antes del commit:"
+          git --no-pager status
+          echo ""
+          
+          echo "📦 Agregando archivos al staging area..."
           git add aplicaciones/
-          git commit -m "Add processed applications to /aplicaciones/ por fecha" || echo "No changes to commit"
-          git push
+          
+          echo ""
+          echo "📋 Archivos en staging area:"
+          git --no-pager diff --cached --name-status | head -20
+          echo ""
+          
+          if git diff --cached --quiet; then
+            echo "ℹ️  No hay cambios para hacer commit"
+            echo "   Esto es normal si no se procesaron archivos o si no hubo cambios."
+          else
+            echo "✅ Haciendo commit de cambios..."
+            git commit -m "Add processed applications to /aplicaciones/ por fecha"
+            
+            echo ""
+            echo "🚀 Haciendo push al repositorio remoto..."
+            git push
+            
+            echo ""
+            echo "✅ Cambios enviados exitosamente al repositorio"
+          fi
+          
+          echo "============================================================"
