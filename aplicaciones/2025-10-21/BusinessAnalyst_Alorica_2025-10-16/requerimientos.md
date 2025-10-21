@@ -1,0 +1,14 @@
+# Requerimientos del Puesto
+
+- Responsible for research, analysis and evaluation to determine needed requirement.
+- Create requirement documentation and supporting project documentation.
+- Own a project from analysis phase to implementation phase with minimal support from immediate supervisors.
+- Serve as escalation point for issues addressed during project lifecycle. Able to work independently to identify root cause of issue and enact appropriate solution accordingly.
+- Perform other duties as assigned by management.
+- Experience, Knowledge, Skills & Abilities
+- Minimum of 6 months of experience as Data/Reporting or Business Analyst.
+- Advanced English level(B2).
+- Experience using PowerBi, SQL, and Tableu. Salesforce data structures is a plus.
+- Outstanding organizational skills and the ability to handle multiple projects.
+- Strong interpersonal and communication skills to work effectively with management and clients.
+- This is a remote (WAH) position.
