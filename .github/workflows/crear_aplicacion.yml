@@ -24,11 +24,12 @@ jobs:
             python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
           done
 
-      - name: Copiar archivos generados a /aplicaciones/
+      - name: Copiar archivos generados a /aplicaciones/por fecha
         run: |
-          mkdir -p aplicaciones
+          FECHA=$(date +%Y-%m-%d)
+          mkdir -p "aplicaciones/$FECHA"
           if [ -d to_process_procesados ]; then
-            cp -r to_process_procesados/* aplicaciones/
+            cp -r to_process_procesados/* "aplicaciones/$FECHA/" || true
           fi
 
       - name: Hacer commit de archivos generados
@@ -36,5 +37,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add aplicaciones/
-          git commit -m "Add processed applications to /aplicaciones/" || echo "No changes to commit"
+          git commit -m "Add processed applications to /aplicaciones/ por fecha" || echo "No changes to commit"
           git push
