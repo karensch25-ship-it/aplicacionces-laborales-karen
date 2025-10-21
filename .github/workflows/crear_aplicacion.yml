@@ -18,28 +18,45 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml requests pandas
 
-      - name: Instalar pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-
-      - name: Instalar LaTeX (paquetes recomendados)
-        run: sudo apt-get update && sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
-
-      - name: Ejecutar procesamiento de aplicación
+      - name: Instalar pandoc y LaTeX
         run: |
-          for file in to_process/*.yaml; do
-            python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file"
-          done
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
 
-      - name: Copiar SOLO la aplicación recién generada a /aplicaciones/por fecha
+      - name: Ejecutar procesamiento de aplicación y capturar carpetas procesadas
+        id: procesar
         run: |
-          FECHA=$(date +%Y-%m-%d)
+          mkdir -p processed_folders
+          # For each YAML in to_process, run processor and capture printed folder name
           for file in to_process/*.yaml; do
-            BASENAME=$(basename "$file" .yaml)
-            mkdir -p "aplicaciones/$FECHA"
-            if [ -d "to_process_procesados/$BASENAME" ]; then
-              cp -r "to_process_procesados/$BASENAME" "aplicaciones/$FECHA/"
+            if [ -f "$file" ]; then
+              FOLDER_NAME=$(python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file" | tail -n 1)
+              echo "Processed: $FOLDER_NAME"
+              echo "$FOLDER_NAME" >> processed_folders/list.txt
             fi
           done
+          cat processed_folders/list.txt || true
+
+      - name: Copiar SOLO las subcarpetas procesadas a aplicaciones/DATE (idempotente)
+        run: |
+          FECHA=$(date +%Y-%m-%d)
+          mkdir -p "aplicaciones/$FECHA"
+          if [ -f processed_folders/list.txt ]; then
+            while read -r FOLDER; do
+              SRC="to_process_procesados/$FOLDER/"
+              DEST="aplicaciones/$FECHA/$FOLDER/"
+              if [ -d "$SRC" ]; then
+                # Use rsync to copy/update contents idempotently and avoid re-copying unrelated apps
+                rsync -a --delete "$SRC" "$DEST"
+                echo "Copied/updated $FOLDER to aplicaciones/$FECHA/"
+              else
+                echo "Warning: expected folder not found: $SRC"
+              fi
+            done < processed_folders/list.txt
+          else
+            echo "No processed folders list found; skipping copy"
+          fi
 
       - name: Hacer commit de archivos generados
         run: |

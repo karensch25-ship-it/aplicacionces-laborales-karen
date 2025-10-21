@@ -105,7 +105,8 @@ def main(yaml_path):
     print(f"  - Report saved to: {scoring_report_path}")
     
     # Convertir a PDF usando pandoc con formato profesional
-    pdf_filename = f"ANTONIO_GUTIERREZ_RESUME_{empresa}.pdf"
+    # Output PDF must be named hoja_de_vida_adecuada.pdf per requirements
+    pdf_filename = "hoja_de_vida_adecuada.pdf"
     pdf_path = os.path.join(output_dir, pdf_filename)
     
     # Get the path to the LaTeX header template
@@ -172,20 +173,23 @@ def main(yaml_path):
              "-V", "fontsize=11pt"],
             check=True
         )
-        
-        # Remove the temporary cleaned file
-        os.remove(cleaned_report_path)
-        
+
+        # Keep the cleaned markdown file in the output folder as required
+        # (scoring_report_cleaned.md)
         print(f"Scoring Report PDF: {scoring_pdf_path}")
     except Exception as e:
         print(f"Error al convertir scoring report a PDF: {e}")
 
-    # (Opcional) Mover el YAML procesado
-    processed_dir = "to_process_procesados"
-    os.makedirs(processed_dir, exist_ok=True)
-    shutil.move(yaml_path, os.path.join(processed_dir, os.path.basename(yaml_path)))
+    # Mover el YAML procesado dentro de la carpeta de la aplicación procesada
+    try:
+        dest_yaml_path = os.path.join(output_dir, os.path.basename(yaml_path))
+        shutil.move(yaml_path, dest_yaml_path)
+    except Exception as e:
+        print(f"⚠️  Warning: no se pudo mover el YAML al folder de salida: {e}")
     
     # Return folder_name for issue creation
+    # Print the folder name so CI can capture which folders were processed
+    print(folder_name)
     return folder_name
 
 if __name__ == "__main__":
