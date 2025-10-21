@@ -1,160 +1,68 @@
-# Job Match Scoring Report
+# Reporte de Evaluación de Aplicación
 
-**Candidate:** Antonio Gutierrez Amaranto
-**Position:** Billing Analyst
-**Company:** Tata Consultancy Services
-**Date:** 2025-10-21
-**Report Generated:** 2025-10-21 04:55
+## Información General
 
----
-
-## Overall Match Score: 55.8% - GOOD FIT [GOOD]
-
-**#####-----** `55.8%`
-
-### Recommendation
-**GOOD FIT**
-
-Apply and address potential gaps in your cover letter.
+- **Cargo:** Billing Analyst
+- **Empresa:** Tata Consultancy Services
+- **Fecha de Aplicación:** 2025-10-21
+- **Candidata:** Karen Schmalbach
 
 ---
 
-## Dimensional Analysis
+## Puntuación Global
 
-### 1. Technical Skills Match: 0.0% [NEEDS IMPROVEMENT]
-**Weight:** 30% | **Contribution to Global Score:** 0.0%
+**Puntuación Total:** 11/100
 
-**----------** `0.0%` - Weak
-
-**Analysis:** 0/1 technical skills matched
-
-[!] **Missing Skills:**
-- bi
+**Recomendación:** REVISAR REQUERIMIENTOS
 
 ---
 
-### 2. Experience Depth & Relevance: 91.0% [EXCELLENT]
-**Weight:** 25% | **Contribution to Global Score:** 22.8%
+## Desglose de Puntuación
 
-**#########-** `91.0%` - Excellent
-
-**Analysis:** 5+ years with 6 quantifiable achievements
-
-- **Years of Experience:** 5+ years
-- **Quantifiable Achievements:** 6
-- **Years Score:** 100%
-- **Responsibility Level:** 70%
-- **Impact Score:** 100%
+- **Puntuación Base:** 11/100
+- **Ajuste por Factores:** +0 puntos
+- **Puntuación Final:** 11/100
 
 ---
 
-### 3. Domain Knowledge: 80% [EXCELLENT]
-**Weight:** 20% | **Contribution to Global Score:** 16.0%
+## Análisis de Habilidades
 
-**########--** `80%` - Strong
+### Coincidencia de Competencias
 
-**Analysis:** 0/0 domain areas matched
+- **Habilidades del Perfil Evaluadas:** 18
+- **Habilidades Coincidentes:** 2
+- **Porcentaje de Coincidencia:** 11%
 
----
+### Habilidades Coincidentes Detectadas
 
-### 4. Soft Skills & Cultural Fit: 100.0% [EXCELLENT]
-**Weight:** 15% | **Contribution to Global Score:** 15.0%
-
-**##########** `100.0%` - Excellent
-
-**Analysis:** 2/2 soft skills demonstrated
-
-[+] **Demonstrated Soft Skills:**
-- Stakeholder
-- Leadership
+- Ar
+- Billing
 
 ---
 
-### 5. Achievement Quality: 20.0% [NEEDS IMPROVEMENT]
-**Weight:** 10% | **Contribution to Global Score:** 2.0%
+## Análisis de Requerimientos
 
-**##--------** `20.0%` - Weak
-
-**Analysis:** 0 high-quality achievements mapped to 7 requirements
-
-- **High Quality Matches:** 0
-- **Medium Quality Matches:** 0
-- **Low Quality Matches:** 7
-- **Total Requirements:** 7
+**Total de Requerimientos Listados:** 7
 
 ---
 
-## Key Strengths for This Role
+## Recomendación Detallada
 
-### 1. Experience
 
-**5+ years with proven track record**
+Esta aplicación muestra **baja alineación** con el perfil de la candidata.
+Es posible que varios requerimientos clave no se alineen con la experiencia actual.
 
-*Evidence:* 6 quantifiable achievements
-
----
-
-## Gaps & Mitigation Strategies
-
-### [GOOD] Gap: Bi
-**Area:** Technical Skills | **Impact:** Medium
-
-**Mitigation Strategy:** Highlight transferable skills and willingness to learn bi.
+**Acción Recomendada:** Revisar requerimientos. Considerar si el desarrollo de habilidades 
+adicionales es viable antes de aplicar.
 
 ---
 
-## Actionable Recommendations
+## Notas
 
-### 1. [NEEDS IMPROVEMENT] [High Priority] Review missing technical skills before applying
-
-Focus on: bi
-
-### 2. [GOOD] [Medium Priority] Strengthen your achievement examples
-
-Add more quantifiable metrics to your experience
-
-### 3. [NEEDS IMPROVEMENT] [High Priority] Prepare specific examples
-
-Ready 2-3 stories highlighting: 
+Este reporte es generado automáticamente basado en el análisis de palabras clave 
+y no reemplaza el juicio profesional. Se recomienda revisar manualmente los 
+requerimientos específicos y evaluar competencias transferibles.
 
 ---
 
-## Detailed Requirement Matching
-
-| Match Level | Requirement | Evidence |
-|------------|------------|----------|
-| [WARNING] Weak | Required experience English level B2+ to C1 | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Ensures current signed contract is in place. | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Codes project events using proper event types and ... | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Sets up invoicing calendar for all customers and p... | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Compiles and collates back up documentation for in... | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Prepares sample customer invoices for review by Pr... | No direct evidence, transferable skills applicable |
-| [WARNING] Weak | Issues approved client invoices and credit notes w... | No direct evidence, transferable skills applicable |
-
----
-
-## Next Steps
-
-### [GOOD] Recommended Actions:
-
-1. **Review gaps carefully** before applying
-2. **Preparation time:** 3-4 hours recommended
-3. **Cover letter strategy:** Address potential gaps proactively
-4. **Highlight transferable skills** for missing requirements
-
----
-
-## About This Report
-
-This report was generated automatically by the **Advanced CV Personalization & Scoring System**.
-
-**Scoring Methodology:**
-- **Multi-dimensional analysis** across 5 key areas
-- **Weighted scoring** based on importance of each dimension
-- **Evidence-based matching** using candidate's actual achievements
-- **Transparent calculation** with detailed breakdowns
-
-**Confidence Level:** This scoring is based on keyword matching and achievement mapping. 
-Individual job requirements may vary, and human judgment should be used to complement this analysis.
-
-*Generated on 2025-10-21 at 04:55:18*
+*Reporte generado automáticamente el 2025-10-21*

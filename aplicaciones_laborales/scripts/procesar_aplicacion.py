@@ -27,41 +27,78 @@ def generar_professional_summary(cargo, requerimientos):
     return engine.generar_professional_summary_personalizado(cargo, requerimientos)
 
 def main(yaml_path):
-    with open(yaml_path, 'r', encoding='utf-8') as f:
-        data = yaml.safe_load(f)
+    print("\n" + "="*60)
+    print("PROCESAMIENTO DE APLICACIÓN LABORAL")
+    print("="*60)
+    print(f"Archivo YAML: {yaml_path}")
+    
+    # Load and validate YAML
+    try:
+        with open(yaml_path, 'r', encoding='utf-8') as f:
+            data = yaml.safe_load(f)
+    except FileNotFoundError:
+        print(f"❌ ERROR: Archivo YAML no encontrado: {yaml_path}")
+        sys.exit(1)
+    except yaml.YAMLError as e:
+        print(f"❌ ERROR: Formato YAML inválido en {yaml_path}")
+        print(f"   Detalle: {e}")
+        sys.exit(1)
+    
+    # Validate required fields
+    required_fields = ['cargo', 'empresa', 'fecha']
+    missing_fields = [field for field in required_fields if field not in data]
+    if missing_fields:
+        print(f"❌ ERROR: Campos requeridos faltantes en YAML: {', '.join(missing_fields)}")
+        sys.exit(1)
 
     cargo = sanitize_filename(data['cargo'])
     empresa = sanitize_filename(data['empresa'])
     fecha = data['fecha']
     folder_name = f"{cargo}_{empresa}_{fecha}"
+    
+    print(f"\n📋 Detalles de la aplicación:")
+    print(f"   Cargo: {data['cargo']}")
+    print(f"   Empresa: {data['empresa']}")
+    print(f"   Fecha: {fecha}")
+    print(f"   Carpeta destino: {folder_name}")
+    print("="*60 + "\n")
 
     # Output directory in to_process_procesados
     output_dir = os.path.join("to_process_procesados", folder_name)
     os.makedirs(output_dir, exist_ok=True)
+    print(f"✓ Carpeta de salida creada: {output_dir}\n")
 
     # descripcion.md
+    print("📝 Generando descripcion.md...")
     with open(os.path.join(output_dir, "descripcion.md"), "w", encoding="utf-8") as f:
         f.write(f"# Descripción del Puesto\n\n**Cargo:** {data['cargo']}\n**Empresa:** {data['empresa']}\n**Fecha de aplicación:** {fecha}\n\n## Descripción\n\n{data['descripcion']}\n")
+    print("   ✓ descripcion.md creado\n")
 
     # requerimientos.md
+    print("📝 Generando requerimientos.md...")
     with open(os.path.join(output_dir, "requerimientos.md"), "w", encoding="utf-8") as f:
         f.write(f"# Requerimientos del Puesto\n\n")
         for req in data.get('requerimientos', []):
             f.write(f"- {req}\n")
+    print(f"   ✓ requerimientos.md creado ({len(data.get('requerimientos', []))} requerimientos)\n")
 
     # hoja_de_vida_adecuada.md (Harvard template con job_alignment_section)
+    print("📝 Generando hoja_de_vida_adecuada.md...")
     harvard_cv_path = "aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md"
     dest_adaptada_cv = os.path.join(output_dir, "hoja_de_vida_adecuada.md")
     if os.path.exists(harvard_cv_path):
+        print(f"   ✓ Plantilla Harvard encontrada: {harvard_cv_path}")
         with open(harvard_cv_path, "r", encoding="utf-8") as src, open(dest_adaptada_cv, "w", encoding="utf-8") as dst:
             content = src.read()
             content = content.replace("{Cargo}", data['cargo']).replace("{Empresa}", data['empresa'])
             
             # Generate intelligent job alignment
+            print("   🔄 Generando sección de alineación con el puesto...")
             job_alignment_section = generar_job_alignment(data.get('requerimientos', []))
             content = content.replace("{job_alignment_section}", job_alignment_section)
             
             # Generate personalized professional summary
+            print("   🔄 Generando resumen profesional personalizado...")
             personalized_summary = generar_professional_summary(data['cargo'], data.get('requerimientos', []))
             # Replace the static summary with personalized one
             # Match either English or Spanish header and replace with Spanish section
@@ -73,12 +110,18 @@ def main(yaml_path):
             # Forzar nombre estandarizado en la plantilla
             content = content.replace("{Nombre Completo}", "KAREN SCHMALBACH")
             dst.write(content)
+        print("   ✓ hoja_de_vida_adecuada.md creada y personalizada\n")
     else:
+        print(f"   ⚠️  Plantilla Harvard NO encontrada en {harvard_cv_path}")
+        print("   📝 Creando hoja de vida básica...")
         with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
+        print("   ✓ hoja_de_vida_adecuada.md creada (versión básica)\n")
 
     # Generate scoring report
-    print("Generating scoring report...")
+    print("\n" + "="*60)
+    print("GENERACIÓN DE REPORTE DE SCORING")
+    print("="*60)
     scoring_engine = AdvancedScoringEngine()
     scoring_result = scoring_engine.calculate_comprehensive_score(
         requirements=data.get('requerimientos', []),
@@ -100,10 +143,11 @@ def main(yaml_path):
     with open(scoring_report_path, "w", encoding="utf-8") as f:
         f.write(scoring_report)
     
-    print(f"Scoring Report Generated:")
-    print(f"  - Global Score: {scoring_result['global_score']}%")
-    print(f"  - Recommendation: {scoring_result['recommendation_level']}")
-    print(f"  - Report saved to: {scoring_report_path}")
+    print(f"✅ Reporte de Scoring generado exitosamente")
+    print(f"   Puntuación Global: {scoring_result['global_score']}%")
+    print(f"   Recomendación: {scoring_result['recommendation']}")
+    print(f"   Archivo: scoring_report.md")
+    print("="*60 + "\n")
     
     # Convertir a PDF usando pandoc con formato profesional
     # Output PDF must follow the standard: KAREN_SCHMALBACH_NOMBREEMPRESA.pdf
@@ -114,7 +158,20 @@ def main(yaml_path):
     # Get the path to the LaTeX header template
     header_path = "aplicaciones_laborales/plantillas/cv_header.tex"
     
-    print(f"Generando PDF (ruta objetivo): {pdf_path}")
+    print("\n" + "="*60)
+    print("GENERACIÓN DE PDF DE HOJA DE VIDA")
+    print("="*60)
+    print(f"Archivo fuente: {dest_adaptada_cv}")
+    print(f"Archivo destino: {pdf_path}")
+    print(f"Nombre estándar: KAREN_SCHMALBACH_{empresa_saneada}.pdf")
+    print("="*60 + "\n")
+    
+    # Verify source markdown file exists
+    if not os.path.exists(dest_adaptada_cv):
+        print(f"❌ ERROR CRÍTICO: Archivo fuente no encontrado: {dest_adaptada_cv}")
+        print("   El proceso no puede continuar sin el archivo markdown de la hoja de vida.")
+        sys.exit(1)
+    
     try:
         pandoc_args = [
             "pandoc",
@@ -132,14 +189,61 @@ def main(yaml_path):
         # Add header include if it exists
         if os.path.exists(header_path):
             pandoc_args.extend(["-H", header_path])
+            print(f"✓ Usando header LaTeX personalizado: {header_path}")
+        else:
+            print(f"ℹ️  No se encontró header LaTeX personalizado en {header_path}")
 
-        subprocess.run(pandoc_args, check=True)
-        print(f"CV PDF generado exitosamente: {pdf_path}")
+        print(f"\n🔄 Ejecutando pandoc para generar PDF...")
+        print(f"   Comando: {' '.join(pandoc_args)}")
+        
+        result = subprocess.run(pandoc_args, check=True, capture_output=True, text=True)
+        
+        # Verify PDF was created
+        if not os.path.exists(pdf_path):
+            print(f"❌ ERROR CRÍTICO: El PDF no se generó en la ruta esperada: {pdf_path}")
+            print("   Pandoc ejecutó sin errores pero el archivo no existe.")
+            sys.exit(1)
+        
+        # Verify PDF has content (size > 0)
+        pdf_size = os.path.getsize(pdf_path)
+        if pdf_size == 0:
+            print(f"❌ ERROR CRÍTICO: El PDF generado está vacío (0 bytes)")
+            os.remove(pdf_path)  # Remove empty file
+            sys.exit(1)
+        
+        print(f"✅ CV PDF generado exitosamente!")
+        print(f"   Archivo: {pdf_filename}")
+        print(f"   Tamaño: {pdf_size:,} bytes")
+        print(f"   Ruta completa: {pdf_path}")
+        
+    except subprocess.CalledProcessError as e:
+        print(f"\n❌ ERROR CRÍTICO al convertir a PDF con pandoc")
+        print("="*60)
+        print(f"Código de salida: {e.returncode}")
+        if e.stdout:
+            print(f"STDOUT:\n{e.stdout}")
+        if e.stderr:
+            print(f"STDERR:\n{e.stderr}")
+        print("="*60)
+        print("\n🔍 DIAGNÓSTICO:")
+        print("   1. Verificar que pandoc está instalado correctamente")
+        print("   2. Verificar que xelatex está instalado (texlive-xetex)")
+        print("   3. Revisar el contenido del archivo markdown por errores de sintaxis")
+        print("   4. Verificar que las fuentes necesarias están disponibles")
+        print("\n❌ El proceso se detiene aquí. No se puede continuar sin el PDF.")
+        sys.exit(1)
     except Exception as e:
-        print(f"Error al convertir a PDF con pandoc: {e}")
+        print(f"\n❌ ERROR INESPERADO al generar PDF: {e}")
+        print(f"   Tipo de error: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
     
     # Convert scoring report to PDF
     scoring_pdf_path = os.path.join(output_dir, "SCORING_REPORT.pdf")
+    print("\n" + "="*60)
+    print("GENERACIÓN DE PDF DE SCORING REPORT")
+    print("="*60)
     try:
         # Create a cleaned version of the scoring report without emojis for PDF
         with open(scoring_report_path, 'r', encoding='utf-8') as f:
@@ -168,27 +272,63 @@ def main(yaml_path):
         with open(cleaned_report_path, 'w', encoding='utf-8') as f:
             f.write(content)
         
+        print(f"🔄 Generando PDF del reporte de scoring...")
+        
         # Generate PDF from cleaned version
-        subprocess.run(
+        result = subprocess.run(
             ["pandoc", cleaned_report_path, "-o", scoring_pdf_path,
              "--pdf-engine=xelatex",
              "-V", "geometry:margin=0.75in",
              "-V", "fontsize=11pt"],
-            check=True
+            check=True,
+            capture_output=True,
+            text=True
         )
 
-        # Keep the cleaned markdown file in the output folder as required
-        # (scoring_report_cleaned.md)
-        print(f"Scoring Report PDF: {scoring_pdf_path}")
+        # Verify scoring report PDF was created
+        if os.path.exists(scoring_pdf_path) and os.path.getsize(scoring_pdf_path) > 0:
+            print(f"✅ Scoring Report PDF generado exitosamente")
+            print(f"   Archivo: SCORING_REPORT.pdf")
+            print(f"   Tamaño: {os.path.getsize(scoring_pdf_path):,} bytes")
+        else:
+            print(f"⚠️  Advertencia: El PDF del scoring report no se generó correctamente")
+            
+    except subprocess.CalledProcessError as e:
+        print(f"⚠️  Advertencia: Error al convertir scoring report a PDF")
+        print(f"   Error: {e.stderr if e.stderr else str(e)}")
+        print("   El proceso continúa, pero el reporte PDF no estará disponible")
     except Exception as e:
-        print(f"Error al convertir scoring report a PDF: {e}")
+        print(f"⚠️  Advertencia: Error inesperado al generar scoring report PDF: {e}")
+        print("   El proceso continúa, pero el reporte PDF no estará disponible")
+    
+    print("="*60 + "\n")
 
     # Mover el YAML procesado dentro de la carpeta de la aplicación procesada
+    print("📦 Moviendo archivo YAML procesado a la carpeta de salida...")
     try:
         dest_yaml_path = os.path.join(output_dir, os.path.basename(yaml_path))
         shutil.move(yaml_path, dest_yaml_path)
+        print(f"   ✓ YAML movido a: {dest_yaml_path}\n")
     except Exception as e:
-        print(f"⚠️  Warning: no se pudo mover el YAML al folder de salida: {e}")
+        print(f"⚠️  Warning: no se pudo mover el YAML al folder de salida: {e}\n")
+    
+    # Final summary
+    print("\n" + "="*60)
+    print("✅ PROCESAMIENTO COMPLETADO EXITOSAMENTE")
+    print("="*60)
+    print(f"Carpeta de salida: {output_dir}")
+    print(f"\nArchivos generados:")
+    print(f"   ✓ descripcion.md")
+    print(f"   ✓ requerimientos.md")
+    print(f"   ✓ hoja_de_vida_adecuada.md")
+    print(f"   ✓ {pdf_filename}")
+    print(f"   ✓ scoring_report.md")
+    if os.path.exists(scoring_pdf_path):
+        print(f"   ✓ SCORING_REPORT.pdf")
+    print(f"\nPróximos pasos:")
+    print(f"   - El workflow copiará estos archivos a: aplicaciones/{fecha}/{folder_name}/")
+    print(f"   - El PDF principal es: {pdf_filename}")
+    print("="*60 + "\n")
     
     # Return folder_name for issue creation
     # Print the folder name so CI can capture which folders were processed

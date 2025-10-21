@@ -8,12 +8,12 @@ Medellín, Antioquia, Colombia\ Tel: +57 301 388 6149\ Email: k-sch10@hotmail.co
 
 \vspace{6pt}
 
-Professional Summary
+Perfil Profesional
 Profesional en formación en Contaduría Pública con experiencia en contabilidad, análisis financiero y operaciones logísticas. Me especializo en conciliaciones bancarias, gestión de cuentas por cobrar, generación de reportes financieros y optimización de procesos contables. He trabajado en entornos multiculturales y de servicios compartidos, adaptándome a equipos diversos y aportando atención al detalle para mejorar eficiencia y soporte a la toma de decisiones.
 
 \vspace{6pt}
 
-Key Skills
+Habilidades Clave
 Contabilidad & Finanzas: conciliaciones bancarias, gestión de cuentas por cobrar (AR), corrección monetaria, control de activos  
 Procesos & Reportes: elaboración y automatización de reportes financieros; aplicaciones de pagos (EFT, cheques, BKT, online); cambios de estado de facturas  
 Logística & Operaciones: control documental, coordinación de transporte, manejo de remisiones y facturación  
@@ -22,7 +22,7 @@ Colaboración & Comunicación: trabajo en equipo, atención al cliente, comunica
 
 \vspace{6pt}
 
-Professional Experience
+Experiencia Profesional
 GBS Intermediate AR  
 UPS — Medellín, Colombia  
 2024
@@ -65,7 +65,7 @@ Casa Luker — 2018
 
 \vspace{6pt}
 
-Education
+Formación Académica
 Bachelor / Título en Contaduría Pública (en curso)  
 UMANIZALES — 2024
 
@@ -83,48 +83,35 @@ Certifications
 
 \vspace{6pt}
 
-Languages
+Idiomas
 - Español (Nativo)  
 - Portugués (Avanzado)  
 - Inglés (Básico)
 
 \vspace{6pt}
 
-Ongoing Professional Development
+Desarrollo Profesional Continuo
 Profundizando en automatización de reportes con Excel y Power BI; mejorando competencias en conciliaciones internacionales y gestión de activos.
 
 \vspace{6pt}
 
-How My Experience Aligns with This Role
-**Required experience English level B2+ to C1**
+Cómo mi experiencia se alinea con este puesto
+A continuación detallo cómo mi experiencia se alinea con los requerimientos clave:
 
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+- **Required experience English level B2+ to C1**: Experiencia bilingüe (español-portugués) en atención al cliente y comunicación con equipos internacionales. Nivel básico de inglés en desarrollo.
 
-**Ensures current signed contract is in place**
+- **Ensures current signed contract is in place**: Mi formación en Contaduría Pública y experiencia en roles contables y financieros me proporciona una base sólida para este requerimiento.
 
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+- **Codes project events using proper event types and enters data into the business system**: Mi formación en Contaduría Pública y experiencia en roles contables y financieros me proporciona una base sólida para este requerimiento.
 
-**Codes project events using proper event types and enters data into the business system**
+- **Sets up invoicing calendar for all customers and projects**: Gestión de cuentas por cobrar (AR) en UPS, incluyendo seguimiento de transacciones y cambios de estado de facturas.
 
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+- **Compiles and collates back up documentation for invoices**: Experiencia en facturación y procesos de billing en múltiples roles, incluyendo radicación de facturas y gestión documental.
 
-**Sets up invoicing calendar for all customers and projects (maximizing month billings).**
 
-Implemented sales and inventory dashboards for Latin America, reducing decision-making time by 40%
-
-**Compiles and collates back up documentation for invoices**
-
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
-
-**Prepares sample customer invoices for review by Project Manager and/or Project Accountant if required and obtains approval for invoice format and detail**
-
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
-
-**Issues approved client invoices and credit notes withinagreed timelines. Keeps a register of invoices when distributed to client**
-
-Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
+Estoy comprometida con el aprendizaje continuo y la adaptación rápida a nuevos desafíos y herramientas del puesto.
 
 \vspace{6pt}
 
-Additional Notes (Optional)
+Notas adicionales
 Si hay requisitos en la oferta que no estén explícitamente reflejados arriba, estoy desarrollando activamente habilidades transferibles y aprendo de forma autodidacta para cubrir rápidamente cualquier brecha requerida por el puesto.
