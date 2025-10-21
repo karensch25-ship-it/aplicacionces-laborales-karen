@@ -96,7 +96,13 @@ Profundizando en automatización de reportes con Excel y Power BI; mejorando com
 \vspace{6pt}
 
 Cómo mi experiencia se alinea con este puesto
-{job_alignment_section}
+**Contabilidad básica**
+
+Implemented sales and inventory dashboards for Latin America, reducing decision-making time by 40%
+
+**Conciliaciones bancarias**
+
+Relevant experience demonstrated through data analysis, process optimization, and cross-functional collaboration in enterprise environments.
 
 \vspace{6pt}
 

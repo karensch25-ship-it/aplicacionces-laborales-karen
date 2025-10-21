@@ -273,7 +273,7 @@ def main():
     
     # Look for standardized CV PDF filename produced by procesar_aplicacion.py
     pdf_files = [f for f in os.listdir(output_dir)
-                 if f == 'hoja_de_vida_adecuada.pdf']
+                 if f == 'hoja_de_vida_adecuada.pdf' or (f.startswith('KAREN_SCHMALBACH_') and f.lower().endswith('.pdf'))]
     
     if not pdf_files:
         print(f"❌ Error: No se encontró PDF del CV en {output_dir}")

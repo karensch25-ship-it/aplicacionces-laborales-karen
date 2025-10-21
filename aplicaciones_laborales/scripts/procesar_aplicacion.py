@@ -64,13 +64,14 @@ def main(yaml_path):
             # Generate personalized professional summary
             personalized_summary = generar_professional_summary(data['cargo'], data.get('requerimientos', []))
             # Replace the static summary with personalized one
-            # Find and replace the Professional Summary section
+            # Match either English or Spanish header and replace with Spanish section
             import re
-            summary_pattern = r'## Professional Summary\n\n.*?(?=\n---)'
-            replacement_summary = f"## Professional Summary\n\n{personalized_summary}"
+            summary_pattern = r'##\s*(Professional Summary|Perfil Profesional)\n\n.*?(?=(\n##|$))'
+            replacement_summary = f"## Perfil Profesional\n\n{personalized_summary}"
             content = re.sub(summary_pattern, replacement_summary, content, flags=re.DOTALL)
-            
-            content = content.replace("{Nombre Completo}", "Antonio Gutierrez Amaranto")  # Personaliza si lo deseas
+
+            # Forzar nombre estandarizado en la plantilla
+            content = content.replace("{Nombre Completo}", "KAREN SCHMALBACH")
             dst.write(content)
     else:
         with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
@@ -105,13 +106,15 @@ def main(yaml_path):
     print(f"  - Report saved to: {scoring_report_path}")
     
     # Convertir a PDF usando pandoc con formato profesional
-    # Output PDF must be named hoja_de_vida_adecuada.pdf per requirements
-    pdf_filename = "hoja_de_vida_adecuada.pdf"
+    # Output PDF must follow the standard: KAREN_SCHMALBACH_NOMBREEMPRESA.pdf
+    empresa_saneada = empresa
+    pdf_filename = f"KAREN_SCHMALBACH_{empresa_saneada}.pdf"
     pdf_path = os.path.join(output_dir, pdf_filename)
     
     # Get the path to the LaTeX header template
     header_path = "aplicaciones_laborales/plantillas/cv_header.tex"
     
+    print(f"Generando PDF (ruta objetivo): {pdf_path}")
     try:
         pandoc_args = [
             "pandoc",
@@ -129,9 +132,9 @@ def main(yaml_path):
         # Add header include if it exists
         if os.path.exists(header_path):
             pandoc_args.extend(["-H", header_path])
-        
+
         subprocess.run(pandoc_args, check=True)
-        print(f"CV PDF generated successfully: {pdf_path}")
+        print(f"CV PDF generado exitosamente: {pdf_path}")
     except Exception as e:
         print(f"Error al convertir a PDF con pandoc: {e}")
     
