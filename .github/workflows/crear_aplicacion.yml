@@ -24,16 +24,24 @@ jobs:
           sudo apt-get install -y pandoc
           sudo apt-get install -y texlive-latex-recommended texlive-xetex texlive-fonts-recommended texlive-latex-extra
 
-      - name: Ejecutar procesamiento de aplicación y capturar carpetas procesadas
+      - name: Ejecutar procesamiento solo para los YAMLs modificados y capturar carpetas procesadas
         id: procesar
         run: |
           mkdir -p processed_folders
-          # For each YAML in to_process, run processor and capture printed folder name
-          for file in to_process/*.yaml; do
+          # Determine changed files in this push and process only those under to_process/
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^to_process/.*\.yaml$' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No hay archivos YAML modificados en to_process/ en este push."
+            exit 0
+          fi
+          echo "Archivos modificados detectados:"; echo "$CHANGED"
+          for file in $CHANGED; do
             if [ -f "$file" ]; then
               FOLDER_NAME=$(python aplicaciones_laborales/scripts/procesar_aplicacion.py "$file" | tail -n 1)
               echo "Processed: $FOLDER_NAME"
               echo "$FOLDER_NAME" >> processed_folders/list.txt
+            else
+              echo "Advertencia: archivo esperado no encontrado en workspace: $file"
             fi
           done
           cat processed_folders/list.txt || true
