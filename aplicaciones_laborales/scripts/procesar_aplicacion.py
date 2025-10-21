@@ -12,19 +12,66 @@ from scoring_report_generator import ScoringReportGenerator
 def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c in (' ', '_', '-')).replace(" ", "")
 
-def generar_job_alignment(requerimientos):
+def generar_job_alignment(requerimientos, language='es'):
     """
     Generate intelligent job alignment using the personalization engine
     """
     engine = CVPersonalizationEngine()
-    return engine.generar_job_alignment_inteligente(requerimientos)
+    return engine.generar_job_alignment_inteligente(requerimientos, language)
 
-def generar_professional_summary(cargo, requerimientos):
+def generar_professional_summary(cargo, requerimientos, language='es'):
     """
     Generate personalized professional summary
     """
     engine = CVPersonalizationEngine()
-    return engine.generar_professional_summary_personalizado(cargo, requerimientos)
+    return engine.generar_professional_summary_personalizado(cargo, requerimientos, language)
+
+def generar_cv_personalizado(template_path, output_path, data, requerimientos, language='es'):
+    """
+    Generate a personalized CV from template.
+    
+    Args:
+        template_path: Path to the CV template file
+        output_path: Path where to save the generated CV
+        data: YAML data dictionary
+        requerimientos: List of job requirements
+        language: Language code ('es' or 'en')
+    """
+    if not os.path.exists(template_path):
+        print(f"   ⚠️  Template not found: {template_path}")
+        return False
+    
+    print(f"   ✓ Template found: {template_path}")
+    with open(template_path, "r", encoding="utf-8") as src, open(output_path, "w", encoding="utf-8") as dst:
+        content = src.read()
+        content = content.replace("{Cargo}", data['cargo']).replace("{Empresa}", data['empresa'])
+        
+        # Generate intelligent job alignment
+        print(f"   🔄 Generating job alignment section ({language})...")
+        job_alignment_section = generar_job_alignment(requerimientos, language)
+        content = content.replace("{job_alignment_section}", job_alignment_section)
+        
+        # Generate personalized professional summary
+        print(f"   🔄 Generating personalized professional summary ({language})...")
+        personalized_summary = generar_professional_summary(data['cargo'], requerimientos, language)
+        
+        # Replace the static summary with personalized one
+        import re
+        summary_pattern = r'##\s*(Professional Summary|Perfil Profesional)\n\n.*?(?=(\n##|$))'
+        
+        if language == 'en':
+            replacement_summary = f"## Professional Summary\n\n{personalized_summary}"
+        else:
+            replacement_summary = f"## Perfil Profesional\n\n{personalized_summary}"
+        
+        content = re.sub(summary_pattern, replacement_summary, content, flags=re.DOTALL)
+
+        # Ensure standardized name in template
+        content = content.replace("{Nombre Completo}", "KAREN SCHMALBACH")
+        dst.write(content)
+    
+    print(f"   ✓ CV created and personalized ({language})\n")
+    return True
 
 def main(yaml_path):
     print("\n" + "="*60)
@@ -82,41 +129,47 @@ def main(yaml_path):
             f.write(f"- {req}\n")
     print(f"   ✓ requerimientos.md creado ({len(data.get('requerimientos', []))} requerimientos)\n")
 
-    # hoja_de_vida_adecuada.md (Harvard template con job_alignment_section)
-    print("📝 Generando hoja_de_vida_adecuada.md...")
-    harvard_cv_path = "aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md"
-    dest_adaptada_cv = os.path.join(output_dir, "hoja_de_vida_adecuada.md")
-    if os.path.exists(harvard_cv_path):
-        print(f"   ✓ Plantilla Harvard encontrada: {harvard_cv_path}")
-        with open(harvard_cv_path, "r", encoding="utf-8") as src, open(dest_adaptada_cv, "w", encoding="utf-8") as dst:
-            content = src.read()
-            content = content.replace("{Cargo}", data['cargo']).replace("{Empresa}", data['empresa'])
-            
-            # Generate intelligent job alignment
-            print("   🔄 Generando sección de alineación con el puesto...")
-            job_alignment_section = generar_job_alignment(data.get('requerimientos', []))
-            content = content.replace("{job_alignment_section}", job_alignment_section)
-            
-            # Generate personalized professional summary
-            print("   🔄 Generando resumen profesional personalizado...")
-            personalized_summary = generar_professional_summary(data['cargo'], data.get('requerimientos', []))
-            # Replace the static summary with personalized one
-            # Match either English or Spanish header and replace with Spanish section
-            import re
-            summary_pattern = r'##\s*(Professional Summary|Perfil Profesional)\n\n.*?(?=(\n##|$))'
-            replacement_summary = f"## Perfil Profesional\n\n{personalized_summary}"
-            content = re.sub(summary_pattern, replacement_summary, content, flags=re.DOTALL)
-
-            # Forzar nombre estandarizado en la plantilla
-            content = content.replace("{Nombre Completo}", "KAREN SCHMALBACH")
-            dst.write(content)
-        print("   ✓ hoja_de_vida_adecuada.md creada y personalizada\n")
-    else:
-        print(f"   ⚠️  Plantilla Harvard NO encontrada en {harvard_cv_path}")
-        print("   📝 Creando hoja de vida básica...")
-        with open(dest_adaptada_cv, "w", encoding="utf-8") as f:
+    # Generate CVs in both Spanish and English
+    print("\n" + "="*60)
+    print("GENERACIÓN DE HOJAS DE VIDA (ESPAÑOL E INGLÉS)")
+    print("="*60)
+    
+    # Spanish CV (hoja_de_vida_adecuada.md)
+    print("\n📝 Generando hoja de vida en ESPAÑOL...")
+    harvard_cv_path_es = "aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template.md"
+    dest_adaptada_cv_es = os.path.join(output_dir, "hoja_de_vida_adecuada.md")
+    
+    cv_es_generated = generar_cv_personalizado(
+        harvard_cv_path_es,
+        dest_adaptada_cv_es,
+        data,
+        data.get('requerimientos', []),
+        language='es'
+    )
+    
+    if not cv_es_generated:
+        print("   📝 Creando hoja de vida básica en español...")
+        with open(dest_adaptada_cv_es, "w", encoding="utf-8") as f:
             f.write(f"# Hoja de Vida Adaptada para {data['cargo']} en {data['empresa']}\n")
         print("   ✓ hoja_de_vida_adecuada.md creada (versión básica)\n")
+    
+    # English CV (hoja_de_vida_adecuada_en.md)
+    print("📝 Generando hoja de vida en INGLÉS...")
+    harvard_cv_path_en = "aplicaciones_laborales/plantillas/hoja_de_vida_harvard_template_en.md"
+    dest_adaptada_cv_en = os.path.join(output_dir, "hoja_de_vida_adecuada_en.md")
+    
+    cv_en_generated = generar_cv_personalizado(
+        harvard_cv_path_en,
+        dest_adaptada_cv_en,
+        data,
+        data.get('requerimientos', []),
+        language='en'
+    )
+    
+    if not cv_en_generated:
+        print("   ⚠️  English template not found, English CV will not be generated\n")
+    
+    print("="*60 + "\n")
 
     # Generate scoring report
     print("\n" + "="*60)
@@ -149,34 +202,31 @@ def main(yaml_path):
     print(f"   Archivo: scoring_report.md")
     print("="*60 + "\n")
     
-    # Convertir a PDF usando pandoc con formato profesional
-    # Output PDF must follow the standard: KAREN_SCHMALBACH_NOMBREEMPRESA.pdf
-    empresa_saneada = empresa
-    pdf_filename = f"KAREN_SCHMALBACH_{empresa_saneada}.pdf"
-    pdf_path = os.path.join(output_dir, pdf_filename)
+    # Generate PDFs for both Spanish and English CVs
+    print("\n" + "="*60)
+    print("GENERACIÓN DE PDFS DE HOJAS DE VIDA (ESPAÑOL E INGLÉS)")
+    print("="*60)
     
-    # Get the path to the LaTeX header template
+    empresa_saneada = empresa
     header_path = "aplicaciones_laborales/plantillas/cv_header.tex"
     
-    print("\n" + "="*60)
-    print("GENERACIÓN DE PDF DE HOJA DE VIDA")
-    print("="*60)
-    print(f"Archivo fuente: {dest_adaptada_cv}")
-    print(f"Archivo destino: {pdf_path}")
-    print(f"Nombre estándar: KAREN_SCHMALBACH_{empresa_saneada}.pdf")
-    print("="*60 + "\n")
+    # Generate Spanish PDF
+    pdf_filename_es = f"KAREN_SCHMALBACH_{empresa_saneada}_es.pdf"
+    pdf_path_es = os.path.join(output_dir, pdf_filename_es)
     
-    # Verify source markdown file exists
-    if not os.path.exists(dest_adaptada_cv):
-        print(f"❌ ERROR CRÍTICO: Archivo fuente no encontrado: {dest_adaptada_cv}")
-        print("   El proceso no puede continuar sin el archivo markdown de la hoja de vida.")
+    print(f"\n📄 Generando PDF en ESPAÑOL...")
+    print(f"   Archivo fuente: {dest_adaptada_cv_es}")
+    print(f"   Archivo destino: {pdf_filename_es}")
+    
+    if not os.path.exists(dest_adaptada_cv_es):
+        print(f"   ❌ ERROR: Archivo fuente no encontrado: {dest_adaptada_cv_es}")
         sys.exit(1)
     
     try:
         pandoc_args = [
             "pandoc",
-            dest_adaptada_cv,
-            "-o", pdf_path,
+            dest_adaptada_cv_es,
+            "-o", pdf_path_es,
             "--pdf-engine=xelatex",
             "-V", "geometry:margin=0.75in",
             "-V", "fontsize=11pt",
@@ -186,58 +236,66 @@ def main(yaml_path):
             "-V", "toccolor=black",
         ]
         
-        # Add header include if it exists
         if os.path.exists(header_path):
             pandoc_args.extend(["-H", header_path])
-            print(f"✓ Usando header LaTeX personalizado: {header_path}")
-        else:
-            print(f"ℹ️  No se encontró header LaTeX personalizado en {header_path}")
-
-        print(f"\n🔄 Ejecutando pandoc para generar PDF...")
-        print(f"   Comando: {' '.join(pandoc_args)}")
         
         result = subprocess.run(pandoc_args, check=True, capture_output=True, text=True)
         
-        # Verify PDF was created
-        if not os.path.exists(pdf_path):
-            print(f"❌ ERROR CRÍTICO: El PDF no se generó en la ruta esperada: {pdf_path}")
-            print("   Pandoc ejecutó sin errores pero el archivo no existe.")
+        if not os.path.exists(pdf_path_es) or os.path.getsize(pdf_path_es) == 0:
+            print(f"   ❌ ERROR: PDF español no se generó correctamente")
             sys.exit(1)
         
-        # Verify PDF has content (size > 0)
-        pdf_size = os.path.getsize(pdf_path)
-        if pdf_size == 0:
-            print(f"❌ ERROR CRÍTICO: El PDF generado está vacío (0 bytes)")
-            os.remove(pdf_path)  # Remove empty file
-            sys.exit(1)
-        
-        print(f"✅ CV PDF generado exitosamente!")
-        print(f"   Archivo: {pdf_filename}")
-        print(f"   Tamaño: {pdf_size:,} bytes")
-        print(f"   Ruta completa: {pdf_path}")
+        print(f"   ✅ PDF español generado exitosamente!")
+        print(f"   Tamaño: {os.path.getsize(pdf_path_es):,} bytes")
         
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ ERROR CRÍTICO al convertir a PDF con pandoc")
-        print("="*60)
-        print(f"Código de salida: {e.returncode}")
-        if e.stdout:
-            print(f"STDOUT:\n{e.stdout}")
+        print(f"\n   ❌ ERROR al convertir CV español a PDF")
+        print(f"   Código de salida: {e.returncode}")
         if e.stderr:
-            print(f"STDERR:\n{e.stderr}")
-        print("="*60)
-        print("\n🔍 DIAGNÓSTICO:")
-        print("   1. Verificar que pandoc está instalado correctamente")
-        print("   2. Verificar que xelatex está instalado (texlive-xetex)")
-        print("   3. Revisar el contenido del archivo markdown por errores de sintaxis")
-        print("   4. Verificar que las fuentes necesarias están disponibles")
-        print("\n❌ El proceso se detiene aquí. No se puede continuar sin el PDF.")
+            print(f"   STDERR: {e.stderr}")
         sys.exit(1)
-    except Exception as e:
-        print(f"\n❌ ERROR INESPERADO al generar PDF: {e}")
-        print(f"   Tipo de error: {type(e).__name__}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
+    
+    # Generate English PDF
+    pdf_filename_en = f"KAREN_SCHMALBACH_{empresa_saneada}_en.pdf"
+    pdf_path_en = os.path.join(output_dir, pdf_filename_en)
+    
+    print(f"\n📄 Generando PDF en INGLÉS...")
+    print(f"   Archivo fuente: {dest_adaptada_cv_en}")
+    print(f"   Archivo destino: {pdf_filename_en}")
+    
+    if os.path.exists(dest_adaptada_cv_en):
+        try:
+            pandoc_args = [
+                "pandoc",
+                dest_adaptada_cv_en,
+                "-o", pdf_path_en,
+                "--pdf-engine=xelatex",
+                "-V", "geometry:margin=0.75in",
+                "-V", "fontsize=11pt",
+                "-V", "colorlinks=true",
+                "-V", "linkcolor=black",
+                "-V", "urlcolor=black",
+                "-V", "toccolor=black",
+            ]
+            
+            if os.path.exists(header_path):
+                pandoc_args.extend(["-H", header_path])
+            
+            result = subprocess.run(pandoc_args, check=True, capture_output=True, text=True)
+            
+            if not os.path.exists(pdf_path_en) or os.path.getsize(pdf_path_en) == 0:
+                print(f"   ⚠️  Advertencia: PDF inglés no se generó correctamente")
+            else:
+                print(f"   ✅ PDF inglés generado exitosamente!")
+                print(f"   Tamaño: {os.path.getsize(pdf_path_en):,} bytes")
+            
+        except subprocess.CalledProcessError as e:
+            print(f"   ⚠️  Advertencia: Error al convertir CV inglés a PDF")
+            print(f"   El proceso continúa pero el PDF inglés no estará disponible")
+    else:
+        print(f"   ⚠️  CV en inglés no fue generado, saltando PDF inglés")
+    
+    print("\n" + "="*60)
     
     # Convert scoring report to PDF
     scoring_pdf_path = os.path.join(output_dir, "SCORING_REPORT.pdf")
@@ -320,14 +378,21 @@ def main(yaml_path):
     print(f"\nArchivos generados:")
     print(f"   ✓ descripcion.md")
     print(f"   ✓ requerimientos.md")
-    print(f"   ✓ hoja_de_vida_adecuada.md")
-    print(f"   ✓ {pdf_filename}")
+    print(f"   ✓ hoja_de_vida_adecuada.md (español)")
+    if os.path.exists(dest_adaptada_cv_en):
+        print(f"   ✓ hoja_de_vida_adecuada_en.md (inglés)")
+    print(f"   ✓ {pdf_filename_es} (español)")
+    if os.path.exists(pdf_path_en):
+        print(f"   ✓ {pdf_filename_en} (inglés)")
     print(f"   ✓ scoring_report.md")
     if os.path.exists(scoring_pdf_path):
         print(f"   ✓ SCORING_REPORT.pdf")
     print(f"\nPróximos pasos:")
     print(f"   - El workflow copiará estos archivos a: aplicaciones/{fecha}/{folder_name}/")
-    print(f"   - El PDF principal es: {pdf_filename}")
+    print(f"   - PDFs generados:")
+    print(f"     • Español: {pdf_filename_es}")
+    if os.path.exists(pdf_path_en):
+        print(f"     • Inglés: {pdf_filename_en}")
     print("="*60 + "\n")
     
     # Validate that the output directory was created successfully
